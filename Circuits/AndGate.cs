@@ -3,7 +3,7 @@
 namespace Circuits
 {
     /// <summary>
-    /// This class implements an AND gate with two inputs and one output.
+    /// This class implements an AndGate with 2x inputs and 1x output.
     /// </summary>
     public class AndGate : Gate
     {

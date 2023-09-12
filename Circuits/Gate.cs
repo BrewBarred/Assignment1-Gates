@@ -6,7 +6,7 @@ namespace Circuits
     /// <summary>
     /// This is the superclass for all gate objects within the application
     /// </summary>
-    public class Gate
+    public abstract class Gate
     {
         #region Class Scope Variables/Constants:
         /// <summary>

@@ -262,7 +262,8 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonNot_Click(object sender, EventArgs e)
         {
-
+            // creates a new NotGate object
+            newGate = new NotGate(0, 0);
 
         } // end void
         #endregion

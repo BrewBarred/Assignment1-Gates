@@ -2,12 +2,16 @@
 
 namespace Circuits
 {
+    /// <summary>
+    /// This class implements an OrGate with 2x inputs and 1x output
+    /// </summary>
     public class OrGate : Gate
     {
         /// <summary>
         /// Width of an OrGates body
         /// </summary>
         protected const int _WIDTH = 70;
+
         #region AndGate(int x, int y)
 
         /// <summary>
