@@ -20,56 +20,90 @@ namespace Circuits
     /// </summary>
     public class Pin
     {
-        //The x and y position of the pin
-        protected int x, y;
-        //The input value coming into the pin
-        protected bool input;
-        //How long the pin is when drawn
-        protected int length;
-        //The gate the pin belongs to
-        protected AndGate owner;
-        //The wire connected to the pin
-        protected Wire connection;
+        #region Class Scope Variables:
+        /// <summary>
+        /// The x and y position of the pin
+        /// </summary>
+        protected Point _location;
+        /// <summary>
+        /// The input value coming into the pin
+        /// </summary>
+        protected bool _input;
+        /// <summary>
+        /// How long the pin is when drawn
+        /// </summary>
+        protected int _length;
+        /// <summary>
+        /// The gate the pin belongs to
+        /// </summary>
+        protected Gate _owner;
+        /// <summary>
+        /// The wire connected to the pin
+        /// </summary>
+        protected Wire _connection;
+        #endregion
 
+        #region Constructor: Pin(Gate gate, bool isInput, int length)
         /// <summary>
         /// Initialises the object to the values passed in.
         /// </summary>
         /// <param name="gate"></param>
         /// <param name="input"></param>
         /// <param name="length"></param>
-        public Pin(AndGate gate, bool input, int length)
+        public Pin(Gate gate, bool isInput, int length)
         {
-            this.owner = gate;
-            this.input = input;
-            this.length = length;
-        }
+            // the gate this pin belongs to
+            _owner = gate;
+            // the input value coming to this pin (true if input, false if output)
+            _input = isInput;
+            // the length of the gate (to dictate where the pins should start)
+            _length = length;
 
+
+        } // end pin
+        #endregion
+
+        #region Getters/Setters
+
+        #region IsInput
         /// <summary>
         /// A read-only property that returns true for input pins
         /// and false for output pins.
         /// </summary>
         public bool IsInput
         {
-            get { return input; }
-        }
+            // gets input pin status
+            get { return _input; }
 
+        } // end bool
+        #endregion
+
+        #region IsOutput
         /// <summary>
         /// Returns true for output pins, false for input pins.
         /// </summary>
         public bool IsOutput
         {
-            get { return !input; }
-        }
+            // gets output pin status
+            get { return !_input; }
 
+        } // end bool
+        #endregion
+
+        #region Owner
         /// <summary>
         /// This read-only property returns the gate that this pin
         /// belongs to.
         /// </summary>
-        public AndGate Owner
+        public Gate Owner
         {
-            get { return owner; }
-        }
+            // gets the owner of the current gate
+            get { return _owner; }
 
+        } // end con
+        #endregion
+
+        #region InputWire
         /// <summary>
         /// For input pins, this gets or sets the wire that is coming
         /// into the pin.  (Input pins can only be connected to one wire)
@@ -77,39 +111,66 @@ namespace Circuits
         /// </summary>
         public Wire InputWire
         {
+            // gets the wire that is coming into this pin
             get
             {
-                return connection;
-            }
+                // returns the wire coming into this pin
+                return _connection;
+
+            } // end get
+
+            // sets the wire that is coming into this pin
             set
             {
-                if (input)
+                // if this pin is an input pin
+                if (_input)
                 {
-                    connection = value;
-                }
-            }
-        }
+                    // sets the wire coming into this pin to the passed value
+                    _connection = value;
 
+                } // end if
+
+            } // end set
+
+        } // end wire
+        #endregion
+
+        #region location
         /// <summary>
-        /// Get or set the X position of this pin.
-        /// For input pins, this is at the left hand side of the pin.
-        /// For output pins, this is at the right hand side.
+        /// Gets or sets the location of this pin.
+        /// For input pins, this is at the left hand side of the pin
+        /// For output pins, this is at the right hand side of the pin
+        /// </summary>
+        public Point location
+        {
+            // gets this pins current location
+            get { return _location; }
+
+            // sets this pins new location
+            set { _location = value; }
+
+        } // end point
+        #endregion
+
+        #region X
+        /// <summary>
+        /// Gets the x position of this pin
         /// </summary>
         public int X
-        {
-            get { return x; }
-            set { x = value; }
-        }
+        { get { return location.X; } }
+        #endregion
 
+        #region Y
         /// <summary>
-        /// Get or set the Y position of this pin.
+        /// Gets the y position of this pin
         /// </summary>
         public int Y
-        {
-            get { return y; }
-            set { y = value; }
-        }
+        { get { return location.Y; } }
+        #endregion
 
+        #endregion
+
+        #region isMouseOn(int mouseX, int mouseY)
         /// <summary>
         /// True if (mouseX, mouseY) is within 3 pixels of the business
         /// end of the pin.
@@ -119,39 +180,62 @@ namespace Circuits
         /// <returns>true if mouse is close to the main end of the pin</returns>
         public bool isMouseOn(int mouseX, int mouseY)
         {
-            int diffX = mouseX - x;
-            int diffY = mouseY - y;
+            // sets x diff to the difference between mouse x pos and pins x pos
+            int diffX = mouseX - _location.X;
+            // sets y diff to the difference between mouse y pos and pings y pos
+            int diffY = mouseY - _location.Y;
+            // true if diff x squared plus diff y squared is less than 25 (don't ask me why)
             return diffX * diffX + diffY * diffY <= 5 * 5;
-        }
 
+        } // end bool
+        #endregion
+
+        #region Draw(Graphics paper)
         /// <summary>
-        /// Draws the pin.
+        /// Draws a pin to a passed graphics object
         /// </summary>
-        /// <param name="paper">Where to draw the graphics</param>
+        /// <param name="paper">Graphics object to draw the pin on</param>
         public void Draw(Graphics paper)
         {
+            // creates a brush object to draw with
             Brush brush = Brushes.DarkGray;
 
-            if (input)
+            // if this pin is an input pin
+            if (_input)
             {
-                paper.FillRectangle(brush, x - 1, y - 1, length, 3);
+                // draws a rectangle to represent a pin on the left-hand side of the gates body
+                paper.FillRectangle(brush, -1, location.Y - 1, _length, 3); ;
             }
+            // else if this pin is an output pin
             else
             {
-                paper.FillRectangle(brush, x - length + 1, y - 1, length, 3);
-            }
-        }
+                // draws a rectangle to represent a pin on the right-hand side of the gates body
+                paper.FillRectangle(brush, location.X - _length + 1, location.Y - 1, _length, 3);
 
+            } // end if
+
+        } // end void
+        #endregion
+
+        #region ToString()
         /// <summary>
         /// Gets the x and y position of the Pin
         /// </summary>
         /// <returns>The x and y position of the pin as a string</returns>
         public override string ToString()
         {
-            if (input)
-                return "InPin(" + x + "," + y + ")";
+            // if this pin is an input pin
+            if (_input)
+                // returns the input pins info as a string
+                return "InPin(" + location.X + "," + location.Y + ")";
+            // else if this pin is an output pin
             else
-                return "OutPin(" + x + "," + y + ")";
-        }
-    }
-}
+                // returns th output pins info as a string
+                return "OutPin(" + location.X + "," + location.Y + ")";
+
+        } // end string
+        #endregion
+
+    } // end class
+
+} // end namespace
