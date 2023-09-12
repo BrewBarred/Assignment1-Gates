@@ -43,12 +43,12 @@ namespace Circuits
         /// <summary>
         /// The currently selected gate, or null if no gate is selected.
         /// </summary>
-        protected AndGate current = null;
+        protected Gate current = null;
 
         /// <summary>
         /// The new gate that is about to be inserted into the circuit
         /// </summary>
-        protected AndGate newGate = null;
+        protected Gate newGate = null;
         #endregion
 
         #region Constructor: Form1()
@@ -142,7 +142,7 @@ namespace Circuits
         /// <param name="e"></param>
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            // if the start pin is no tnulled
+            // if the start pin is not nulled
             if (startPin != null)
             {
                 // see if we can insert a wire
@@ -251,7 +251,7 @@ namespace Circuits
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             // foreach gate in gate list
-            foreach (AndGate g in gatesList)
+            foreach (Gate g in gatesList)
             {
                 // draws the gate to the passed graphics object
                 g.Draw(e.Graphics);
@@ -295,7 +295,7 @@ namespace Circuits
         /// <param name="e"></param>
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            // if the currently selected gate is nulled
+            // if no gate is currently selected
             if (current == null)
             {
                 // try to start adding a wire
@@ -324,7 +324,7 @@ namespace Circuits
         /// <param name="e"></param>
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            // check if a gate is currently selected
+            // if there is a gate selected
             if (current != null)
             {
                 // unselect the selected gate
@@ -333,7 +333,8 @@ namespace Circuits
                 current = null;
                 // redraws the control
                 Invalidate();
-            }
+
+            } // end if
 
             // check if we are inserting a new gate
             if (newGate != null)
@@ -351,7 +352,7 @@ namespace Circuits
             else
             {
                 // search for the first gate under the mouse position
-                foreach (AndGate g in gatesList)
+                foreach (Gate g in gatesList)
                 {
                     // if the mouse is on the current gate
                     if (g.IsMouseOn(e.X, e.Y))

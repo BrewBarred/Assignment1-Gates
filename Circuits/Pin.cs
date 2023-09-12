@@ -136,7 +136,7 @@ namespace Circuits
         /// For input pins, this is at the left hand side of the pin
         /// For output pins, this is at the right hand side of the pin
         /// </summary>
-        public Point location
+        public Point Location
         {
             // gets this pins current location
             get { return _location; }
@@ -152,7 +152,7 @@ namespace Circuits
         /// Gets the x position of this pin
         /// </summary>
         public int X
-        { get { return location.X; } }
+        { get { return Location.X; } }
         #endregion
 
         #region Y
@@ -160,7 +160,7 @@ namespace Circuits
         /// Gets the y position of this pin
         /// </summary>
         public int Y
-        { get { return location.Y; } }
+        { get { return Location.Y; } }
         #endregion
 
         #endregion
@@ -199,13 +199,13 @@ namespace Circuits
             if (_input)
             {
                 // draws a rectangle to represent a pin on the left-hand side of the gates body
-                paper.FillRectangle(brush, -1, location.Y - 1, _pinLength, _pinHeight); ;
+                paper.FillRectangle(brush, Location.X - 1, Location.Y - 1, _pinLength, _pinHeight); ;
             }
             // else if this pin is an output pin
             else
             {
                 // draws a rectangle to represent a pin on the right-hand side of the gates body
-                paper.FillRectangle(brush, location.X - _pinLength + 1, location.Y - 1, _pinLength, _pinHeight);
+                paper.FillRectangle(brush, Location.X - _pinLength + 1, Location.Y - 1, _pinLength, _pinHeight);
 
             } // end if
 
@@ -222,11 +222,11 @@ namespace Circuits
             // if this pin is an input pin
             if (_input)
                 // returns the input pins info as a string
-                return "InPin(" + location.X + "," + location.Y + ")";
+                return "InPin(" + Location.X + "," + Location.Y + ")";
             // else if this pin is an output pin
             else
                 // returns th output pins info as a string
-                return "OutPin(" + location.X + "," + location.Y + ")";
+                return "OutPin(" + Location.X + "," + Location.Y + ")";
 
         } // end string
         #endregion

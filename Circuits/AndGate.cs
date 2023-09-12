@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Circuits
 {
@@ -38,8 +37,15 @@ namespace Circuits
         {
             // inherits the base drawing method to draw each pin for this gate
             base.Draw(paper);
-            // draws an 'AND' gate object
-            paper.DrawImage(Properties.Resources.AndGate, Left, Top);
+
+            // if this gate is currently selected
+            if (Selected)
+                // draws a selected 'AND' gate object
+                paper.DrawImage(Properties.Resources.AndGateAllRed, Left, Top);
+            // else if this gate is not currently selected
+            else
+                // draws an unselected 'AND' gate object
+                paper.DrawImage(Properties.Resources.AndGate, Left, Top);
 
         } // end void
         #endregion
@@ -50,19 +56,18 @@ namespace Circuits
         /// </summary>
         /// <param name="x">The x position to move the gate to</param>
         /// <param name="y">The y position to move the gate to</param>
-        public void MoveTo(int x, int y)
+        public override void MoveTo(int x, int y)
         {
-            // debugging message
-            Console.WriteLine("Number of pins = " + pins.Count);
+            // uses the base MovteTo method to move the gates body
+            base.MoveTo(x, y);
 
-            // set the position of the gate to the values passed in
-            _left = x;
-            _top = y;
+            // sets the position of the gates pins:
 
-            // sets the position of the gates pins
-            pins[0].location = new Point(x - _GAP, y + _GAP);
-            pins[1].location = new Point(x - _GAP, y + _HEIGHT - _GAP);
-            pins[2].location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
+            // pins 0 and 1 = input pins (left side)
+            pins[0].Location = new Point(x - _GAP, y + _GAP);
+            pins[1].Location = new Point(x - _GAP, y + _HEIGHT - _GAP);
+            // pin 2 = output pin (right side)
+            pins[2].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
 
         } // end void
         #endregion
