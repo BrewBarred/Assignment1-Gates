@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Circuits
 {
@@ -18,11 +13,11 @@ namespace Circuits
         /// <summary>
         /// Returns true if the wire has been selected
         /// </summary>
-        protected bool selected = false;
+        protected bool _selected = false;
         /// <summary>
         /// The pins the wire is connected to
         /// </summary>
-        protected Pin fromPin, toPin;
+        protected Pin _fromPin, _toPin;
         #endregion
 
         #region Constructor: Wire(Pin from, Pin to)
@@ -34,14 +29,13 @@ namespace Circuits
         public Wire(Pin from, Pin to)
         {
             // the pin that this wire comes from
-            fromPin = from;
+            _fromPin = from;
             // the pin that this wire goes to
-            toPin = to;
+            _toPin = to;
 
         } // end wire
         #endregion
 
-        /*
         #region Selected
         /// <summary>
         /// Indicates whether this gate is currently selected or not
@@ -49,13 +43,12 @@ namespace Circuits
         public bool Selected
         {
             // gets the selection status of this gate
-            get { return selected; }
+            get { return _selected; }
             // returns the select
-            set { selected = value; }
-        
+            set { _selected = value; }
+
         } // end bool
         #endregion
-        */
 
         #region Getters/Setters:
 
@@ -66,7 +59,7 @@ namespace Circuits
         public Pin FromPin
         {
             // gets the the output pin that this wire is connceted to
-            get { return fromPin; }
+            get { return _fromPin; }
 
         } // end pin
         #endregion
@@ -76,10 +69,10 @@ namespace Circuits
         /// The input pin that this wire is connected to.
         /// </summary>
         public Pin ToPin
-        { 
+        {
             // gets the input pin this wire is connected to
-            get { return toPin; } 
-        
+            get { return _toPin; }
+
         } // end pin
         #endregion
 
@@ -94,9 +87,9 @@ namespace Circuits
         {
             //This is a short-hand way of doing an if statement.  It is saying if selected == true then 
             //use Color.Red else use Color.White and then create the wire
-            Pen wire = new Pen(selected ? Color.Red : Color.White, 3);
+            Pen wire = new Pen(_selected ? Color.Red : Color.White, 3);
             //Draw the wire
-            paper.DrawLine(wire, fromPin.X, fromPin.Y, toPin.X, toPin.Y);
+            paper.DrawLine(wire, _fromPin.X, _fromPin.Y, _toPin.X, _toPin.Y);
 
         } // end void
         #endregion

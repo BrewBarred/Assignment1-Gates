@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Circuits
@@ -70,8 +65,8 @@ namespace Circuits
         /// Finds the pin that is close to (x,y), or returns
         /// null if there are no pins close to the position.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">X position of the pin to find</param>
+        /// <param name="y">Y position of the pin to find</param>
         /// <returns>The pin that has been selected</returns>
         public Pin findPin(int x, int y)
         {
@@ -85,17 +80,18 @@ namespace Circuits
                     if (p.isMouseOn(x, y))
                         // returns the pin
                         return p;
-                
+
                 } // end foreach
 
             } // end foreach
 
             // if no pin is found, returns null
             return null;
-        
+
         } // end pin
         #endregion
 
+        #region Form1_MouseMove(object sender, MouseEventArgs e)
         /// <summary>
         /// Handles all events when the mouse is moving.
         /// </summary>
@@ -103,90 +99,150 @@ namespace Circuits
         /// <param name="e"></param>
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
+            // if the start pin not null
             if (startPin != null)
             {
+                // writes start pin info to console
                 Console.WriteLine("wire from " + startPin + " to " + e.X + "," + e.Y);
+                // sets current x and y positions
                 currentX = e.X;
                 currentY = e.Y;
-                this.Invalidate();  // this will draw the line
+                // causes the control to be redrawn
+                Invalidate();
             }
+            // else if the start x and y positions are greater than 0 and current isn't null
             else if (startX >= 0 && startY >= 0 && current != null)
             {
+                // writes mouse move info to console
                 Console.WriteLine("mouse move to " + e.X + "," + e.Y);
+                // moves the currently selected gate to the new location
                 current.MoveTo(currentX + (e.X - startX), currentY + (e.Y - startY));
-                this.Invalidate();
+                // causes the control to be redrawn at the new location
+                Invalidate();
             }
+            // else if the new gate is not nulled
             else if (newGate != null)
             {
+                // sets the current x and y positions
                 currentX = e.X;
                 currentY = e.Y;
-                this.Invalidate();
-            }
-        }
+                // causes the control to be redrawn
+                Invalidate();
 
+            } // end if
+
+        } // end void
+        #endregion
+
+        #region Form1_MouseUp(object sender, MouseEventArgs e)
         /// <summary>
-        /// Handles all events when the mouse button is released.
+        /// Handles all events when the mouse button is released
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+            // if the start pin is no tnulled
             if (startPin != null)
             {
                 // see if we can insert a wire
                 Pin endPin = findPin(e.X, e.Y);
+
+                // if endPin is not nulled
                 if (endPin != null)
                 {
+                    // writes the attempted conncetion info to the console
                     Console.WriteLine("Trying to connect " + startPin + " to " + endPin);
+
+                    // creates an input and output pin object
                     Pin input, output;
+
+                    // if start pin is an output pin
                     if (startPin.IsOutput)
                     {
+                        // sets the input pin as the end pin
                         input = endPin;
+                        // sets the output pin as the start pin
                         output = startPin;
                     }
+                    // else if start pin is an input pin
                     else
                     {
+                        // sets the input pin as the start pin
                         input = startPin;
+                        // sets the output pin as the end pin
                         output = endPin;
-                    }
+
+                    } // end if
+
+                    // if pins have been correctly allocated
                     if (input.IsInput && output.IsOutput)
                     {
+                        // if this input pin has no wires attached to it
                         if (input.InputWire == null)
                         {
+                            // creates a new wire object between the output 
+                            // and the input pins selected by user
                             Wire newWire = new Wire(output, input);
+                            // stores this input pins wire so that we can't attach more wires to it
                             input.InputWire = newWire;
+                            // adds this wire to the wire list
                             wiresList.Add(newWire);
                         }
+                        // else if this input pin has a wire attached to it
                         else
                         {
+                            // writes error message to the user
                             MessageBox.Show("That input is already used.");
-                        }
+
+                        } // end if
                     }
+                    // else if user has selected invalid pins
                     else
                     {
+                        // writes error message to the user
                         MessageBox.Show("Error: you must connect an output pin to an input pin.");
-                    }
-                }
+
+                    } // end if
+
+                } // end if
+
+                // nulls the start pin
                 startPin = null;
-                this.Invalidate();
-            }
-            // We have finished moving/dragging
+                // redraws the current control
+                Invalidate();
+
+            } // end if
+
+            // sets start x/y and current x/y to show 
+            // that we have finished moving/dragging
             startX = -1;
             startY = -1;
             currentX = 0;
             currentY = 0;
-        }
 
+        } // end void
+        #endregion
+
+        #region Button Click Events:
+
+        #region AndGate
         /// <summary>
-        /// This will create a new And gate.
+        /// Creates a new 'AndGate' object
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void toolStripButtonAnd_Click(object sender, EventArgs e)
         {
+            // creates a new AndGate object
             newGate = new AndGate(0, 0);
-        }
 
+        } // end void
+        #endregion
+
+        #endregion
+
+        #region Form1_Paint(object sender, PaintEventArgs e)
         /// <summary>
         /// Redraws all the graphics for the current circuit.
         /// </summary>
@@ -194,31 +250,44 @@ namespace Circuits
         /// <param name="e"></param>
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //Draw all of the gates
+            // foreach gate in gate list
             foreach (AndGate g in gatesList)
             {
+                // draws the gate to the passed graphics object
                 g.Draw(e.Graphics);
-            }
-            //Draw all of the wires
+
+            } // end foreach
+
+            // foreach wire in the wire list
             foreach (Wire w in wiresList)
             {
+                // draws the wire to the passed graphics object
                 w.Draw(e.Graphics);
-            }
 
+            } // end foreach
+
+            // if startPin is not nulled
             if (startPin != null)
             {
-                e.Graphics.DrawLine(Pens.White,
-                    startPin.X, startPin.Y,
-                    currentX, currentY);
-            }
+                // draws a start pin based on start x/y and current x/y positions
+                e.Graphics.DrawLine(Pens.White, startPin.X, startPin.Y, currentX, currentY);
+
+            } // end if
+
+            // if newGate is not nulled
             if (newGate != null)
             {
-                // show the gate that we are dragging into the circuit
+                // shows the gate that we are dragging into the circuit
                 newGate.MoveTo(currentX, currentY);
+                // draws the gate to the passed graphics object
                 newGate.Draw(e.Graphics);
-            }
-        }
 
+            } // end if
+
+        } // end void
+        #endregion
+
+        #region Form1_MouseDown(object sender, MouseEventArgs e)
         /// <summary>
         /// Handles events while the mouse button is pressed down.
         /// </summary>
@@ -226,21 +295,28 @@ namespace Circuits
         /// <param name="e"></param>
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
+            // if the currently selected gate is nulled
             if (current == null)
             {
                 // try to start adding a wire
                 startPin = findPin(e.X, e.Y);
             }
+            // else if the users mouse is on the currently selected gate
             else if (current.IsMouseOn(e.X, e.Y))
             {
-                // start dragging the current object around
+                // starts dragging the current object around
                 startX = e.X;
                 startY = e.Y;
+                // monitors the location of where we are dragging the gate
                 currentX = current.Left;
                 currentY = current.Top;
-            }
-        }
 
+            } // end if
+
+        } // end void
+        #endregion
+
+        #region Form1_MouseClick(object sender, MouseEventArgs e)
         /// <summary>
         /// Handles all events when a mouse is clicked in the form.
         /// </summary>
@@ -248,36 +324,55 @@ namespace Circuits
         /// <param name="e"></param>
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            //Check if a gate is currently selected
+            // check if a gate is currently selected
             if (current != null)
             {
-                //Unselect the selected gate
+                // unselect the selected gate
                 current.Selected = false;
+                // nulls the selected gate
                 current = null;
-                this.Invalidate();
+                // redraws the control
+                Invalidate();
             }
-            // See if we are inserting a new gate
+
+            // check if we are inserting a new gate
             if (newGate != null)
             {
+                // moves the new gate to the passed x/y position
                 newGate.MoveTo(e.X, e.Y);
+                // adds the new gate to the gates list
                 gatesList.Add(newGate);
+                // nulls the newGate
                 newGate = null;
-                this.Invalidate();
+                // redraws the control
+                Invalidate();
             }
+            // else if we are not inserting a new gate
             else
             {
                 // search for the first gate under the mouse position
                 foreach (AndGate g in gatesList)
                 {
+                    // if the mouse is on the current gate
                     if (g.IsMouseOn(e.X, e.Y))
                     {
+                        // selects the current gate
                         g.Selected = true;
+                        // sets the currently selected gate to this gate
                         current = g;
-                        this.Invalidate();
+                        // redraws the control
+                        Invalidate();
                         break;
-                    }
-                }
-            }
-        }
-    }
-}
+
+                    } // end if
+
+                } // end foreach
+
+            } // end if
+
+        } // end void
+        #endregion
+
+    } // end class
+
+} // end namespace

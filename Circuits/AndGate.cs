@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Circuits
 {
@@ -12,7 +8,7 @@ namespace Circuits
     /// </summary>
     public class AndGate : Gate
     {
-        const int GATE_LENGTH = 20;
+
         #region AndGate(int x, int y)
         /// <summary>
         /// Initializes the Gate, 'AND' gates always have two input pins (0 and 1)
@@ -20,7 +16,7 @@ namespace Circuits
         /// </summary>
         /// <param name="x">The x position of the gate</param>
         /// <param name="y">The y position of the gate</param>
-        public AndGate(int x, int y)
+        public AndGate(int x, int y) : base(x, y)
         {
             // adds two input pins to the gate
             pins.Add(new Pin(this, true));
@@ -44,7 +40,7 @@ namespace Circuits
             base.Draw(paper);
             // draws an 'AND' gate object
             paper.DrawImage(Properties.Resources.AndGate, Left, Top);
-            
+
         } // end void
         #endregion
 
@@ -64,7 +60,7 @@ namespace Circuits
             _top = y;
 
             // sets the position of the gates pins
-            pins[0].location =  new Point(x - _GAP, y + _GAP);
+            pins[0].location = new Point(x - _GAP, y + _GAP);
             pins[1].location = new Point(x - _GAP, y + _HEIGHT - _GAP);
             pins[2].location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
 

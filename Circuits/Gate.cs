@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Circuits
 {
@@ -59,12 +55,25 @@ namespace Circuits
         protected List<Pin> pins = new List<Pin>();
         #endregion
 
+        #region Constructor: Gate(int x, int y)
+        /// <summary>
+        /// Constructs a new gate object
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public Gate(int x, int y)
+        {
+            // sets the left field to the passed x pos
+            _left = x;
+            // sets the top field to the passed y pos
+            _top = y;
 
+        } // end gate
+        #endregion
 
+        #region Getters/Setters:
 
-
-
-
+        #region Left
         /// <summary>
         /// Gets the left hand edge of the gate.
         /// </summary>
@@ -74,7 +83,9 @@ namespace Circuits
             get { return _left; }
 
         } // end int
+        #endregion
 
+        #region Top
         /// <summary>
         /// Gets the top edge of the gate.
         /// </summary>
@@ -82,9 +93,11 @@ namespace Circuits
         {
             // gets the top edge of the gate
             get { return _top; }
-        
-        } // end int
 
+        } // end int
+        #endregion
+
+        #region Selected
         /// <summary>
         /// Gets and sets whether the gate is selected or not.
         /// </summary>
@@ -96,7 +109,9 @@ namespace Circuits
             set { _selected = value; }
 
         } // end bool
+        #endregion
 
+        #region IsMouseOn(int x, int y)
         /// <summary>
         /// Checks if the gate has been clicked on.
         /// </summary>
@@ -114,7 +129,9 @@ namespace Circuits
                 return false;
 
         } // end bool
+        #endregion
 
+        #region Pins
         /// <summary>
         /// Gets the list of pins for the gate.
         /// </summary>
@@ -124,7 +141,11 @@ namespace Circuits
             get { return pins; }
 
         } // end list
+        #endregion
 
+        #endregion
+
+        #region Draw(Graphics paper)
         /// <summary>
         /// Base drawing method for a gate - this will be overriden to add
         /// the correct image from resources in each unique gate class
@@ -138,6 +159,7 @@ namespace Circuits
                 p.Draw(paper);
 
         } // end void
+        #endregion
 
     } // end class
 
