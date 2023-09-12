@@ -18,6 +18,7 @@ namespace Circuits
     /// </summary>
     public partial class Form1 : Form
     {
+        #region Class Scope Variables:
         /// <summary>
         /// The (x,y) mouse position of the last MouseDown event.
         /// </summary>
@@ -37,7 +38,7 @@ namespace Circuits
         /// <summary>
         /// The set of gates in the circuit
         /// </summary>
-        protected List<AndGate> gatesList = new List<AndGate>();
+        protected List<Gate> gatesList = new List<Gate>();
 
         /// <summary>
         /// The set of connector wires in the circuit
@@ -53,13 +54,18 @@ namespace Circuits
         /// The new gate that is about to be inserted into the circuit
         /// </summary>
         protected AndGate newGate = null;
+        #endregion
 
+        #region Constructor: Form1()
         public Form1()
         {
             InitializeComponent();
             DoubleBuffered = true;
-        }
 
+        } // end form1
+        #endregion
+
+        #region findPin(int x, int y)
         /// <summary>
         /// Finds the pin that is close to (x,y), or returns
         /// null if there are no pins close to the position.
@@ -69,16 +75,26 @@ namespace Circuits
         /// <returns>The pin that has been selected</returns>
         public Pin findPin(int x, int y)
         {
-            foreach (AndGate g in gatesList)
+            // foreach gate in gateslist
+            foreach (Gate g in gatesList)
             {
+                // foreach pin in pinslist of current gate
                 foreach (Pin p in g.Pins)
                 {
+                    // if mouse is on the current pin
                     if (p.isMouseOn(x, y))
+                        // returns the pin
                         return p;
-                }
-            }
+                
+                } // end foreach
+
+            } // end foreach
+
+            // if no pin is found, returns null
             return null;
-        }
+        
+        } // end pin
+        #endregion
 
         /// <summary>
         /// Handles all events when the mouse is moving.

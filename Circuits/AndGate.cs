@@ -12,8 +12,10 @@ namespace Circuits
     /// </summary>
     public class AndGate : Gate
     {
+        const int GATE_LENGTH = 20;
+        #region AndGate(int x, int y)
         /// <summary>
-        /// Initialises the Gate, 'AND' gates always have two input pins (0 and 1)
+        /// Initializes the Gate, 'AND' gates always have two input pins (0 and 1)
         /// and one output pin (number 2).
         /// </summary>
         /// <param name="x">The x position of the gate</param>
@@ -21,15 +23,17 @@ namespace Circuits
         public AndGate(int x, int y)
         {
             // adds two input pins to the gate
-            pins.Add(new Pin(this, true, 20));
-            pins.Add(new Pin(this, true, 20));
+            pins.Add(new Pin(this, true));
+            pins.Add(new Pin(this, true));
             // add an output pin to the gate
-            pins.Add(new Pin(this, false, 20));
-            //move the gate and the pins to the position passed in
+            pins.Add(new Pin(this, false));
+            // move the gate and the pins to the position passed in
             MoveTo(x, y);
 
         } // end constructor
+        #endregion
 
+        #region Draw(Graphics paper)
         /// <summary>
         /// Draws the gate in the normal colour or in the selected colour.
         /// </summary>
@@ -42,7 +46,9 @@ namespace Circuits
             paper.DrawImage(Properties.Resources.AndGate, Left, Top);
             
         } // end void
+        #endregion
 
+        #region MoveTo(int x, int y)
         /// <summary>
         /// Moves the gate to the position specified
         /// </summary>
@@ -51,22 +57,19 @@ namespace Circuits
         public void MoveTo(int x, int y)
         {
             // debugging message
-            Console.WriteLine("pins = " + pins.Count);
+            Console.WriteLine("Number of pins = " + pins.Count);
 
             // set the position of the gate to the values passed in
             _left = x;
             _top = y;
 
+            // sets the position of the gates pins
             pins[0].location =  new Point(x - _GAP, y + _GAP);
-            // must move the pins too
-            pins[0].X = x - _GAP;
-            pins[0].Y = y + _GAP;
-            pins[1].X = x - _GAP;
-            pins[1].Y = y + _HEIGHT - _GAP;
-            pins[2].X = x + _WIDTH + _GAP;
-            pins[2].Y = y + _HEIGHT / 2;
+            pins[1].location = new Point(x - _GAP, y + _HEIGHT - _GAP);
+            pins[2].location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
 
         } // end void
+        #endregion
 
     } // end class
 

@@ -12,6 +12,7 @@ namespace Circuits
     /// </summary>
     public class Gate
     {
+        #region Class Scope Variables/Constants:
         /// <summary>
         /// Left-hand side of the gates body (Helps with marking the location of the pins)
         /// </summary>
@@ -21,6 +22,11 @@ namespace Circuits
         /// Top-side of the gates body
         /// </summary>
         protected int _top;
+
+        /// <summary>
+        /// The length of the gate (dictates the starting point of pins)
+        /// </summary>
+        protected int _length;
 
         /// <summary>
         /// True if the gate is currently selected
@@ -51,7 +57,7 @@ namespace Circuits
         /// This is the list of all the pins of a gate.
         /// </summary>
         protected List<Pin> pins = new List<Pin>();
-
+        #endregion
 
 
 

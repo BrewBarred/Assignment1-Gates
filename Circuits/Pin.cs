@@ -30,9 +30,13 @@ namespace Circuits
         /// </summary>
         protected bool _input;
         /// <summary>
-        /// How long the pin is when drawn
+        /// The length of a pin
         /// </summary>
-        protected int _length;
+        protected const int _pinLength = 20;
+        /// <summary>
+        /// The height of a pin
+        /// </summary>
+        protected const int _pinHeight = 3;
         /// <summary>
         /// The gate the pin belongs to
         /// </summary>
@@ -47,18 +51,14 @@ namespace Circuits
         /// <summary>
         /// Initialises the object to the values passed in.
         /// </summary>
-        /// <param name="gate"></param>
-        /// <param name="input"></param>
-        /// <param name="length"></param>
-        public Pin(Gate gate, bool isInput, int length)
+        /// <param name="gate">The gate that this pin is attached to</param>
+        /// <param name="isInput">The type of pin (True for input, false for output)</param>
+        public Pin(Gate gate, bool isInput)
         {
             // the gate this pin belongs to
             _owner = gate;
             // the input value coming to this pin (true if input, false if output)
             _input = isInput;
-            // the length of the gate (to dictate where the pins should start)
-            _length = length;
-
 
         } // end pin
         #endregion
@@ -204,13 +204,13 @@ namespace Circuits
             if (_input)
             {
                 // draws a rectangle to represent a pin on the left-hand side of the gates body
-                paper.FillRectangle(brush, -1, location.Y - 1, _length, 3); ;
+                paper.FillRectangle(brush, -1, location.Y - 1, _pinLength, _pinHeight); ;
             }
             // else if this pin is an output pin
             else
             {
                 // draws a rectangle to represent a pin on the right-hand side of the gates body
-                paper.FillRectangle(brush, location.X - _length + 1, location.Y - 1, _length, 3);
+                paper.FillRectangle(brush, location.X - _pinLength + 1, location.Y - 1, _pinLength, _pinHeight);
 
             } // end if
 
