@@ -248,7 +248,8 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonOr_Click(object sender, EventArgs e)
         {
-
+            // creates a new OrGate object
+            newGate = new OrGate(0, 0);
 
         } // end void
         #endregion

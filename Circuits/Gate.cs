@@ -20,14 +20,14 @@ namespace Circuits
         protected int _top;
 
         /// <summary>
+        /// Length of the gates body
+        /// </summary>
+        protected int _gateLength;
+
+        /// <summary>
         /// True if the gate is currently selected
         /// </summary>
         protected bool _selected = false;
-
-        /// <summary>
-        /// Width of the gates body
-        /// </summary>
-        protected const int _WIDTH = 55;
 
         /// <summary>
         /// Height of the gates body
@@ -60,12 +60,14 @@ namespace Circuits
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public Gate(int x, int y)
+        public Gate(int x, int y, int gateLength)
         {
-            // sets the left field to the passed x pos
+            // sets the gates left edge
             _left = x;
-            // sets the top field to the passed y pos
+            // sets the gates top edge
             _top = y;
+            // sets the gates body length
+            _gateLength = gateLength;
 
         } // end gate
         #endregion
@@ -96,6 +98,18 @@ namespace Circuits
         } // end int
         #endregion
 
+        #region Width
+        /// <summary>
+        /// Gets the length of the gate
+        /// </summary>
+        public int Width
+        {
+            // gets the width of the gate
+            get { return _gateLength; }
+
+        } // end int
+        #endregion
+
         #region Selected
         /// <summary>
         /// Gets and sets whether the gate is selected or not.
@@ -120,7 +134,7 @@ namespace Circuits
         public bool IsMouseOn(int x, int y)
         {
             // if the users mouse pointer is hovering over a gate
-            if (Left <= x && x < Left + _WIDTH
+            if (Left <= x && x < Left + Width
                 && Top <= y && y < Top + _HEIGHT)
                 return true;
             // else if the users mouse pointer is not hovering over a gate

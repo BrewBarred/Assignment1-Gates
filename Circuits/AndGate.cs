@@ -7,6 +7,10 @@ namespace Circuits
     /// </summary>
     public class AndGate : Gate
     {
+        /// <summary>
+        /// Width of an AndGates body
+        /// </summary>
+        protected const int _WIDTH = 55;
 
         #region AndGate(int x, int y)
         /// <summary>
@@ -15,7 +19,7 @@ namespace Circuits
         /// </summary>
         /// <param name="x">The x position of the gate</param>
         /// <param name="y">The y position of the gate</param>
-        public AndGate(int x, int y) : base(x, y)
+        public AndGate(int x, int y) : base(x, y, _WIDTH)
         {
             // adds two input pins to the gate
             pins.Add(new Pin(this, true));
@@ -40,11 +44,11 @@ namespace Circuits
 
             // if this gate is currently selected
             if (Selected)
-                // draws a selected 'AND' gate object
+                // draws a selected version of this gate object
                 paper.DrawImage(Properties.Resources.AndGateAllRed, Left, Top);
             // else if this gate is not currently selected
             else
-                // draws an unselected 'AND' gate object
+                // draws an unselected version of this gate object
                 paper.DrawImage(Properties.Resources.AndGate, Left, Top);
 
         } // end void
@@ -58,7 +62,7 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
-            // uses the base MovteTo method to move the gates body
+            // uses the base MoveTo method to move the gates body
             base.MoveTo(x, y);
 
             // sets the position of the gates pins:
