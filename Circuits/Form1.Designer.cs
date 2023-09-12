@@ -78,6 +78,7 @@
             this.toolStripButtonOr.Name = "toolStripButtonOr";
             this.toolStripButtonOr.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonOr.Text = "toolStripButton1";
+            this.toolStripButtonOr.Click += new System.EventHandler(this.toolStripButtonOr_Click);
             // 
             // toolStripButtonNot
             // 
@@ -87,6 +88,7 @@
             this.toolStripButtonNot.Name = "toolStripButtonNot";
             this.toolStripButtonNot.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonNot.Text = "toolStripButton2";
+            this.toolStripButtonNot.Click += new System.EventHandler(this.toolStripButtonNot_Click);
             // 
             // toolStripButtonCopy
             // 
@@ -96,6 +98,7 @@
             this.toolStripButtonCopy.Name = "toolStripButtonCopy";
             this.toolStripButtonCopy.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonCopy.Text = "toolStripButton3";
+            this.toolStripButtonCopy.Click += new System.EventHandler(this.toolStripButtonCopy_Click);
             // 
             // toolStripButtonInput
             // 
@@ -105,6 +108,7 @@
             this.toolStripButtonInput.Name = "toolStripButtonInput";
             this.toolStripButtonInput.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonInput.Text = "toolStripButton4";
+            this.toolStripButtonInput.Click += new System.EventHandler(this.toolStripButtonInput_Click);
             // 
             // toolStripButtonOutput
             // 
@@ -114,6 +118,7 @@
             this.toolStripButtonOutput.Name = "toolStripButtonOutput";
             this.toolStripButtonOutput.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonOutput.Text = "toolStripButton5";
+            this.toolStripButtonOutput.Click += new System.EventHandler(this.toolStripButtonOutput_Click);
             // 
             // toolStripButtonStartCompound
             // 
@@ -123,6 +128,7 @@
             this.toolStripButtonStartCompound.Name = "toolStripButtonStartCompound";
             this.toolStripButtonStartCompound.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonStartCompound.Text = "toolStripButton6";
+            this.toolStripButtonStartCompound.Click += new System.EventHandler(this.toolStripButtonStartCompound_Click);
             // 
             // toolStripButtonEndCompound
             // 
@@ -132,6 +138,7 @@
             this.toolStripButtonEndCompound.Name = "toolStripButtonEndCompound";
             this.toolStripButtonEndCompound.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonEndCompound.Text = "toolStripButton7";
+            this.toolStripButtonEndCompound.Click += new System.EventHandler(this.toolStripButtonEndCompound_Click);
             // 
             // toolStripButtonEvaluate
             // 
@@ -141,6 +148,7 @@
             this.toolStripButtonEvaluate.Name = "toolStripButtonEvaluate";
             this.toolStripButtonEvaluate.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonEvaluate.Text = "toolStripButton8";
+            this.toolStripButtonEvaluate.Click += new System.EventHandler(this.toolStripButtonEvaluate_Click);
             // 
             // Form1
             // 

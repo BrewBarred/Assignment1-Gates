@@ -240,6 +240,110 @@ namespace Circuits
         } // end void
         #endregion
 
+        #region OrGate
+        /// <summary>
+        /// Creates a new 'OrGate' object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonOr_Click(object sender, EventArgs e)
+        {
+
+
+        } // end void
+        #endregion
+
+        #region NotGate
+        /// <summary>
+        /// Creates a new 'NotGate' object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonNot_Click(object sender, EventArgs e)
+        {
+
+
+        } // end void
+        #endregion
+
+        #region CopyGate
+        /// <summary>
+        /// Copies an existing gate object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonCopy_Click(object sender, EventArgs e)
+        {
+
+
+        } // end void
+        #endregion
+
+        #region Input
+        /// <summary>
+        /// Creates a new input object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonInput_Click(object sender, EventArgs e)
+        {
+
+
+        } // end void
+        #endregion
+
+        #region Output
+        /// <summary>
+        /// Creates a new output object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonOutput_Click(object sender, EventArgs e)
+        {
+
+
+        } // end void
+        #endregion
+
+        #region Start Compounded Circuit
+        /// <summary>
+        /// Starts a compounded circuit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonStartCompound_Click(object sender, EventArgs e)
+        {
+
+
+        } // end void
+        #endregion
+
+        #region End Compounded Circuit
+        /// <summary>
+        /// Ends a compunded circuit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonEndCompound_Click(object sender, EventArgs e)
+        {
+
+
+        } // end void
+        #endregion
+
+        #region Evaluate
+        /// <summary>
+        /// Evaluates a circuit (tests functionality)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonEvaluate_Click(object sender, EventArgs e)
+        {
+
+
+        } // end void
+        #endregion
+
         #endregion
 
         #region Form1_Paint(object sender, PaintEventArgs e)

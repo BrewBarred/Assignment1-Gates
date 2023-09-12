@@ -62,6 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndGate.cs" />
+    <Compile Include="Compound.cs" />
+    <Compile Include="CopyGate.cs" />
+    <Compile Include="Evaluate.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +72,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Gate.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="NotGate.cs" />
+    <Compile Include="OrGate.cs" />
+    <Compile Include="Output.cs" />
     <Compile Include="Pin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
