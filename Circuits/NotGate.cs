@@ -24,7 +24,7 @@ namespace Circuits
             // adds two input pins to the gate
             pins.Add(new Pin(this, true));
             pins.Add(new Pin(this, true));
-            // add an output pin to the gate
+            // adds an output pin to the gate
             pins.Add(new Pin(this, false));
             // move the gate and the pins to the position passed in
             MoveTo(x, y);
@@ -36,7 +36,7 @@ namespace Circuits
         /// <summary>
         /// Draws the gate in the normal colour or in the selected colour.
         /// </summary>
-        /// <param name="paper"></param>
+        /// <param name="paper">Graphics object to draw on</param>
         public override void Draw(Graphics paper)
         {
             // inherits the base drawing method to draw each pin for this gate
