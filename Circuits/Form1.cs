@@ -289,7 +289,8 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonInput_Click(object sender, EventArgs e)
         {
-
+            // creates a new input object
+            newGate = new Input(0, 0);
 
         } // end void
         #endregion
@@ -402,7 +403,7 @@ namespace Circuits
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             // if no gate is currently selected
-            if (current == null)
+            if (current is null)
             {
                 // try to start adding a wire
                 startPin = findPin(e.X, e.Y);
@@ -463,6 +464,23 @@ namespace Circuits
                     // if the mouse is on the current gate
                     if (g.IsMouseOn(e.X, e.Y))
                     {
+                        // if this gate in an input
+                        if (g is Input i)
+                        {
+                            // and if this input is currently live
+                            if (i.IsLive)
+                                // kills the circuit
+                                i.IsLive = false;
+                            // else if this input is currently dead
+                            else
+                                // livens the circuit
+                                i.IsLive = true;
+
+                            // writes current circuit power status to the console
+                            Console.WriteLine("Circuit on = " + i.IsLive);
+
+                        } // end if
+
                         // selects the current gate
                         g.Selected = true;
                         // sets the currently selected gate to this gate
