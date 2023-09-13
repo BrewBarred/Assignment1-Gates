@@ -14,9 +14,9 @@ namespace Circuits
         const int _WIDTH = 30;
 
         /// <summary>
-        /// True if this input is activated (live), else false (dead)
+        /// Height of the input (intentionally hides the inherited gate height)
         /// </summary>
-        bool isLive = false;
+        new const int _HEIGHT = 30;
         #endregion
 
         #region Input(int x, int y) : base(x, y, _WIDTH)
@@ -40,24 +40,27 @@ namespace Circuits
             // inherits the base drawing method to draw each pin for this gate
             base.Draw(paper);
 
-            // stores the correct color of the brush
-            Color color;
-
-            // if this input is currently selected
-            if (Selected)
-                // sets the drawing color to green
-                color = Color.Red;
-            // else if this gate is currently unselected and is activated
-            else if (isLive)
-                color = Color.Green;
-            // draws an unselected dead version of this gate object
-            else
-                color = Color.Gray;
-
             // creates a pen object to draw a square to represent an input control
-            Pen penIsBlack = new Pen(Color.Black);
+            Pen penIsBlack = new Pen(Color.Black, 4);
+            // draws a black square to represent the outline of the input control
+            paper.DrawRectangle(penIsBlack, Left, Top, Width, _HEIGHT);
+
+            // stores the correct color of the brush
+            Color brushColor;
+
+            // if this input is live
+            if (IsLive)
+                // sets the brush color to green
+                brushColor = Color.Green;
+            // else if this input is dead
+            else
+                // sets the brush color to gray
+                brushColor = Color.Gray;
+
             // creates a brush object to fill the square to show that it is dead
-            SolidBrush brushIsGrey = new SolidBrush(color);
+            SolidBrush brush = new SolidBrush(brushColor);
+            // draws a colored square based on whether the input is live or dead
+            paper.FillRectangle(brush, Left, Top, Width, _HEIGHT);
 
         } // end void
         #endregion
@@ -75,11 +78,8 @@ namespace Circuits
 
             // sets the position of the gates pins:
 
-            // pins 0 and 1 = input pins (left side)
-            pins[0].Location = new Point(x - _GAP, y + _GAP);
-            pins[1].Location = new Point(x - _GAP, y + _HEIGHT - _GAP);
-            // pin 2 = output pin (right side)
-            pins[2].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
+            // pin 0 = output pin (right side)
+            pins[0].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
 
         } // end void
         #endregion
