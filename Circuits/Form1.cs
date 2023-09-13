@@ -303,7 +303,8 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonOutput_Click(object sender, EventArgs e)
         {
-
+            // creates a new output object
+            newGate = new Output(0, 0);
 
         } // end void
         #endregion

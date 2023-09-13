@@ -9,7 +9,7 @@ namespace Circuits
     {
         #region Class Scope Variables:
         /// <summary>
-        /// Width of the input
+        /// Width of the input 
         /// </summary>
         const int _WIDTH = 30;
 
