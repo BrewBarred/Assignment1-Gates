@@ -58,8 +58,9 @@ namespace Circuits
         /// <summary>
         /// Constructs a new gate object
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The x position of the left edge of the gate object</param>
+        /// <param name="y">The y position of the top edge of the gate object</param>
+        /// <param name="gateLength">Length of the gate objects</param>
         public Gate(int x, int y, int gateLength)
         {
             // sets the gates left edge
