@@ -60,7 +60,7 @@ namespace Circuits
         protected Gate newGate = null;
 
         /// <summary>
-        /// The 
+        /// The compound that is currently being built (A collection of gates)
         /// </summary>
         protected Compound newCompound = null;
 
