@@ -27,7 +27,12 @@ namespace Circuits
         /// <summary>
         /// True if the gate is currently selected
         /// </summary>
-        protected bool _selected = false;
+        protected bool _selected;
+
+        /// <summary>
+        /// True if this input is activated (live), else false (dead)
+        /// </summary>
+        protected bool _isLive = false;
 
         /// <summary>
         /// Height of the gates body
@@ -120,10 +125,23 @@ namespace Circuits
             // gets the selection status of the gate
             get { return _selected; }
             // sets the selection status of the gate
-            set { _selected = value; }
+            set
+            { _selected = value; }
 
         } // end bool
         #endregion
+
+        /// <summary>
+        /// Changes whether the circuit is currently live or dead (true = live, false = dead)
+        /// </summary>
+        public bool IsLive
+        {
+            // gets isLive status
+            get { return _isLive; }
+            // sets isLive status
+            set { _isLive = value; }
+
+        } // end bool
 
         #region IsMouseOn(int x, int y)
         /// <summary>
@@ -180,8 +198,8 @@ namespace Circuits
         /// Base method for moving a gate - this will be overriden in each
         /// unique gate class to move the pins too
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The left edge of this gate</param>
+        /// <param name="y">The top edge of this gate</param>
         public virtual void MoveTo(int x, int y)
         {
             // set the position of the gate to the values passed in
