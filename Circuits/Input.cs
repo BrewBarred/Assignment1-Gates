@@ -123,6 +123,11 @@ namespace Circuits
                 // draws the pins on the passed graphics object
                 p.Draw(paper);
 
+            // creates a pen object to draw a square to represent an input control
+            Pen penIsBlack = new Pen(Color.Black, 4);
+            // draws a black square to represent the outline of the input control
+            paper.DrawRectangle(penIsBlack, Left, Top, Width, _HEIGHT);
+
             // stores the correct color of the brush
             Color brushColor;
 

@@ -147,6 +147,18 @@ namespace Circuits
         } // end list
         #endregion
 
+        /// <summary>
+        /// Changes whether the circuit is currently live or dead (true = live, false = dead)
+        /// </summary>
+        public bool IsLive
+        {
+            // gets isLive status
+            get { return _isLive; }
+            // sets isLive status
+            set { _isLive = value; }
+
+        } // end bool
+
         #region IsMouseOn(int x, int y)
         /// <summary>
         /// Checks if the gate has been clicked on.
