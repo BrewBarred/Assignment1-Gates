@@ -43,6 +43,30 @@ namespace Circuits
         /// <returns>True if all inputs are connected, false if any of the inputs have no connections to them</returns>
         public override bool Evaluate()
         {
+            // if gate A has no connection to it
+            if (pins[0].InputWire is null || pins[1] is null)
+            {
+                // writes error to console
+                Console.WriteLine("Error! One or more pins on \"" + GetType().Name + "\" is not connected to anything!");
+                return false;
+            }
+            // else if all input pins have a connection
+            else
+            {
+                // stores the gate that is connected to the 1st input pin of this control
+                Gate gateA = pins[0].InputWire.FromPin.Owner;
+                // stores the gate that is connected to the 2nd input pin of this control
+                Gate gateB = pins[1].InputWire.FromPin.Owner;
+                // writes progress message of which gate type we are assessing
+                Console.WriteLine("Evaluating \"" + GetType().Name + "\", Please wait...");
+                // writes info on each gates connection status
+                Console.WriteLine("Gate A is connected: \"" + pins[0].IsConnected + "\", Gate B is connected: \"" + pins[1].IsConnected);
+                // evaluates the gate(s) that this control is connected to
+                return gateA.Evaluate() && gateB.Evaluate();
+
+            } // end 
+
+            /*
             // true if all input pins have wires connected to them
             bool isConnected = true;
 
@@ -70,6 +94,7 @@ namespace Circuits
             // returns true since we cannot get to this
             // point if any of the input pins are invalid
             return isConnected;
+            */
 
         } // end bool
         #endregion
