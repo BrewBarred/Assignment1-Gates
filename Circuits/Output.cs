@@ -81,13 +81,6 @@ namespace Circuits
                         // sets the connection status to false
                         isConnected = false;
 
-                        while (p.Owner != null)
-                        {
-                            p.Owner.Evaluate();
-                            p.InputWire.Owner.Evaluate();
-
-                        } // end while
-
                     } // end if
 
             } // end foreach
