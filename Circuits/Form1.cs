@@ -101,17 +101,7 @@ namespace Circuits
         } // end pin
         #endregion
 
-        /// <summary>
-        /// Changes whether the circuit is currently live or dead (true = live, false = dead)
-        /// </summary>
-        public bool IsLive
-        {
-            // gets isLive status
-            get { return _isLive; }
-            // sets isLive status
-            set { _isLive = value; }
 
-        } // end bool
 
         #region Form1_MouseMove(object sender, MouseEventArgs e)
         /// <summary>
@@ -467,7 +457,7 @@ namespace Circuits
             foreach (Gate g in gateList)
             {
                 // if this gate in an input or output
-                if (g is Input || g is Output)
+                if (g is Input i || g is Output o)
                 {
                     // draws the gate to the passed graphics object
                     g.Draw(e.Graphics, IsLive);
