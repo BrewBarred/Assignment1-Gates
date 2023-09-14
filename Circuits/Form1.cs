@@ -358,51 +358,15 @@ namespace Circuits
                 // foreach gate in the gates list
                 foreach (Gate g in gatesList)
                 {
-                    g.Evaluate();
-                    /*
                     // if this gate is an output
                     if (g is Output o)
                     {
-                        // increments the output count for debugging
+                        // increments the output count
                         outputCount++;
-                        // and if this output fails the evaluation
-                        if (o.Evaluate() is false)
-                        {
-                            // writes error to console
-                            Console.WriteLine("Error evaluating " + o + ", checking gates...");
-
-                            
-                                // foreach gate in the gates list
-                                foreach (Gate thisGate in gatesList)
-                                {
-                                    // if this gate is an output
-                                    if (thisGate is Output)
-                                        // continue to next gate (or it will evaluate this output twice)
-                                        continue;
-                                    // else if this gate is not an output
-                                    else
-                                        // evaluates this gate
-                                        thisGate.Evaluate();
-
-                                } // end foreach
-                            
-
-                            // breaks out of loop to prevent dupe evaluations, must
-                            // get one output working at a time before continuing
-                            return;
-
-                        }
-                        // else if this output doesn't fail the evaluation
-                        else
-                        {
-                            // writes success message to console
-                            Console.WriteLine(o + " " + outputCount + " has passed it's evaluation!");
-
-                        }// end if
+                        // writes output evaluation result to console window
+                        Console.WriteLine("Evaluation of output " + outputCount + " has returned " + o.Evaluate());
 
                     } // end if
-                    */
-
 
                 } // end foreach
 
@@ -410,18 +374,13 @@ namespace Circuits
                 {
                     // writes error to console
                     Console.WriteLine("Error! Failed to find any outputs to evaluate!");
-                }
-                else
-                {
-                    // writes error to console
-                    Console.WriteLine("Success! " + outputCount + " outputs have passed their evaluations!");
 
                 } // end if
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Evaluation failed: " + ex.Message);
+                Console.WriteLine("Error! Evaluation has failed due to: " + ex.Message);
 
             } // end try
 

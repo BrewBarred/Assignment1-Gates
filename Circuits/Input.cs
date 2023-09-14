@@ -71,7 +71,8 @@ namespace Circuits
             // else if this input is dead/deactivated
             else
             {
-                Console.WriteLine("Error! " + base.ToString() + " is not activated!");
+                // writes an error to the console
+                Console.WriteLine("Error! " + base.ToString() + " has not been turned on!");
                 return false;
 
             } // end if
