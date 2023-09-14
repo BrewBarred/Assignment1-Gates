@@ -350,15 +350,79 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonEvaluate_Click(object sender, EventArgs e)
         {
-            // foreach gate in the gates list
-            foreach (Gate g in gatesList)
+            try
             {
-                // evaluates the gate for validity
-                g.Evaluate();
+                // counts the number of outputs found
+                int outputCount = 0;
 
-            } // end foreach
+                // foreach gate in the gates list
+                foreach (Gate g in gatesList)
+                {
+                    // if this gate is an output
+                    if (g is Output o)
+                    {
+                        // increments the output count for debugging
+                        outputCount++;
+                        // and if this output fails the evaluation
+                        if (o.Evaluate() is false)
+                        {
+                            // writes error to console
+                            Console.WriteLine("Error evaluating " + o + ", checking gates...");
+
+                            /*
+                                // foreach gate in the gates list
+                                foreach (Gate thisGate in gatesList)
+                                {
+                                    // if this gate is an output
+                                    if (thisGate is Output)
+                                        // continue to next gate (or it will evaluate this output twice)
+                                        continue;
+                                    // else if this gate is not an output
+                                    else
+                                        // evaluates this gate
+                                        thisGate.Evaluate();
+
+                                } // end foreach
+                            */
+
+                            // breaks out of loop to prevent dupe evaluations, must
+                            // get one output working at a time before continuing
+                            return;
+
+                        }
+                        // else if this output doesn't fail the evaluation
+                        else
+                        {
+                            // writes success message to console
+                            Console.WriteLine(o + " " + outputCount + " has passed it's evaluation!");
+
+                        }// end if
+
+                    } // end if
+
+                } // end foreach
+
+                if (outputCount is 0)
+                {
+                    // writes error to console
+                    Console.WriteLine("Error! Failed to find any outputs to evaluate!");
+                }
+                else
+                {
+                    // writes error to console
+                    Console.WriteLine("Success! " + outputCount + " outputs have passed their evaluations!");
+
+                } // end if
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error! Evaluation failed: " + ex.Message);
+
+            } // end try
 
         } // end void
+
         #endregion
 
         #endregion
