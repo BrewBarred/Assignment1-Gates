@@ -240,11 +240,18 @@ namespace Circuits
         } // end string
         #endregion
 
+        #region ToString()
+        /// <summary>
+        /// Overrides ToString() method to show control name/type
+        /// </summary>
+        /// <returns>The name of the extended control as a string</returns>
         public override string ToString()
         {
+            // gets this controls type and returns it's name
             return GetType().Name;
 
         } // end string
+        #endregion
 
     } // end class
 
