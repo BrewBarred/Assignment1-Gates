@@ -5,14 +5,8 @@
     /// </summary>
     public class CopyGate : Gate
     {
-        /// <summary>
-        /// Width of the gate
-        /// </summary>
-        protected int _gateWidth = 0;
-
-
         //########## TEMPORARYILY ADDED TO STOP ERROR FROM INHERITING GATE WITHOUT A VALID CONSTRUCTOR #########
-        #region CopyGate(int x, int y, int gateWidth) : base(x, y, gateWidth)
+        #region Constructor: CopyGate(int x, int y, int gateWidth) : base(x, y, gateWidth)
         public CopyGate(int x, int y, int gateWidth) : base(x, y, gateWidth)
         {
             // sets gateWidth field to the passed gateWidth
@@ -26,6 +20,27 @@
             MoveTo(x, y);
 
         } // end constructor
+        #endregion
+
+        #region Class Scope Variables:
+        /// <summary>
+        /// Width of the gate
+        /// </summary>
+        protected int _gateWidth = 0;
+
+        #endregion
+
+        #region Evaluate()
+        /// <summary>
+        /// Evaluates this input and returns the result
+        /// </summary>
+        /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override bool Evaluate()
+        {
+            throw new System.NotImplementedException();
+
+        } // end bool
         #endregion
 
     } // end class

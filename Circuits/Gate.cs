@@ -8,6 +8,25 @@ namespace Circuits
     /// </summary>
     public abstract class Gate
     {
+        #region Constructor: Gate(int y, int y, int gateLength)
+        /// <summary>
+        /// Constructs a new gate object
+        /// </summary>
+        /// <param name="x">The x position of the left edge of the gate object</param>
+        /// <param name="y">The y position of the top edge of the gate object</param>
+        /// <param name="gateLength">Length of the gate objects</param>
+        public Gate(int x, int y, int gateLength)
+        {
+            // sets the gates left edge
+            _left = x;
+            // sets the gates top edge
+            _top = y;
+            // sets the gates body length
+            _gateLength = gateLength;
+
+        } // end gate
+        #endregion
+
         #region Class Scope Variables/Constants:
         /// <summary>
         /// Left-hand side of the gates body (Helps with marking the location of the pins)
@@ -52,25 +71,6 @@ namespace Circuits
         /// This is the list of all the pins of a gate.
         /// </summary>
         protected List<Pin> pins = new List<Pin>();
-        #endregion
-
-        #region Constructor: Gate(int y, int y, int gateLength)
-        /// <summary>
-        /// Constructs a new gate object
-        /// </summary>
-        /// <param name="x">The x position of the left edge of the gate object</param>
-        /// <param name="y">The y position of the top edge of the gate object</param>
-        /// <param name="gateLength">Length of the gate objects</param>
-        public Gate(int x, int y, int gateLength)
-        {
-            // sets the gates left edge
-            _left = x;
-            // sets the gates top edge
-            _top = y;
-            // sets the gates body length
-            _gateLength = gateLength;
-
-        } // end gate
         #endregion
 
         #region Getters/Setters:
@@ -159,6 +159,8 @@ namespace Circuits
         #endregion
 
         #endregion
+
+        public abstract bool Evaluate();
 
         #region Draw(Graphics paper)
         /// <summary>
