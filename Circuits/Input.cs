@@ -56,13 +56,14 @@ namespace Circuits
 
         #region Evaluate()
         /// <summary>
-        /// Evaluates this input and returns the result
+        /// Evaluates if this input is currently activated or not
         /// </summary>
         /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
         /// <exception cref="System.NotImplementedException"></exception>
         public override bool Evaluate()
         {
-            throw new System.NotImplementedException();
+            // returns the current state of the input (activated/deactivated)
+            return IsLive;
 
         } // end bool
         #endregion
