@@ -30,11 +30,6 @@ namespace Circuits
         protected bool _selected;
 
         /// <summary>
-        /// True if this input is activated (live), else false (dead)
-        /// </summary>
-        protected bool _isLive = false;
-
-        /// <summary>
         /// Height of the gates body
         /// </summary>
         protected const int _HEIGHT = 50;
@@ -131,18 +126,6 @@ namespace Circuits
         } // end bool
         #endregion
 
-        /// <summary>
-        /// Changes whether the circuit is currently live or dead (true = live, false = dead)
-        /// </summary>
-        public bool IsLive
-        {
-            // gets isLive status
-            get { return _isLive; }
-            // sets isLive status
-            set { _isLive = value; }
-
-        } // end bool
-
         #region IsMouseOn(int x, int y)
         /// <summary>
         /// Checks if the gate has been clicked on.
@@ -184,6 +167,21 @@ namespace Circuits
         /// </summary>
         /// <param name="paper">Graphics object to draw on</param>
         public virtual void Draw(Graphics paper)
+        {
+            // foreach pin in the pin list
+            foreach (Pin p in pins)
+                // draws the pins on the passed graphics object
+                p.Draw(paper);
+
+        } // end void
+
+        /// <summary>
+        /// Base method for drawing an input or output - this will be overriden in both classes
+        /// to draw the control in it's live state or dead state based on the bool parameter
+        /// </summary>
+        /// <param name="paper">Graphics objet to draw on</param>
+        /// <param name="isLive">True if circuit is live, else false</param>
+        public virtual void Draw(Graphics paper, bool isLive)
         {
             // foreach pin in the pin list
             foreach (Pin p in pins)
