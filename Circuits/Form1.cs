@@ -417,8 +417,6 @@ namespace Circuits
                         } // end if
 
                     } // end if
-                    */
-
 
                 } // end foreach
 
