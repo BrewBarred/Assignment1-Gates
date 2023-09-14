@@ -101,6 +101,18 @@ namespace Circuits
         } // end pin
         #endregion
 
+        /// <summary>
+        /// Changes whether the circuit is currently live or dead (true = live, false = dead)
+        /// </summary>
+        public bool IsLive
+        {
+            // gets isLive status
+            get { return _isLive; }
+            // sets isLive status
+            set { _isLive = value; }
+
+        } // end bool
+
         #region Form1_MouseMove(object sender, MouseEventArgs e)
         /// <summary>
         /// Handles all events when the mouse is moving.
@@ -454,8 +466,19 @@ namespace Circuits
             // foreach gate in gate list
             foreach (Gate g in gateList)
             {
-                // draws the gate to the passed graphics object
-                g.Draw(e.Graphics);
+                // if this gate in an input or output
+                if (g is Input || g is Output)
+                {
+                    // draws the gate to the passed graphics object
+                    g.Draw(e.Graphics, IsLive);
+                }
+                // else if this gate is not an input or output
+                else
+                {
+                    // draws the gate to the passed graphics object
+                    g.Draw(e.Graphics);
+
+                } // end if
 
             } // end foreach
 
@@ -480,8 +503,20 @@ namespace Circuits
             {
                 // shows the gate that we are dragging into the circuit
                 newGate.MoveTo(currentX, currentY);
-                // draws the gate to the passed graphics object
-                newGate.Draw(e.Graphics);
+
+                // if this gate is an input or an output
+                if (newGate is Input || newGate is Output)
+                {
+                    // draws the gate to the passed graphics object in the correct state (live/dead state)
+                    newGate.Draw(e.Graphics, IsLive);
+                }
+                // else if this gate is not an input or an output
+                else
+                {
+                    // draws the gate to the passed graphics object
+                    newGate.Draw(e.Graphics);
+
+                } // end if
 
             } // end if
 
@@ -562,14 +597,14 @@ namespace Circuits
                         if (g is Input i)
                         {
                             // and if this input is currently live
-                            if (i.IsLive)
+                            if (IsLive)
                                 // kills the circuit
-                                i.IsLive = false;
+                                IsLive = false;
                             // else if this input is currently dead
                             else
                             {
                                 // livens the circuit
-                                i.IsLive = true;
+                                IsLive = true;
 
                             } // end if
 
