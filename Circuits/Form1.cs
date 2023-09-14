@@ -368,19 +368,8 @@ namespace Circuits
             // foreach gate in gate list
             foreach (Gate g in gatesList)
             {
-                // if this gate in an input or output
-                if (g is Input i || g is Output o)
-                {
-                    // draws the gate to the passed graphics object
-                    g.Draw(e.Graphics, IsLive);
-                }
-                // else if this gate is not an input or output
-                else
-                {
-                    // draws the gate to the passed graphics object
-                    g.Draw(e.Graphics);
-
-                } // end if
+                // draws the gate to the passed graphics object
+                g.Draw(e.Graphics);
 
             } // end foreach
 
@@ -405,20 +394,8 @@ namespace Circuits
             {
                 // shows the gate that we are dragging into the circuit
                 newGate.MoveTo(currentX, currentY);
-
-                // if this gate is an input or an output
-                if (newGate is Input || newGate is Output)
-                {
-                    // draws the gate to the passed graphics object in the correct state (live/dead state)
-                    newGate.Draw(e.Graphics, IsLive);
-                }
-                // else if this gate is not an input or an output
-                else
-                {
-                    // draws the gate to the passed graphics object
-                    newGate.Draw(e.Graphics);
-
-                } // end if
+                // draws the gate to the passed graphics object
+                newGate.Draw(e.Graphics);
 
             } // end if
 
@@ -496,19 +473,19 @@ namespace Circuits
                     if (g.IsMouseOn(e.X, e.Y))
                     {
                         // if this gate in an input
-                        if (g is Input)
+                        if (g is Input i)
                         {
                             // and if this input is currently live
-                            if (IsLive)
+                            if (i.IsLive)
                                 // kills the circuit
-                                IsLive = false;
+                                i.IsLive = false;
                             // else if this input is currently dead
                             else
                                 // livens the circuit
-                                IsLive = true;
+                                i.IsLive = true;
 
                             // writes current circuit power status to the console
-                            Console.WriteLine("Circuit on = " + IsLive);
+                            Console.WriteLine("Circuit on = " + i.IsLive);
 
                         } // end if
 
