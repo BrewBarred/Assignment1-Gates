@@ -44,28 +44,28 @@ namespace Circuits
 
         #region Constructor: Pin(Gate gate, bool isInput, int length)
         /// <summary>
-        /// Initialises the object to the values passed in.
+        /// Initializes the object to the values passed in.
         /// </summary>
         /// <param name="gate">The gate that this pin is attached to</param>
-        /// <param name="isInput">The type of pin (True for input, false for output)</param>
-        public Pin(Gate gate, bool isInput)
+        /// <param name="Input">The type of pin (True for input, false for output)</param>
+        public Pin(Gate gate, bool Input)
         {
             // the gate this pin belongs to
             _owner = gate;
             // the input value coming to this pin (true if input, false if output)
-            _input = isInput;
+            _input = Input;
 
         } // end pin
         #endregion
 
         #region Getters/Setters
 
-        #region IsInput
+        #region Input
         /// <summary>
         /// A read-only property that returns true for input pins
         /// and false for output pins.
         /// </summary>
-        public bool IsInput
+        public bool Input
         {
             // gets input pin status
             get { return _input; }
@@ -81,6 +81,19 @@ namespace Circuits
         {
             // gets output pin status
             get { return !_input; }
+
+        } // end bool
+        #endregion
+
+        #region IsConnected
+        /// <summary>
+        /// Returns true if this pin has a wire connected to it
+        /// </summary>
+        public bool IsConnected
+        {
+            // gets the connection status of this pin and
+            // returns true if there is a wire connected to it, else returns false
+            get { return _connection != null ? true : false; }
 
         } // end bool
         #endregion
@@ -229,6 +242,21 @@ namespace Circuits
                 return "OutPin(" + Location.X + "," + Location.Y + ")";
 
         } // end string
+
+        #region Info()
+        /// <summary>
+        /// Returns a string that describes which pin is currently being processed 
+        /// </summary>
+        /// <returns>A string describing the current pin number</returns>
+        public string Info()
+        {
+            // fetches this gates whole pin list, searches for the index of this
+            // particular pin and returns it's index number + 1 (easier to read)
+            return "pin " + (Owner.PinList.IndexOf(this) + 1);
+
+        } // end string
+        #endregion
+
         #endregion
 
     } // end class
