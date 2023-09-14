@@ -61,33 +61,29 @@ namespace Circuits
         /// <returns>True if all inputs are connected, false if any of the inputs have no connections to them</returns>
         public override bool Evaluate()
         {
-            // true if all input pins have wires connected to them
-            bool isConnected = true;
+            // writes progress message of which gate type we are assessing
+            Console.WriteLine("Evaluating \"" + GetType().Name + "\", Please wait...");
 
-            // foreach pin that this control has
-            foreach (Pin p in Pins)
+            // if gate A has no connection to it
+            if (pins[0].IsConnected is false)
             {
-                // if this pin is an input pin
-                if (p.Input is true)
-                    // and if this pin has a wire connected to it
-                    if (p.IsConnected)
-                        // continues to loop through the rest of the pins
-                        continue;
-                    // else if this input point has no wires connected to it
-                    else
-                    {
-                        // writes error to console
-                        Console.WriteLine("Error! Input " + p.Info() + " has no connection on \"" + base.ToString() + "\"");
-                        // sets the connection status to false
-                        isConnected = false;
+                // writes error to console
+                Console.WriteLine("Evaluation Error: Input pin 1 on \"" + GetType().Name + "\" is not connected to anything!");
+            }
+            // else if all input pins have a connection
+            else
+            {
+                // stores the gate that is connected to the 1st input pin of this control
+                Gate gateA = pins[0].InputWire.FromPin.Owner;
+                // writes info on each gates connection status
+                Console.WriteLine("Gate A is connected: " + pins[0].IsConnected);
+                // evaluates the gate(s) that this control is connected to
+                return gateA.Evaluate();
 
-                    } // end if
+            } // end if
 
-            } // end foreach
-
-            // returns true since we cannot get to this
-            // point if any of the input pins are invalid
-            return isConnected;
+            // if we get to this point, one or more pins are not connected
+            return false;
 
         } // end bool
         #endregion
