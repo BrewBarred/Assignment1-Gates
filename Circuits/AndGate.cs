@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Circuits
 {
@@ -43,7 +44,32 @@ namespace Circuits
         /// <exception cref="System.NotImplementedException"></exception>
         public override bool Evaluate()
         {
-            throw new System.NotImplementedException();
+            // true if all input pins have wires connected to them
+            bool isConnected = true;
+
+            // foreach pin that this control has
+            foreach (Pin p in Pins)
+            {
+                // if this pin is an input pin
+                if (p.Input is true)
+                    // and if this pin has a wire connected to it
+                    if (p.IsConnected)
+                        // continues to loop through the rest of the pins
+                        continue;
+                    // else if this input point has no wires connected to it
+                    else
+                    {
+                        // writes error to console
+                        Console.WriteLine("Error! Input " + p.Info() + " has no connection on \"" + base.ToString() + "\"");
+                        // sets the connection status to false
+                        isConnected = false;
+
+                    } // end if
+
+            } // end foreach
+
+            // if foreach loop ends then all input pins must have connections to them
+            return isConnected;
 
         } // end bool
         #endregion
