@@ -7,12 +7,7 @@ namespace Circuits
     /// </summary>
     public class NotGate : Gate
     {
-        /// <summary>
-        /// Width of a NotGates body
-        /// </summary>
-        protected const int _WIDTH = 55;
-
-        #region NotGate(int x, int y)
+        #region Constructor: NotGate(int x, int y)
         /// <summary>
         /// Initializes the Gate, 'NOT' gates always have two input pins (0 and 1)
         /// and one output pin (number 2).
@@ -30,6 +25,27 @@ namespace Circuits
             MoveTo(x, y);
 
         } // end constructor
+        #endregion
+
+        #region Class Scope Variables:
+        /// <summary>
+        /// Width of a NotGates body
+        /// </summary>
+        protected const int _WIDTH = 55;
+
+        #endregion
+
+        #region Evaluate()
+        /// <summary>
+        /// Evaluates this input and returns the result
+        /// </summary>
+        /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override bool Evaluate()
+        {
+            throw new System.NotImplementedException();
+
+        } // end bool
         #endregion
 
         #region Draw(Graphics paper)

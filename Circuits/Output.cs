@@ -7,6 +7,17 @@ namespace Circuits
     /// </summary>
     public class Output : Gate
     {
+        #region Constructor: Output(int x, int y) : base(x, y, _WIDTH)
+        public Output(int x, int y) : base(x, y, _WIDTH)
+        {
+            // adds an input pin to the gate
+            pins.Add(new Pin(this, false));
+            // move the gate and the pins to the position passed in
+            MoveTo(x, y);
+
+        } // end constructor
+        #endregion
+
         #region Class Scope Variables:
         /// <summary>
         /// Width of the output
@@ -19,15 +30,17 @@ namespace Circuits
         new const int _HEIGHT = 30;
         #endregion
 
-        #region Output(int x, int y) : base(x, y, _WIDTH)
-        public Output(int x, int y) : base(x, y, _WIDTH)
+        #region Evaluate()
+        /// <summary>
+        /// Evaluates this input and returns the result
+        /// </summary>
+        /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override bool Evaluate()
         {
-            // adds an input pin to the gate
-            pins.Add(new Pin(this, false));
-            // move the gate and the pins to the position passed in
-            MoveTo(x, y);
+            throw new System.NotImplementedException();
 
-        } // end constructor
+        } // end bool
         #endregion
 
         #region Draw(Graphics paper)
