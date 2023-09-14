@@ -35,21 +35,18 @@ namespace Circuits
         /// Draws the input control in a set color based on whether it is live or not
         /// </summary>
         /// <param name="paper">Graphics object to draw on</param>
-        public override void Draw(Graphics paper)
+        public override void Draw(Graphics paper, bool isLive)
         {
-            // inherits the base drawing method to draw each pin for this gate
-            base.Draw(paper);
-
-            // creates a pen object to draw a square to represent an input control
-            Pen penIsBlack = new Pen(Color.Black, 4);
-            // draws a black square to represent the outline of the input control
-            paper.DrawRectangle(penIsBlack, Left, Top, Width, _HEIGHT);
+            // foreach pin in the pin list
+            foreach (Pin p in pins)
+                // draws the pins on the passed graphics object
+                p.Draw(paper);
 
             // stores the correct color of the brush
             Color brushColor;
 
             // if this input is live
-            if (IsLive)
+            if (isLive)
                 // sets the brush color to green
                 brushColor = Color.Green;
             // else if this input is dead
@@ -57,6 +54,10 @@ namespace Circuits
                 // sets the brush color to gray
                 brushColor = Color.Gray;
 
+            // creates a pen object to draw a square to represent an input control
+            Pen penIsBlack = new Pen(Color.Black, 4);
+            // draws a black square to represent the outline of the input control
+            paper.DrawRectangle(penIsBlack, Left, Top, Width, _HEIGHT);
             // creates a brush object to fill the square to show that it is dead
             SolidBrush brush = new SolidBrush(brushColor);
             // draws a colored square based on whether the input is live or dead
