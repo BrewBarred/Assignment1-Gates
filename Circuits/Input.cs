@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Circuits
 {
@@ -59,11 +60,21 @@ namespace Circuits
         /// Evaluates if this input is currently activated or not
         /// </summary>
         /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
         public override bool Evaluate()
         {
-            // returns the current state of the input (activated/deactivated)
-            return IsLive;
+            // if this input is live/activated
+            if (IsLive)
+            {
+                // returns the current state of the input (activated/deactivated)
+                return true;
+            }
+            // else if this input is dead/deactivated
+            else
+            {
+                Console.WriteLine("Error! " + base.ToString() + " is not activated!");
+                return false;
+
+            } // end if
 
         } // end bool
         #endregion
