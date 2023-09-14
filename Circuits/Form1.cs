@@ -183,7 +183,7 @@ namespace Circuits
                     } // end if
 
                     // if pins have been correctly allocated
-                    if (input.IsInput && output.IsOutput)
+                    if (input.Input && output.IsOutput)
                     {
                         // if this input pin has no wires attached to it
                         if (input.InputWire == null)
@@ -350,7 +350,13 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonEvaluate_Click(object sender, EventArgs e)
         {
+            // foreach gate in the gates list
+            foreach (Gate g in gatesList)
+            {
+                // evaluates the gate for validity
+                g.Evaluate();
 
+            } // end foreach
 
         } // end void
         #endregion

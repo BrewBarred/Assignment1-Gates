@@ -124,6 +124,16 @@ namespace Circuits
             { _selected = value; }
 
         } // end bool
+
+        /// <summary>
+        /// Gets the gates pin list
+        /// </summary>
+        public dynamic PinList
+        {
+            // gets the pin list
+            get { return pins; }
+
+        } // end list
         #endregion
 
         #region IsMouseOn(int x, int y)
@@ -208,6 +218,12 @@ namespace Circuits
 
         } // end void
         #endregion
+
+        public override string ToString()
+        {
+            return GetType().Name;
+
+        } // end string
 
     } // end class
 
