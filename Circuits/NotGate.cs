@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Circuits
 {
@@ -37,13 +38,38 @@ namespace Circuits
 
         #region Evaluate()
         /// <summary>
-        /// Evaluates this input and returns the result
+        /// Evaluates this control for validity
         /// </summary>
-        /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>True if all inputs are connected, false if any of the inputs have no connections to them</returns>
         public override bool Evaluate()
         {
-            throw new System.NotImplementedException();
+            // true if all input pins have wires connected to them
+            bool isConnected = true;
+
+            // foreach pin that this control has
+            foreach (Pin p in Pins)
+            {
+                // if this pin is an input pin
+                if (p.Input is true)
+                    // and if this pin has a wire connected to it
+                    if (p.IsConnected)
+                        // continues to loop through the rest of the pins
+                        continue;
+                    // else if this input point has no wires connected to it
+                    else
+                    {
+                        // writes error to console
+                        Console.WriteLine("Error! Input " + p.Info() + " has no connection on \"" + base.ToString() + "\"");
+                        // sets the connection status to false
+                        isConnected = false;
+
+                    } // end if
+
+            } // end foreach
+
+            // returns true since we cannot get to this
+            // point if any of the input pins are invalid
+            return isConnected;
 
         } // end bool
         #endregion
