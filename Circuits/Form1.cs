@@ -358,6 +358,8 @@ namespace Circuits
                 // foreach gate in the gates list
                 foreach (Gate g in gatesList)
                 {
+                    g.Evaluate();
+                    /*
                     // if this gate is an output
                     if (g is Output o)
                     {
@@ -369,7 +371,7 @@ namespace Circuits
                             // writes error to console
                             Console.WriteLine("Error evaluating " + o + ", checking gates...");
 
-                            /*
+                            
                                 // foreach gate in the gates list
                                 foreach (Gate thisGate in gatesList)
                                 {
@@ -383,7 +385,7 @@ namespace Circuits
                                         thisGate.Evaluate();
 
                                 } // end foreach
-                            */
+                            
 
                             // breaks out of loop to prevent dupe evaluations, must
                             // get one output working at a time before continuing
@@ -399,6 +401,8 @@ namespace Circuits
                         }// end if
 
                     } // end if
+                    */
+
 
                 } // end foreach
 
