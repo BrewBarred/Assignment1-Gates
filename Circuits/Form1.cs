@@ -491,7 +491,7 @@ namespace Circuits
                                 i.IsLive = true;
 
                             // writes current circuit power status to the console
-                            Console.WriteLine("Circuit on = " + i.IsLive);
+                            Console.WriteLine("Power on: " + i.IsLive);
 
                         } // end if
 

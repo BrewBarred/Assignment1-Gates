@@ -38,10 +38,9 @@ namespace Circuits
 
         #region Evaluate()
         /// <summary>
-        /// Evaluates this input and returns the result
+        /// Evaluates this control for validity
         /// </summary>
-        /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns>True if all inputs are connected, false if any of the inputs have no connections to them</returns>
         public override bool Evaluate()
         {
             // true if all input pins have wires connected to them
@@ -68,7 +67,8 @@ namespace Circuits
 
             } // end foreach
 
-            // if foreach loop ends then all input pins must have connections to them
+            // returns true since we cannot get to this
+            // point if any of the input pins are invalid
             return isConnected;
 
         } // end bool
