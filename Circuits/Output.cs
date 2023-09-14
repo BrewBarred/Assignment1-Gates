@@ -144,7 +144,7 @@ namespace Circuits
         /// Draws the output control in a set color based on whether it is live or not
         /// </summary>
         /// <param name="paper">Graphics object to draw on</param>
-        public override void Draw(Graphics paper, bool isLive)
+        public override void Draw(Graphics paper)
         {
             // BASE PART OF LIGHT BULB (THE SCREW):
 
