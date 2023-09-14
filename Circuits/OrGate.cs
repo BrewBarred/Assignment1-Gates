@@ -35,6 +35,19 @@ namespace Circuits
 
         #endregion
 
+        #region Evaluate()
+        /// <summary>
+        /// Evaluates this input and returns the result
+        /// </summary>
+        /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override bool Evaluate()
+        {
+            throw new System.NotImplementedException();
+
+        } // end bool
+        #endregion
+
         #region Draw(Graphics paper)
         /// <summary>
         /// Draws the gate in the normal colour or in the selected colour.
@@ -65,6 +78,10 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
+            // centres this input control around the mouse pointer
+            x = x - _WIDTH / 2;
+            y = y - _HEIGHT / 2;
+
             // uses the base MoveTo method to move the gates body
             base.MoveTo(x, y);
 

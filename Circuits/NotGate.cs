@@ -78,6 +78,10 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
+            // centres this input control around the mouse pointer
+            x = x - _WIDTH / 2;
+            y = y - _HEIGHT / 2;
+
             // uses the base MoveTo method to move the gates body
             base.MoveTo(x, y);
 

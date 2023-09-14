@@ -72,7 +72,7 @@ namespace Circuits
         /// Draws the input control in a set color based on whether it is live or not
         /// </summary>
         /// <param name="paper">Graphics object to draw on</param>
-        public override void Draw(Graphics paper, bool isLive)
+        public override void Draw(Graphics paper)
         {
             // foreach pin in the pin list
             foreach (Pin p in pins)
@@ -83,7 +83,7 @@ namespace Circuits
             Color brushColor;
 
             // if this input is live
-            if (isLive)
+            if (IsLive)
                 // sets the brush color to green
                 brushColor = Color.Green;
             // else if this input is dead
@@ -111,6 +111,9 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
+            // centres this input control around the mouse pointer
+            x = x - _WIDTH / 2;
+            y = y - _HEIGHT / 2;
             // uses the base MoveTo method to move the gates body
             base.MoveTo(x, y);
 

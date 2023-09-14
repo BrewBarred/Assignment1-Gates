@@ -7,12 +7,7 @@ namespace Circuits
     /// </summary>
     public class AndGate : Gate
     {
-        /// <summary>
-        /// Width of an AndGates body
-        /// </summary>
-        protected const int _WIDTH = 55;
-
-        #region AndGate(int x, int y)
+        #region Constructor: AndGate(int x, int y)
         /// <summary>
         /// Initializes the Gate, 'AND' gates always have two input pins (0 and 1)
         /// and one output pin (number 2).
@@ -30,6 +25,27 @@ namespace Circuits
             MoveTo(x, y);
 
         } // end constructor
+        #endregion
+
+        #region Class Scope Variables:
+        /// <summary>
+        /// Width of an AndGates body
+        /// </summary>
+        protected const int _WIDTH = 55;
+
+        #endregion
+
+        #region Evaluate()
+        /// <summary>
+        /// Evaluates this input and returns the result
+        /// </summary>
+        /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override bool Evaluate()
+        {
+            throw new System.NotImplementedException();
+
+        } // end bool
         #endregion
 
         #region Draw(Graphics paper)
@@ -62,6 +78,10 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
+            // centres this input control around the mouse pointer
+            x = x - _WIDTH / 2;
+            y = y - _HEIGHT / 2;
+
             // uses the base MoveTo method to move the gates body
             base.MoveTo(x, y);
 

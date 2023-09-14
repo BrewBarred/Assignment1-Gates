@@ -58,7 +58,7 @@
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1008, 25);
             this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Text = "Controls";
             // 
             // toolStripButtonAnd
             // 
@@ -67,7 +67,7 @@
             this.toolStripButtonAnd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonAnd.Name = "toolStripButtonAnd";
             this.toolStripButtonAnd.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonAnd.Text = "toolStripButton1";
+            this.toolStripButtonAnd.ToolTipText = "Add a new \'AND\' gate";
             this.toolStripButtonAnd.Click += new System.EventHandler(this.toolStripButtonAnd_Click);
             // 
             // toolStripButtonOr
@@ -77,7 +77,8 @@
             this.toolStripButtonOr.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonOr.Name = "toolStripButtonOr";
             this.toolStripButtonOr.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonOr.Text = "toolStripButton1";
+            this.toolStripButtonOr.Text = "Add a new OR gate";
+            this.toolStripButtonOr.ToolTipText = "Add a new \'OR\' gate";
             this.toolStripButtonOr.Click += new System.EventHandler(this.toolStripButtonOr_Click);
             // 
             // toolStripButtonNot
@@ -87,7 +88,7 @@
             this.toolStripButtonNot.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNot.Name = "toolStripButtonNot";
             this.toolStripButtonNot.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonNot.Text = "toolStripButton2";
+            this.toolStripButtonNot.Text = "Add a new \'NOT\' gate";
             this.toolStripButtonNot.Click += new System.EventHandler(this.toolStripButtonNot_Click);
             // 
             // toolStripButtonCopy
@@ -98,6 +99,7 @@
             this.toolStripButtonCopy.Name = "toolStripButtonCopy";
             this.toolStripButtonCopy.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonCopy.Text = "toolStripButton3";
+            this.toolStripButtonCopy.ToolTipText = "Duplicates the selected gate";
             this.toolStripButtonCopy.Click += new System.EventHandler(this.toolStripButtonCopy_Click);
             // 
             // toolStripButtonInput
@@ -108,6 +110,7 @@
             this.toolStripButtonInput.Name = "toolStripButtonInput";
             this.toolStripButtonInput.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonInput.Text = "toolStripButton4";
+            this.toolStripButtonInput.ToolTipText = "Add an \'Input\' switch";
             this.toolStripButtonInput.Click += new System.EventHandler(this.toolStripButtonInput_Click);
             // 
             // toolStripButtonOutput
@@ -118,6 +121,7 @@
             this.toolStripButtonOutput.Name = "toolStripButtonOutput";
             this.toolStripButtonOutput.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonOutput.Text = "toolStripButton5";
+            this.toolStripButtonOutput.ToolTipText = "Add an \'Output\' lamp";
             this.toolStripButtonOutput.Click += new System.EventHandler(this.toolStripButtonOutput_Click);
             // 
             // toolStripButtonStartCompound
@@ -128,6 +132,7 @@
             this.toolStripButtonStartCompound.Name = "toolStripButtonStartCompound";
             this.toolStripButtonStartCompound.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonStartCompound.Text = "toolStripButton6";
+            this.toolStripButtonStartCompound.ToolTipText = "Starts a compounded circuit";
             this.toolStripButtonStartCompound.Click += new System.EventHandler(this.toolStripButtonStartCompound_Click);
             // 
             // toolStripButtonEndCompound
@@ -138,6 +143,7 @@
             this.toolStripButtonEndCompound.Name = "toolStripButtonEndCompound";
             this.toolStripButtonEndCompound.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonEndCompound.Text = "toolStripButton7";
+            this.toolStripButtonEndCompound.ToolTipText = "Ends the compounded circuit";
             this.toolStripButtonEndCompound.Click += new System.EventHandler(this.toolStripButtonEndCompound_Click);
             // 
             // toolStripButtonEvaluate
@@ -148,6 +154,7 @@
             this.toolStripButtonEvaluate.Name = "toolStripButtonEvaluate";
             this.toolStripButtonEvaluate.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonEvaluate.Text = "toolStripButton8";
+            this.toolStripButtonEvaluate.ToolTipText = "Evaluates the circuit";
             this.toolStripButtonEvaluate.Click += new System.EventHandler(this.toolStripButtonEvaluate_Click);
             // 
             // Form1
