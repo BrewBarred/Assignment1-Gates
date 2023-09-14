@@ -28,6 +28,29 @@ namespace Circuits
         /// Height of the output (intentionally hides the inherited gate height)
         /// </summary>
         new const int _HEIGHT = 30;
+
+        /// <summary>
+        /// True if this output is live, false if it is dead
+        /// </summary>
+        bool _isLive;
+        #endregion
+
+        #region Getters/Setters
+
+        #region IsLive
+        /// <summary>
+        /// Changes whether the circuit is currently live or dead (true = live, false = dead)
+        /// </summary>
+        public bool IsLive
+        {
+            // gets isLive status
+            get { return _isLive; }
+            // sets isLive status
+            set { _isLive = value; }
+
+        } // end bool
+        #endregion
+
         #endregion
 
         #region Evaluate()
@@ -48,7 +71,7 @@ namespace Circuits
         /// Draws the output control in a set color based on whether it is live or not
         /// </summary>
         /// <param name="paper">Graphics object to draw on</param>
-        public override void Draw(Graphics paper, bool isLive)
+        public override void Draw(Graphics paper)
         {
             // foreach pin in the pin list
             foreach (Pin p in pins)
@@ -85,7 +108,7 @@ namespace Circuits
             paper.FillRectangle(brush, baseX, baseY, baseWidth, baseHeight);
 
             // if this input is live
-            if (isLive)
+            if (IsLive)
                 // sets the brush color to green
                 brush.Color = Color.Yellow;
             // else if this input is dead
@@ -107,6 +130,10 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
+            // centres the bulb around the mouse pointer
+            x = x - _WIDTH;
+            y = y - _HEIGHT / 2;
+
             // uses the base MoveTo method to move the gates body
             base.MoveTo(x, y);
 
