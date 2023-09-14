@@ -35,34 +35,53 @@ namespace Circuits
         /// Draws the output control in a set color based on whether it is live or not
         /// </summary>
         /// <param name="paper">Graphics object to draw on</param>
-        public override void Draw(Graphics paper)
+        public override void Draw(Graphics paper, bool isLive)
         {
-            // inherits the base drawing method to draw each pin for this gate
-            base.Draw(paper);
+            // foreach pin in the pin list
+            foreach (Pin p in pins)
+                // draws the pins on the passed graphics object
+                p.Draw(paper);
 
-            // creates a pen object to draw a square to represent an output control
-            Pen penIsBlack = new Pen(Color.Black, 4);
+            // BULB PART OF LIGHT BULB (THE GLASS):
+
+            // stores the width of the light bulb
+            int bulbWidth = (Width * 2);
+            // stores the height of the light bulb
+            int bulbHeight = (int)(_HEIGHT * 1.5);
+
+            // BASE PART OF LIGHT BULB (THE SCREW):
+
+            // stores the x position of the light bulbs base
+            int baseX = (int)(Left + Width / 2);
+            // stores the y position of the light bulbs base
+            int baseY = (int)(Top + _HEIGHT * 1.2);
+            // stores the width of the light bulbs base
+            int baseWidth = (int)Width * 2 / 2;
+            // stores the height of the light bulbs base
+            int baseHeight = (int)(_HEIGHT * 0.75);
 
             // stores the correct color of the brush
-            Color brushColor;
-
-            // if this input is live
-            if (IsLive)
-                // sets the brush color to green
-                brushColor = Color.Yellow;
-            // else if this input is dead
-            else
-                // sets the brush color to gray
-                brushColor = Color.Gray;
-
-            int bulbHeight = _HEIGHT;
+            Color brushColor = Color.DarkGray;
 
             // creates a brush object to fill the square to show that it is dead
             SolidBrush brush = new SolidBrush(brushColor);
-            // draws a colored ellipse to represent lightbulb
-            paper.FillEllipse(brush, new Rectangle(Left, Top, Width * 2, (int)(bulbHeight * 1.5)));
+            // creates a pen object to draw a square to represent an output control
+            Pen penIsBlack = new Pen(Color.Black, 4);
+
             // draws a colored square to represent lightbulb base - color is based on whether output is live or not
-            paper.FillRectangle(brush, Left + Width / 2, (int)(Top + _HEIGHT * 1.2), Width * 2 / 2, (int)(_HEIGHT * 0.75));
+            paper.FillRectangle(brush, baseX, baseY, baseWidth, baseHeight);
+
+            // if this input is live
+            if (isLive)
+                // sets the brush color to green
+                brush.Color = Color.Yellow;
+            // else if this input is dead
+            else
+                // sets the brush color to gray
+                brush.Color = Color.Gray;
+
+            // draws a colored ellipse to represent lightbulb
+            paper.FillEllipse(brush, new Rectangle(Left, Top, bulbWidth, bulbHeight));
 
         } // end void
         #endregion
