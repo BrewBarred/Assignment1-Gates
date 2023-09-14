@@ -240,6 +240,12 @@ namespace Circuits
         } // end string
         #endregion
 
+        public override string ToString()
+        {
+            return GetType().Name;
+
+        } // end string
+
     } // end class
 
 } // end namespace
