@@ -100,7 +100,7 @@ namespace Circuits
             // sets the position of the gates pins:
 
             // pin 0 = input pin (bottom side)
-            pins[0].Location = new Point(x + _WIDTH / 2, y + (int)(_HEIGHT * 2.75));
+            pins[0].Location = new Point(x + _WIDTH / 2, y + (int)(_HEIGHT * 1.87));
 
         } // end void
         #endregion
