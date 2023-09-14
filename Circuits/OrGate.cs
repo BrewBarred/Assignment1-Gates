@@ -7,12 +7,7 @@ namespace Circuits
     /// </summary>
     public class OrGate : Gate
     {
-        /// <summary>
-        /// Width of an OrGates body
-        /// </summary>
-        protected const int _WIDTH = 70;
-
-        #region AndGate(int x, int y)
+        #region Constructor: AndGate(int x, int y)
         /// <summary>
         /// Initializes the Gate, 'OR' gates always have two input pins (0 and 1)
         /// and one output pin (number 2).
@@ -30,6 +25,14 @@ namespace Circuits
             MoveTo(x, y);
 
         } // end constructor
+        #endregion
+
+        #region Class Scope Variables:
+        /// <summary>
+        /// Width of an OrGates body
+        /// </summary>
+        protected const int _WIDTH = 70;
+
         #endregion
 
         #region Draw(Graphics paper)

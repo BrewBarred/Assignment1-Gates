@@ -7,6 +7,17 @@ namespace Circuits
     /// </summary>
     public class Input : Gate
     {
+        #region Constructor: Input(int x, int y) : base(x, y, _WIDTH)
+        public Input(int x, int y) : base(x, y, _WIDTH)
+        {
+            // adds an output pin to the gate
+            pins.Add(new Pin(this, false));
+            // move the gate and the pins to the position passed in
+            MoveTo(x, y);
+
+        } // end constructor
+        #endregion
+
         #region Class Scope Variables:
         /// <summary>
         /// Width of the input 
@@ -17,17 +28,43 @@ namespace Circuits
         /// Height of the input (intentionally hides the inherited gate height)
         /// </summary>
         new const int _HEIGHT = 30;
+
+        /// <summary>
+        /// True if this input is live, false if it is dead
+        /// </summary>
+        bool _isLive;
+
         #endregion
 
-        #region Input(int x, int y) : base(x, y, _WIDTH)
-        public Input(int x, int y) : base(x, y, _WIDTH)
-        {
-            // adds an output pin to the gate
-            pins.Add(new Pin(this, false));
-            // move the gate and the pins to the position passed in
-            MoveTo(x, y);
+        #region Getters/Setters
 
-        } // end constructor
+        #region IsLive
+        /// <summary>
+        /// Changes whether the circuit is currently live or dead (true = live, false = dead)
+        /// </summary>
+        public bool IsLive
+        {
+            // gets isLive status
+            get { return _isLive; }
+            // sets isLive status
+            set { _isLive = value; }
+
+        } // end bool
+        #endregion
+
+        #endregion
+
+        #region Evaluate()
+        /// <summary>
+        /// Evaluates this input and returns the result
+        /// </summary>
+        /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override bool Evaluate()
+        {
+            throw new System.NotImplementedException();
+
+        } // end bool
         #endregion
 
         #region Draw(Graphics paper)
