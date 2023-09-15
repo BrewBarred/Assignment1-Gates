@@ -9,6 +9,11 @@ namespace Circuits
     public class Output : Gate
     {
         #region Constructor: Output(int x, int y) : base(x, y, _WIDTH)
+        /// <summary>
+        /// Constructs a new output
+        /// </summary>
+        /// <param name="x">The x position of the new output</param>
+        /// <param name="y">The y position of the new output</param>
         public Output(int x, int y) : base(x, y, _WIDTH)
         {
             // adds an input pin to the gate
@@ -17,6 +22,24 @@ namespace Circuits
             MoveTo(x, y);
 
         } // end constructor
+        #endregion
+
+        #region Constructor: Output(Input g) : base(g.Left, g.Top, g.Width)
+        /// <summary>
+        /// Clones the passed OutputGate
+        /// </summary>
+        /// <param name="g">Gate to clone</param>
+        public Output(Output g) : base(g.Left, g.Top, g.Width)
+        {
+            // adds two input pins to the gate
+            pins.Add(new Pin(this, true));
+            pins.Add(new Pin(this, true));
+            // add an output pin to the gate
+            pins.Add(new Pin(this, false));
+            // move the gate and the pins to the position passed in
+            MoveTo(0, 0);
+
+        } // end gate
         #endregion
 
         #region Class Scope Variables:
@@ -52,6 +75,18 @@ namespace Circuits
         } // end bool
         #endregion
 
+        #endregion
+
+        #region Clone()
+        /// <summary>
+        /// Makes a copy of this gate
+        /// </summary>
+        public override Gate Clone()
+        {
+            // returns a clone of this gate
+            return new Output(this);
+
+        } // end void
         #endregion
 
         #region Evaluate()
@@ -162,7 +197,7 @@ namespace Circuits
             // sets the position of the gates pins:
 
             // pin 0 = input pin (bottom side)
-            pins[0].Location = new Point(x + _WIDTH / 2, y + (int)(_HEIGHT * 1.87));
+            pins[0].Location = new Point(x, y + (int)(_HEIGHT * 1.87));
 
         } // end void
         #endregion

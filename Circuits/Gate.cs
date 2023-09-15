@@ -170,6 +170,7 @@ namespace Circuits
 
         #endregion
 
+        public abstract Gate Clone();
         public abstract bool Evaluate();
 
         #region Draw(Graphics paper)
