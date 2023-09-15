@@ -10,7 +10,7 @@ namespace Circuits
     {
         #region Constructor: Gate(int y, int y, int gateLength)
         /// <summary>
-        /// Constructs a new gate object
+        /// Base constructor for each gate type
         /// </summary>
         /// <param name="x">The x position of the left edge of the gate object</param>
         /// <param name="y">The y position of the top edge of the gate object</param>

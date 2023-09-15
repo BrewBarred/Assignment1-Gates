@@ -4,13 +4,13 @@ using System.Drawing;
 namespace Circuits
 {
     /// <summary>
-    /// This class implements an output with 1x input
+    /// This class implements an output with 1x input and no outputs
     /// </summary>
     public class Output : Gate
     {
         #region Constructor: Output(int x, int y) : base(x, y, _WIDTH)
         /// <summary>
-        /// Constructs a new output
+        /// Constructs a new output control
         /// </summary>
         /// <param name="x">The x position of the new output</param>
         /// <param name="y">The y position of the new output</param>
@@ -31,11 +31,8 @@ namespace Circuits
         /// <param name="g">Gate to clone</param>
         public Output(Output g) : base(g.Left, g.Top, g.Width)
         {
-            // adds two input pins to the gate
+            // adds an input pin to the gate
             pins.Add(new Pin(this, true));
-            pins.Add(new Pin(this, true));
-            // add an output pin to the gate
-            pins.Add(new Pin(this, false));
             // move the gate and the pins to the position passed in
             MoveTo(0, 0);
 
@@ -164,11 +161,15 @@ namespace Circuits
             // draws a colored square to represent lightbulb base - color is based on whether output is live or not
             paper.FillRectangle(brush, baseX, baseY, baseWidth, baseHeight);
 
-            // if this input is live
+            // if this output is live
             if (IsLive)
                 // sets the brush color to green
                 brush.Color = Color.Yellow;
-            // else if this input is dead
+            // else if this output has been selected
+            else if (Selected)
+                // sets the brush color to
+                brush.Color = Color.Red;
+            // else if this output is dead
             else
                 // sets the brush color to gray
                 brush.Color = Color.Gray;

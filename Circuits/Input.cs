@@ -10,7 +10,7 @@ namespace Circuits
     {
         #region Constructor: Input(int x, int y) : base(x, y, _WIDTH)
         /// <summary>
-        /// Constructs a new input
+        /// Constructs a new input control
         /// </summary>
         /// <param name="x">The x position of the new input</param>
         /// <param name="y">The y position of the new input</param>
@@ -31,10 +31,7 @@ namespace Circuits
         /// <param name="g">Gate to clone</param>
         public Input(Input g) : base(g.Left, g.Top, g.Width)
         {
-            // adds two input pins to the gate
-            pins.Add(new Pin(this, true));
-            pins.Add(new Pin(this, true));
-            // add an output pin to the gate
+            // adds an output pin to the gate
             pins.Add(new Pin(this, false));
             // move the gate and the pins to the position passed in
             MoveTo(0, 0);
