@@ -385,7 +385,6 @@ namespace Circuits
             } // end try
 
         } // end void
-
         #endregion
 
         #endregion
