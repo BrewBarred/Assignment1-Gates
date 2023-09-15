@@ -98,7 +98,7 @@ namespace Circuits
                 // writes info on each gates connection status
                 Console.WriteLine("Gate A is connected: \"" + pins[0].IsConnected + "\", Gate B is connected: \"" + pins[1].IsConnected);
                 // evaluates the gate(s) that this control is connected to
-                return gateA.Evaluate() && gateB.Evaluate();
+                return gateA.Evaluate() || gateB.Evaluate();
 
             } // end if
 

@@ -10,15 +10,14 @@ namespace Circuits
     {
         #region Constructor: NotGate(int x, int y)
         /// <summary>
-        /// Constructs a new 'NOT' Gate. 'NOT' gates always have two inputs (pins 0 & 1)
-        /// and one output pin (pin 2).
+        /// Constructs a new 'NOT' Gate. 'NOT' gates only has 1 input (pins 0)
+        /// and one output pin (pin 1).
         /// </summary>
         /// <param name="x">The x position of the gate</param>
         /// <param name="y">The y position of the gate</param>
         public NotGate(int x, int y) : base(x, y, _WIDTH)
         {
-            // adds two input pins to the gate
-            pins.Add(new Pin(this, true));
+            // adds an input pin to the gate
             pins.Add(new Pin(this, true));
             // adds an output pin to the gate
             pins.Add(new Pin(this, false));
@@ -30,13 +29,12 @@ namespace Circuits
 
         #region Constructor: NotGate(AndGate g) : base(g.Left, g.Top, g.Width)
         /// <summary>
-        /// Clones the passed OrGate
+        /// Clones the passed NotGate
         /// </summary>
         /// <param name="g">Gate to clone</param>
         public NotGate(NotGate g) : base(g.Left, g.Top, g.Width)
         {
-            // adds two input pins to the gate
-            pins.Add(new Pin(this, true));
+            // adds an input pin to the gate
             pins.Add(new Pin(this, true));
             // add an output pin to the gate
             pins.Add(new Pin(this, false));
@@ -80,25 +78,17 @@ namespace Circuits
             if (pins[0].IsConnected is false)
             {
                 // writes error to console
-                Console.WriteLine("Evaluation Error: Input pin 1 on \"" + GetType().Name + "\" is not connected to anything!");
-            }
-            // else if gate B has no connection to it
-            else if (pins[1].IsConnected is false)
-            {
-                // writes error to console
-                Console.WriteLine("Evaluation Error: Input pin 2 on \"" + GetType().Name + "\" is not connected to anything!");
+                Console.WriteLine("Evaluation Error: Input pin on \"" + GetType().Name + "\" is not connected to anything!");
             }
             // else if all input pins have a connection
             else
             {
-                // stores the gate that is connected to the 1st input pin of this control
+                // stores the gate that is connected to the input pin of this control
                 Gate gateA = pins[0].InputWire.FromPin.Owner;
-                // stores the gate that is connected to the 2nd input pin of this control
-                Gate gateB = pins[1].InputWire.FromPin.Owner;
                 // writes info on each gates connection status
                 Console.WriteLine("Gate A is connected: \"" + pins[0].IsConnected + "\", Gate B is connected: \"" + pins[1].IsConnected);
                 // evaluates the gate(s) that this control is connected to
-                return gateA.Evaluate() && gateB.Evaluate();
+                return !gateA.Evaluate();
 
             } // end if
 
@@ -148,10 +138,9 @@ namespace Circuits
             // sets the position of the gates pins:
 
             // pins 0 and 1 = input pins (left side)
-            pins[0].Location = new Point(x - _GAP, y + _GAP);
-            pins[1].Location = new Point(x - _GAP, y + _HEIGHT - _GAP);
-            // pin 2 = output pin (right side)
-            pins[2].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
+            pins[0].Location = new Point(x - _GAP, y + _HEIGHT / 2);
+            // pin 1 = output pin (right side)
+            pins[1].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
 
         } // end void
         #endregion
