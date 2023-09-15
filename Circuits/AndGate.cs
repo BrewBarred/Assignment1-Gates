@@ -10,8 +10,8 @@ namespace Circuits
     {
         #region Constructor: AndGate(int x, int y) : base(x, y, _WIDTH)
         /// <summary>
-        /// Initializes the Gate, 'AND' gates always have two input pins (0 and 1)
-        /// and one output pin (number 2).
+        /// Constructs a new 'AND' Gate. 'AND' gates always have two input (pins 0 and 1)
+        /// and one output pin (pin 2).
         /// </summary>
         /// <param name="x">The x position of the gate</param>
         /// <param name="y">The y position of the gate</param>
