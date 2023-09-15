@@ -96,6 +96,18 @@ namespace Circuits
         } // end void
         #endregion
 
+        #region Clone()
+        /// <summary>
+        /// Makes a copy of this gate
+        /// </summary>
+        public override Gate Clone()
+        {
+            // returns a clone of this gate
+            return new Output(this);
+
+        } // end void
+        #endregion
+
         #region Evaluate()
         /// <summary>
         /// Evaluates this control for validity
