@@ -283,7 +283,8 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonCopy_Click(object sender, EventArgs e)
         {
-
+            if (current != null)
+                newGate = current.Clone();
 
         } // end void
         #endregion

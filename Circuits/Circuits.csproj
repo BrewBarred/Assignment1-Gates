@@ -62,8 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndGate.cs" />
-    <Compile Include="Compound.cs" />
-    <Compile Include="CopyGate.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
