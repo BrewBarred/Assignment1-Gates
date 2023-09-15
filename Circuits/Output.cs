@@ -54,6 +54,16 @@ namespace Circuits
         /// True if this output is live, false if it is dead
         /// </summary>
         bool _isLive;
+
+        /// <summary>
+        /// stores the width of the light bulb
+        /// </summary>
+        int bulbWidth = (_WIDTH * 2);
+
+        /// <summary>
+        /// stores the height of the light bulb
+        /// </summary>
+        int bulbHeight = (int)(_HEIGHT * 1.5);
         #endregion
 
         #region Getters/Setters
@@ -127,28 +137,21 @@ namespace Circuits
         /// <param name="paper">Graphics object to draw on</param>
         public override void Draw(Graphics paper)
         {
+            // BASE PART OF LIGHT BULB (THE SCREW):
+
+            // stores the x position of the light bulbs base
+            int baseX = (Left + _WIDTH / 2);
+            // stores the y position of the light bulbs base
+            int baseY = (int)(Top + _HEIGHT * 1.2);
+            // stores the width of the light bulbs base
+            int baseWidth = Width * 2 / 2;
+            // stores the height of the light bulbs base
+            int baseHeight = (int)(_HEIGHT * 0.75);
+
             // foreach pin in the pin list
             foreach (Pin p in pins)
                 // draws the pins on the passed graphics object
                 p.Draw(paper);
-
-            // BULB PART OF LIGHT BULB (THE GLASS):
-
-            // stores the width of the light bulb
-            int bulbWidth = (Width * 2);
-            // stores the height of the light bulb
-            int bulbHeight = (int)(_HEIGHT * 1.5);
-
-            // BASE PART OF LIGHT BULB (THE SCREW):
-
-            // stores the x position of the light bulbs base
-            int baseX = (int)(Left + Width / 2);
-            // stores the y position of the light bulbs base
-            int baseY = (int)(Top + _HEIGHT * 1.2);
-            // stores the width of the light bulbs base
-            int baseWidth = (int)Width * 2 / 2;
-            // stores the height of the light bulbs base
-            int baseHeight = (int)(_HEIGHT * 0.75);
 
             // stores the correct color of the brush
             Color brushColor = Color.DarkGray;
@@ -167,7 +170,7 @@ namespace Circuits
                 brush.Color = Color.Yellow;
             // else if this output has been selected
             else if (Selected)
-                // sets the brush color to
+                // sets the brush color to red
                 brush.Color = Color.Red;
             // else if this output is dead
             else
@@ -201,6 +204,26 @@ namespace Circuits
             pins[0].Location = new Point(x, y + (int)(_HEIGHT * 1.87));
 
         } // end void
+        #endregion
+
+        #region IsMouseOn(int x, int y)
+        /// <summary>
+        /// Checks if the output has been clicked on.
+        /// </summary>
+        /// <param name="x">The x position of the mouse click</param>
+        /// <param name="y">The y position of the mouse click</param>
+        /// <returns>True if the mouse click position is inside the gate</returns>
+        public override bool IsMouseOn(int x, int y)
+        {
+            // if the users mouse pointer is hovering over a gate
+            if (Left <= x && x < Left + bulbWidth
+                && Top <= y && y < Top + bulbHeight)
+                return true;
+            // else if the users mouse pointer is not hovering over a gate
+            else
+                return false;
+
+        } // end bool
         #endregion
 
     } // end class
