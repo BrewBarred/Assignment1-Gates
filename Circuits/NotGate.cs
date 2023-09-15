@@ -10,7 +10,7 @@ namespace Circuits
     {
         #region Constructor: NotGate(int x, int y)
         /// <summary>
-        /// Initializes the Gate, 'NOT' gates always have two input pins (0 and 1)
+        /// Constructs a new Not Gate, 'NOT' gates always have two input pins (0 and 1)
         /// and one output pin (number 2).
         /// </summary>
         /// <param name="x">The x position of the gate</param>
@@ -28,12 +28,42 @@ namespace Circuits
         } // end constructor
         #endregion
 
+        #region Constructor: NotGate(AndGate g) : base(g.Left, g.Top, g.Width)
+        /// <summary>
+        /// Clones the passed OrGate
+        /// </summary>
+        /// <param name="g">Gate to clone</param>
+        public NotGate(NotGate g) : base(g.Left, g.Top, g.Width)
+        {
+            // adds two input pins to the gate
+            pins.Add(new Pin(this, true));
+            pins.Add(new Pin(this, true));
+            // add an output pin to the gate
+            pins.Add(new Pin(this, false));
+            // move the gate and the pins to the position passed in
+            MoveTo(0, 0);
+
+        } // end gate
+        #endregion
+
         #region Class Scope Variables:
         /// <summary>
         /// Width of a NotGates body
         /// </summary>
         protected const int _WIDTH = 55;
 
+        #endregion
+
+        #region Clone()
+        /// <summary>
+        /// Makes a copy of this gate
+        /// </summary>
+        public override Gate Clone()
+        {
+            // returns a clone of this gate
+            return new NotGate(this);
+
+        } // end void
         #endregion
 
         #region Evaluate()
