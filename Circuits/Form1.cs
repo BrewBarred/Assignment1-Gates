@@ -101,8 +101,6 @@ namespace Circuits
         } // end pin
         #endregion
 
-
-
         #region Form1_MouseMove(object sender, MouseEventArgs e)
         /// <summary>
         /// Handles all events when the mouse is moving.
