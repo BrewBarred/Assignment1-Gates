@@ -200,21 +200,6 @@ namespace Circuits
                 p.Draw(paper);
 
         } // end void
-
-        /// <summary>
-        /// Base method for drawing an input or output - this will be overriden in both classes
-        /// to draw the control in it's live state or dead state based on the bool parameter
-        /// </summary>
-        /// <param name="paper">Graphics objet to draw on</param>
-        /// <param name="isLive">True if circuit is live, else false</param>
-        public virtual void Draw(Graphics paper, bool isLive)
-        {
-            // foreach pin in the pin list
-            foreach (Pin p in pins)
-                // draws the pins on the passed graphics object
-                p.Draw(paper);
-
-        } // end void
         #endregion
 
         #region MoveTo(int x, int y)
