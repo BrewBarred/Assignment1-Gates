@@ -13,6 +13,15 @@ namespace Circuits
     /// </summary>
     public partial class Form1 : Form
     {
+        #region Constructor: Form1()
+        public Form1()
+        {
+            InitializeComponent();
+            DoubleBuffered = true;
+
+        } // end form1
+        #endregion
+
         #region Class Scope Variables:
         /// <summary>
         /// The (x,y) mouse position of the last MouseDown event.
@@ -33,7 +42,7 @@ namespace Circuits
         /// <summary>
         /// The set of gates in the circuit
         /// </summary>
-        protected List<Gate> gatesList = new List<Gate>();
+        protected List<Gate> gateList = new List<Gate>();
 
         /// <summary>
         /// The set of connector wires in the circuit
@@ -56,15 +65,6 @@ namespace Circuits
         protected bool _isLive = false;
         #endregion
 
-        #region Constructor: Form1()
-        public Form1()
-        {
-            InitializeComponent();
-            DoubleBuffered = true;
-
-        } // end form1
-        #endregion
-
         #region findPin(int x, int y)
         /// <summary>
         /// Finds the pin that is close to (x,y), or returns
@@ -76,7 +76,7 @@ namespace Circuits
         public Pin findPin(int x, int y)
         {
             // foreach gate in gateslist
-            foreach (Gate g in gatesList)
+            foreach (Gate g in gateList)
             {
                 // foreach pin in pinslist of current gate
                 foreach (Pin p in g.Pins)
@@ -95,8 +95,6 @@ namespace Circuits
 
         } // end pin
         #endregion
-
-
 
         #region Form1_MouseMove(object sender, MouseEventArgs e)
         /// <summary>
@@ -275,22 +273,6 @@ namespace Circuits
         } // end void
         #endregion
 
-        #region CopyGate
-        /// <summary>
-        /// Duplicates the gate that is currently selected
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void toolStripButtonCopy_Click(object sender, EventArgs e)
-        {
-            // if a gate is currently selected
-            if (current != null)
-                // inserts a copy of the gate that is currently selected
-                newGate = current.Clone();
-
-        } // end void
-        #endregion
-
         #region Input
         /// <summary>
         /// Creates a new input object
@@ -315,6 +297,22 @@ namespace Circuits
         {
             // creates a new output object
             newGate = new Output(0, 0);
+
+        } // end void
+        #endregion
+
+        #region CopyGate
+        /// <summary>
+        /// Duplicates the gate that is currently selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButtonCopy_Click(object sender, EventArgs e)
+        {
+            // if a gate is currently selected
+            if (current != null)
+                // inserts a copy of the gate that is currently selected
+                newGate = current.Clone();
 
         } // end void
         #endregion
@@ -359,7 +357,7 @@ namespace Circuits
                 int outputCount = 0;
 
                 // foreach gate in the gates list
-                foreach (Gate g in gatesList)
+                foreach (Gate g in gateList)
                 {
                     // if this gate is an output
                     if (g is Output o)
@@ -401,7 +399,7 @@ namespace Circuits
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             // foreach gate in gate list
-            foreach (Gate g in gatesList)
+            foreach (Gate g in gateList)
             {
                 // draws the gate to the passed graphics object
                 g.Draw(e.Graphics);
@@ -492,7 +490,7 @@ namespace Circuits
                 // moves the new gate to the passed x/y position
                 newGate.MoveTo(e.X, e.Y);
                 // adds the new gate to the gates list
-                gatesList.Add(newGate);
+                gateList.Add(newGate);
                 // nulls the newGate
                 newGate = null;
                 // redraws the control
@@ -502,12 +500,12 @@ namespace Circuits
             else
             {
                 // search for the first gate under the mouse position
-                foreach (Gate g in gatesList)
+                foreach (Gate g in gateList)
                 {
                     // if the mouse is on the current gate
                     if (g.IsMouseOn(e.X, e.Y))
                     {
-                        // if this gate in an input
+                        // if this gate is an input
                         if (g is Input i)
                         {
                             // and if this input is currently live
@@ -516,11 +514,21 @@ namespace Circuits
                                 i.IsLive = false;
                             // else if this input is currently dead
                             else
+                            {
                                 // livens the circuit
                                 i.IsLive = true;
 
+                            } // end if
+
                             // writes current circuit power status to the console
                             Console.WriteLine("Power on: " + i.IsLive);
+
+                            // foreach gate in the gatelist
+                            foreach (Gate thisGate in gateList)
+                                // if this gate is an output
+                                if (thisGate is Output o)
+                                    // evaluates this output to see if it should be livened or not
+                                    o.Evaluate();
 
                         } // end if
 

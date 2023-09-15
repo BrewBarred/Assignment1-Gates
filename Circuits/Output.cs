@@ -117,10 +117,24 @@ namespace Circuits
             {
                 // stores the gate that is connected to the 1st input pin of this control
                 Gate gateA = pins[0].InputWire.FromPin.Owner;
-                // writes info on each gates connection status
-                Console.WriteLine("Gate A is connected: " + pins[0].IsConnected);
-                // evaluates the gate(s) that this control is connected to
-                return gateA.Evaluate();
+
+                // if this output evaluates to true
+                if (gateA.Evaluate())
+                {
+                    // writes info on each gates connection status
+                    Console.WriteLine("Gate A is connected: " + pins[0].IsConnected);
+                    // livens this output
+                    IsLive = true;
+                    // evaluates the gate(s) that this control is connected to
+                    return true;
+                }
+                // else if this out evaluates to false
+                else
+                {
+                    // kills this output
+                    IsLive = false;
+
+                }// end if
 
             } // end if
 

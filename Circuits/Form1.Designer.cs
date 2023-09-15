@@ -48,9 +48,9 @@
             this.toolStripButtonAnd,
             this.toolStripButtonOr,
             this.toolStripButtonNot,
-            this.toolStripButtonCopy,
             this.toolStripButtonInput,
             this.toolStripButtonOutput,
+            this.toolStripButtonCopy,
             this.toolStripButtonStartCompound,
             this.toolStripButtonEndCompound,
             this.toolStripButtonEvaluate});
