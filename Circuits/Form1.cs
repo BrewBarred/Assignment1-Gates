@@ -277,13 +277,15 @@ namespace Circuits
 
         #region CopyGate
         /// <summary>
-        /// Copies an existing gate object
+        /// Duplicates the gate that is currently selected
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void toolStripButtonCopy_Click(object sender, EventArgs e)
         {
+            // if a gate is currently selected
             if (current != null)
+                // inserts a copy of the gate that is currently selected
                 newGate = current.Clone();
 
         } // end void
