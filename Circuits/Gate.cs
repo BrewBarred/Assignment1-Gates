@@ -143,7 +143,7 @@ namespace Circuits
         /// <param name="x">The x position of the mouse click</param>
         /// <param name="y">The y position of the mouse click</param>
         /// <returns>True if the mouse click position is inside the gate</returns>
-        public bool IsMouseOn(int x, int y)
+        public virtual bool IsMouseOn(int x, int y)
         {
             // if the users mouse pointer is hovering over a gate
             if (Left <= x && x < Left + Width
@@ -180,21 +180,6 @@ namespace Circuits
         /// </summary>
         /// <param name="paper">Graphics object to draw on</param>
         public virtual void Draw(Graphics paper)
-        {
-            // foreach pin in the pin list
-            foreach (Pin p in pins)
-                // draws the pins on the passed graphics object
-                p.Draw(paper);
-
-        } // end void
-
-        /// <summary>
-        /// Base method for drawing an input or output - this will be overriden in both classes
-        /// to draw the control in it's live state or dead state based on the bool parameter
-        /// </summary>
-        /// <param name="paper">Graphics objet to draw on</param>
-        /// <param name="isLive">True if circuit is live, else false</param>
-        public virtual void Draw(Graphics paper, bool isLive)
         {
             // foreach pin in the pin list
             foreach (Pin p in pins)
