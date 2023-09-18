@@ -27,6 +27,23 @@ namespace Circuits
         } // end gate
         #endregion
 
+        #region Constructor: Gate(Gate thisGate)
+        /// <summary>
+        /// Alternative constructor for a Gate
+        /// </summary>
+        /// <param name="thisGate"></param>
+        public Gate(Gate thisGate)
+        {
+            // sets the gates left edge
+            _left = thisGate.Left;
+            // sets the gates top edge
+            _top = thisGate.Top;
+            // sets the gates body length
+            _gateLength = thisGate.Width;
+
+        } // end gate
+        #endregion
+
         #region Class Scope Variables/Constants:
         /// <summary>
         /// Left-hand side of the gates body (Helps with marking the location of the pins)
