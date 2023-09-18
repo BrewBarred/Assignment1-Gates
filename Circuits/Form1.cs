@@ -60,6 +60,11 @@ namespace Circuits
         protected Gate newGate = null;
 
         /// <summary>
+        /// The 
+        /// </summary>
+        protected Gate newCompound = null;
+
+        /// <summary>
         /// True if this input is activated (live), else false (dead)
         /// </summary>
         protected bool _isLive = false;
