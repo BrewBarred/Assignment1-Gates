@@ -8,7 +8,7 @@ namespace Circuits
     /// </summary>
     public class NotGate : Gate
     {
-        #region Constructor: NotGate(int x, int y)
+        #region Constructor: NotGate(int x, int y) : base(x, y, _WIDTH)
         /// <summary>
         /// Constructs a new 'NOT' Gate. 'NOT' gates only has 1 input (pins 0)
         /// and one output pin (pin 1).
