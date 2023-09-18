@@ -180,32 +180,6 @@ namespace Circuits
         } // end void
         #endregion
 
-        /*
-        public void Activate(List<Gate> gateList)
-        {
-            // livens this input control
-            IsLive = true;
-
-            // foreach output in the gatelist
-            foreach (Gate g in gateList)
-            {
-                // if this gate is an output
-                if (g is Output o)
-                {
-                    if (o.Evaluate() is true)
-                    {
-                        o.IsLive = true;
-
-                    } // end if
-
-                } // end if
-
-            } // end foreach
-
-
-        } // end void
-        */
-
     } // end class
 
 } // end namespace
