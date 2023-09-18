@@ -103,9 +103,6 @@ namespace Circuits
         /// <returns>True if all inputs are connected, false if any of the inputs have no connections to them</returns>
         public override bool Evaluate()
         {
-            // writes progress message of which gate type we are assessing
-            Console.WriteLine("Evaluating \"" + GetType().Name + "\", Please wait...");
-
             // if gate A has no connection to it
             if (pins[0].IsConnected is false)
             {
@@ -121,8 +118,6 @@ namespace Circuits
                 // if this output evaluates to true
                 if (gateA.Evaluate())
                 {
-                    // writes info on each gates connection status
-                    Console.WriteLine("Gate A is connected: " + pins[0].IsConnected);
                     // livens this output
                     IsLive = true;
                     // evaluates the gate(s) that this control is connected to
