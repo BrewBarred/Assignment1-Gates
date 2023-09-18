@@ -8,7 +8,7 @@ namespace Circuits
     /// </summary>
     public class OrGate : Gate
     {
-        #region Constructor: OrGate(int x, int y)
+        #region Constructor: OrGate(int x, int y) : base(x, y, _WIDTH)
         /// <summary>
         /// Constructs a new 'OR' Gate. 'OR' gates always have two input (pins 0 and 1)
         /// and one output pin (pin 2).
