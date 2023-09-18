@@ -367,8 +367,10 @@ namespace Circuits
                     // if this gate is an output
                     if (g is Output o)
                     {
-                        // increments the output count
+                        // increments the output 
                         outputCount++;
+                        // writes progress message of which gate type we are assessing
+                        Console.WriteLine("Evaluating output " + outputCount + ", Please wait...");
                         // writes output evaluation result to console window
                         Console.WriteLine("Evaluation of output " + outputCount + " has returned " + o.Evaluate());
 
