@@ -209,13 +209,7 @@ namespace Circuits
         /// </summary>
         /// <param name="x">The left edge of this gate</param>
         /// <param name="y">The top edge of this gate</param>
-        public virtual void MoveTo(int x, int y)
-        {
-            // set the position of the gate to the values passed in
-            _left = x;
-            _top = y;
-
-        } // end void
+        public abstract void MoveTo(int x, int y);
         #endregion
 
         #region ToString()

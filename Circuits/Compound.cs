@@ -23,7 +23,7 @@ namespace Circuits
         /// <summary>
         /// List of gates contained within this compound
         /// </summary>
-        List<Gate> gateList = new List<Gate>();
+        List<Gate> compound = new List<Gate>();
         #endregion
 
         #region AddGate(Gate thisGate)
@@ -33,10 +33,10 @@ namespace Circuits
         public void AddGate(Gate thisGate)
         {
             // if the gate list doesn't already contain the selected gate
-            if (!gateList.Contains(thisGate))
+            if (!compound.Contains(thisGate))
             {
                 // adds the passed gate to the compound
-                gateList.Add(thisGate);
+                compound.Add(thisGate);
                 // writes info to console
                 Console.WriteLine("Added " + thisGate.GetType().Name + " to the compound");
             }
@@ -48,16 +48,13 @@ namespace Circuits
 
         #region Draw(Graphics paper)
         /// <summary>
-        /// Draws the gate in the normal colour or in the selected colour.
+        /// Draws all of the gates in this compound
         /// </summary>
         /// <param name="paper"></param>
         public override void Draw(Graphics paper)
         {
-            // inherits the base drawing method to draw each pin for this gate
-            base.Draw(paper);
-
             // foreach gate in the compound
-            foreach (Gate thisGate in gateList)
+            foreach (Gate thisGate in compound)
             {
                 // draws the current gate
                 thisGate.Draw(paper);
@@ -76,14 +73,10 @@ namespace Circuits
         public override void MoveTo(int x, int y)
         {
             // foreach gate in the gate list
-            foreach (Gate thisGate in gateList)
+            foreach (Gate thisGate in compound)
             {
-                // the x position of the current gate
-                x += thisGate.Left;
-                // the y position of the current gate
-                y += thisGate.Top;
                 // moves this gate to the new x and y position
-                thisGate.MoveTo(x, y);
+                thisGate.MoveTo(x + thisGate.Left, y + thisGate.Top);
 
             } // end foreach
 
