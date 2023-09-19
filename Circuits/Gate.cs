@@ -27,19 +27,13 @@ namespace Circuits
         } // end gate
         #endregion
 
-        #region Constructor: Gate(Gate thisGate)
+        #region Constructor: Gate()
         /// <summary>
         /// Alternative constructor for a Gate
         /// </summary>
         /// <param name="thisGate"></param>
-        public Gate(Gate thisGate)
+        public Gate()
         {
-            // sets the gates left edge
-            _left = thisGate.Left;
-            // sets the gates top edge
-            _top = thisGate.Top;
-            // sets the gates body length
-            _gateLength = thisGate.Width;
 
         } // end gate
         #endregion
