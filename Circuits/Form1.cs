@@ -383,6 +383,9 @@ namespace Circuits
                 // foreach gate in the gates list
                 foreach (Gate g in gateList)
                 {
+                    // writes evaluation progress message
+                    Console.WriteLine(" Evaluating " + g.GetType().Name + "...");
+
                     // if this gate is an output
                     if (g is Output o)
                     {
@@ -421,7 +424,10 @@ namespace Circuits
 
                 }
                 // else if more than one input was found and evaluated
-                else Console.WriteLine("Evaluation report: \n Total outputs tested: " + outputCount + "\n Passed: " + passCount + "\n Failed: " + failCount);
+                else Console.WriteLine("Evaluation report:\n"
+                                     + " Total outputs tested: " + outputCount.ToString().PadRight(10)
+                                     + "Passed: " + passCount.ToString().PadRight(5)
+                                     + "Failed: " + failCount.ToString().PadRight(5));
 
             }
             catch (Exception ex)

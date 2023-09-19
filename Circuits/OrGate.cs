@@ -73,8 +73,8 @@ namespace Circuits
         /// <returns>True if all inputs are connected, false if any of the inputs have no connections to them</returns>
         public override bool Evaluate()
         {
-            // writes progress message of which gate type we are assessing
-            Console.WriteLine(" Evaluating \"" + GetType().Name + "\", Please wait...");
+            // writes evaluation progress message
+            Console.WriteLine("Evaluating " + GetType().Name + "...");
 
             // if gate A has no connection to it
             if (pins[0].IsConnected is false)
