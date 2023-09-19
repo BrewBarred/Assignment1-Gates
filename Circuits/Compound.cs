@@ -8,9 +8,9 @@ namespace Circuits
     {
         #region Constructor: Compound()
         /// <summary>
-        /// Constructs a new group of gates incl. pins + wires and groups them as a compound.
+        /// Constructs a new group of gates incl. pins + wires and groups them as a compound
         /// </summary>
-        public Compound()
+        public Compound(int x, int y) : base(x, y)
         {
 
 
@@ -19,12 +19,12 @@ namespace Circuits
 
         #region Constructor: Compound(Compound thisCompound)
         /// <summary>
-        /// Constructs a cloned group of gates incl. pins + wires and groups them as a compound.
+        /// Constructs a cloned group of gates incl. pins + wires and groups them as a compound
         /// </summary>
-        public Compound(Compound thisCompound)
+        public Compound(Compound thisCompound) : base(thisCompound.Left, thisCompound.Top)
         {
             // clones the passed compound list and stores it into this compound list
-            _compoundList = thisCompound._compoundList;
+            _compoundList = thisCompound.CompoundList;
 
         } // end compound
         #endregion
@@ -85,6 +85,27 @@ namespace Circuits
                 _compoundList.Add(thisGate);
                 // writes info to console
                 Console.WriteLine("Added " + thisGate.GetType().Name + " to the compound");
+
+                // if this gates x pos is less than the compound gates x pos
+                if (thisGate.Left < Left)
+                {
+                    // updates the compound gates x pos
+                    Left = thisGate.Left;
+                    // writes the changed x pos to the console
+                    Console.WriteLine("Compound gate x position changed to: " + thisGate.Left);
+
+                } // end if
+
+                // if this gates y pos is less than the compound gates y pos
+                if (thisGate.Top < Top)
+                {
+                    // updates the compound gates y pos
+                    Top = thisGate.Top;
+                    // writes the changed y pos to the console
+                    Console.WriteLine("Compound gate y position changed to: " + thisGate.Top);
+
+                } // end if
+
             }
             // else if the gate list already contains the selected gate
             else Console.WriteLine("Failed to add " + thisGate.GetType().Name + " because it is already apart of the compound!");
@@ -122,7 +143,10 @@ namespace Circuits
             foreach (Gate thisGate in CompoundList)
             {
                 // moves this gate to the new x and y position
-                thisGate.MoveTo(x, y);
+                thisGate.Left = x;
+                thisGate.Top = y;
+                // 
+                Console.WriteLine("Moved " + GetType().Name + " compound gate: X = " + x + ", Y = " + y);
 
             } // end foreach
 

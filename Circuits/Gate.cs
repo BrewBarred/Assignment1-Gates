@@ -27,13 +27,15 @@ namespace Circuits
         } // end gate
         #endregion
 
-        #region Constructor: Gate()
+        #region Constructor: Gate(int x, int y)
         /// <summary>
         /// Alternative constructor for a Gate
         /// </summary>
         /// <param name="thisGate"></param>
-        public Gate()
+        public Gate(int x, int y)
         {
+            _left = x;
+            _top = y;
 
         } // end gate
         #endregion
@@ -113,6 +115,8 @@ namespace Circuits
         {
             // gets the left hand edge of the gate
             get { return _left; }
+            // sets the left hand edge of the gate
+            set { _left = value; }
 
         } // end int
         #endregion
@@ -125,6 +129,8 @@ namespace Circuits
         {
             // gets the top edge of the gate
             get { return _top; }
+            // sets the left hand edge of the gate
+            set { _top = value; }
 
         } // end int
         #endregion

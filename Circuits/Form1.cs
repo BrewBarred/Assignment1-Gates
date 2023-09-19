@@ -332,7 +332,7 @@ namespace Circuits
             // if there a compound is not currently being created
             if (newCompound == null)
                 // creates a new instance of a compound gate
-                newCompound = new Compound();
+                newCompound = new Compound(Width, Height);
             // else if a gate has not been selected
             else MessageBox.Show("You are already creating a compound gate!");
 
@@ -476,7 +476,7 @@ namespace Circuits
             } // end if
 
             // if newGate is not nulled
-            if (newGate != null && !(newGate is Compound))
+            if (newGate != null)
             {
                 // shows the gate that we are dragging into the circuit
                 newGate.MoveTo(currentX, currentY);
@@ -501,6 +501,22 @@ namespace Circuits
             {
                 // try to start adding a wire
                 startPin = findPin(e.X, e.Y);
+            }
+            // else if a compound gate is selected
+            else if (current is Compound c)
+            {
+                // foreach gate in the compound list
+                foreach (Gate g in c.CompoundList)
+                {
+                    // if the mouse is held down on the current gate
+                    if (g.IsMouseOn(e.X, e.Y))
+                    {
+                        c.MoveTo(g.Left, g.Top);
+
+                    } // end if
+
+                } // end foreach
+
             }
             // else if the users mouse is on the currently selected gate
             else if (current.IsMouseOn(e.X, e.Y))
