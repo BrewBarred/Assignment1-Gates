@@ -6,15 +6,25 @@ namespace Circuits
 {
     public class Compound : Gate
     {
-        #region Constructor:
+        #region Constructor: Compound()
         /// <summary>
         /// Constructs a new group of gates incl. pins + wires and groups them as a compound.
         /// </summary>
-        /// <param name="x">The x position of the gate</param>
-        /// <param name="y">The y position of the gate</param>
         public Compound()
         {
 
+
+        } // end compound
+        #endregion
+
+        #region Constructor: Compound(Compound thisCompound)
+        /// <summary>
+        /// Constructs a cloned group of gates incl. pins + wires and groups them as a compound.
+        /// </summary>
+        public Compound(Compound thisCompound)
+        {
+            // clones the passed compound list and stores it into this compound list
+            _compoundList = thisCompound._compoundList;
 
         } // end compound
         #endregion
@@ -23,7 +33,43 @@ namespace Circuits
         /// <summary>
         /// List of gates contained within this compound
         /// </summary>
-        List<Gate> compound = new List<Gate>();
+        protected List<Gate> _compoundList = new List<Gate>();
+        #endregion
+
+        #region Getters/Setters
+
+        #region CompoundList
+        /// <summary>
+        /// Gets the compound list
+        /// </summary>
+        public List<Gate> CompoundList
+        {
+            // gets the compound list
+            get { return _compoundList; }
+
+        } // end compound
+        #endregion
+
+        #endregion
+
+        #region Select(bool value)
+        /// <summary>
+        /// Selects/Deselects all gates in the compound list
+        /// </summary>
+        public void IsSelected(bool value)
+        {
+            // foreach gate in the compound
+            foreach (Gate g in CompoundList)
+            {
+                // sets the current gate selection to true or false based on passed bool
+                g.Selected = value;
+
+            } // end foreach
+
+            // writes debugging info to console
+            Console.WriteLine("Compound circuit selection status = " + value);
+
+        } // end bool
         #endregion
 
         #region AddGate(Gate thisGate)
@@ -33,10 +79,10 @@ namespace Circuits
         public void AddGate(Gate thisGate)
         {
             // if the gate list doesn't already contain the selected gate
-            if (!compound.Contains(thisGate))
+            if (!_compoundList.Contains(thisGate))
             {
                 // adds the passed gate to the compound
-                compound.Add(thisGate);
+                _compoundList.Add(thisGate);
                 // writes info to console
                 Console.WriteLine("Added " + thisGate.GetType().Name + " to the compound");
             }
@@ -50,11 +96,11 @@ namespace Circuits
         /// <summary>
         /// Draws all of the gates in this compound
         /// </summary>
-        /// <param name="paper"></param>
+        /// <param name="paper">Graphics object to draw on</param>
         public override void Draw(Graphics paper)
         {
             // foreach gate in the compound
-            foreach (Gate thisGate in compound)
+            foreach (Gate thisGate in CompoundList)
             {
                 // draws the current gate
                 thisGate.Draw(paper);
@@ -73,10 +119,10 @@ namespace Circuits
         public override void MoveTo(int x, int y)
         {
             // foreach gate in the gate list
-            foreach (Gate thisGate in compound)
+            foreach (Gate thisGate in CompoundList)
             {
                 // moves this gate to the new x and y position
-                thisGate.MoveTo(x + thisGate.Left, y + thisGate.Top);
+                thisGate.MoveTo(x, y);
 
             } // end foreach
 
@@ -102,7 +148,8 @@ namespace Circuits
         /// <returns></returns>
         public override Gate Clone()
         {
-            return new Compound();
+            // clones this compound list
+            return new Compound(this);
 
         } // end void
         #endregion

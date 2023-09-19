@@ -22,6 +22,9 @@ namespace Circuits
             pins.Add(new Pin(this, true));
             // add an output pin to the gate
             pins.Add(new Pin(this, false));
+            // centres this input control around the mouse pointer
+            x = x - _WIDTH / 2;
+            y = y - _HEIGHT / 2;
             // move the gate and the pins to the position passed in
             MoveTo(x, y);
 
@@ -133,10 +136,6 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
-            // centres this input control around the mouse pointer
-            x = x - _WIDTH / 2;
-            y = y - _HEIGHT / 2;
-
             // set the position of the gate to the values passed in
             _left = x;
             _top = y;

@@ -112,8 +112,6 @@ namespace Circuits
             // if the start pin not null
             if (startPin != null)
             {
-                // writes start pin info to console
-                Console.WriteLine("wire from " + startPin + " to " + e.X + "," + e.Y);
                 // sets current x and y positions
                 currentX = e.X;
                 currentY = e.Y;
@@ -153,6 +151,8 @@ namespace Circuits
             // if the start pin is not nulled
             if (startPin != null)
             {
+                // writes start pin info to console
+                Console.WriteLine("wire from " + startPin + " to " + e.X + "," + e.Y);
                 // see if we can insert a wire
                 Pin endPin = findPin(e.X, e.Y);
 
@@ -532,13 +532,11 @@ namespace Circuits
                 current.Selected = false;
                 // nulls the selected gate
                 current = null;
-                // redraws the control
-                Invalidate();
 
             } // end if
 
             // check if we are inserting a new gate
-            if (newGate != null && !(newGate is Compound))
+            if (newGate != null)
             {
                 // moves the new gate to the passed x/y position
                 newGate.MoveTo(e.X, e.Y);
@@ -546,67 +544,77 @@ namespace Circuits
                 gateList.Add(newGate);
                 // nulls the newGate
                 newGate = null;
-                // redraws the control
-                Invalidate();
             }
             // else if we are not inserting a new gate
             else
             {
-                // search for the first gate under the mouse position
+                // foreach gate in the gatelist
                 foreach (Gate g in gateList)
                 {
-                    // if the mouse is on the current gate
-                    if (g.IsMouseOn(e.X, e.Y))
+                    // if this gate is a compound gate
+                    if (g is Compound c)
                     {
-                        // if this gate is an input
-                        if (g is Input i)
+                        // foreach gate in the compound list
+                        foreach (Gate thisGate in c.CompoundList)
                         {
-                            // and if this input is currently live
-                            if (i.IsLive)
-                                // kills the circuit
-                                i.IsLive = false;
-                            // else if this input is currently dead
-                            else
+                            // if the mouse is hovering over one of these gates on click
+                            if (thisGate.IsMouseOn(e.X, e.Y))
                             {
-                                // livens the circuit
-                                i.IsLive = true;
+                                // selects all gates in the compound list
+                                c.Selected = true;
+                                // sets the current gate to this compound
+                                current = c;
+                                // breaks out of the loop as there is no need to keep checking
+                                // if one of the gates have been clicked on
+                                break;
 
                             } // end if
 
-                            // writes current circuit power status to the console
-                            Console.WriteLine("Power on: " + i.IsLive);
+                        } // end foreach
 
-                            // foreach gate in the gatelist
-                            foreach (Gate thisGate in gateList)
-                                // if this gate is an output
-                                if (thisGate is Output o)
-                                    // evaluates this output to see if it should be livened or not
-                                    o.Evaluate();
-
-                        } // end if
-
-                        // selects the current gate
-                        g.Selected = true;
-                        // sets the currently selected gate to this gate
-                        current = g;
-
-                        // if a compound is currently being built
+                    }
+                    // if the mouse is hovering over this gate current when mouse is clicked
+                    else if (g.IsMouseOn(e.X, e.Y))
+                    {
+                        // and if a compound is currently being strung together
                         if (newCompound != null)
                         {
                             // adds the selected gate to the compound
                             newCompound.AddGate(g);
+                        }
+                        // else if a compound is not being strung together and this gate is an input
+                        else if (g is Input i)
+                        {
+                            // if this input is currently live
+                            if (i.IsLive)
+                                // kills this input
+                                i.IsLive = false;
+                            // else if this input is currently dead
+                            else
+                                // livens this input
+                                i.IsLive = true;
 
-                        } // end if
+                            // writes current circuit power status to the console
+                            Console.WriteLine("Power on: " + i.IsLive);
 
-                        // redraws the control
-                        Invalidate();
-                        break;
+                        }
+                        // else if a compound is not being strung and this gate is not an input
+                        else
+                        {
+                            // selects this gate
+                            g.Selected = true;
+                            // sets this gate as the currently selected gate
+                            current = g;
+                        }
 
                     } // end if
 
                 } // end foreach
 
             } // end if
+
+            // redraws the control
+            Invalidate();
 
         } // end void
         #endregion

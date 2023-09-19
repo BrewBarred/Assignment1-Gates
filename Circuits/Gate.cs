@@ -84,6 +84,25 @@ namespace Circuits
         protected List<Pin> pins = new List<Pin>();
         #endregion
 
+        #region Abstract Methods:
+        /// <summary>
+        /// Makes a copy of the extended control
+        /// </summary>
+        /// <returns></returns>
+        public abstract Gate Clone();
+        /// <summary>
+        /// Evaluates circuits for validity
+        /// </summary>
+        /// <returns></returns>
+        public abstract bool Evaluate();
+        /// <summary>
+        /// Moves a gate to the passed x and y position
+        /// </summary>
+        /// <param name="x">The left edge of this gate</param>
+        /// <param name="y">The top edge of this gate</param>
+        public abstract void MoveTo(int x, int y);
+        #endregion
+
         #region Getters/Setters:
 
         #region Left
@@ -126,20 +145,30 @@ namespace Circuits
         /// <summary>
         /// Gets and sets whether the gate is selected or not.
         /// </summary>
-        public bool Selected
+        public virtual bool Selected
         {
-            // gets the selection status of the gate
+            // gets the selection status of this gate
             get { return _selected; }
-            // sets the selection status of the gate
+            // sets the selection status of this gate
             set
-            { _selected = value; }
+            {
+                // if this gate is a compound gate
+                if (this is Compound c)
+                    // sets each gate in the compound to the passed value
+                    c.IsSelected(value);
+                // sets the selection status of this gate to the passed value
+                _selected = value;
+
+            } // end set
 
         } // end bool
+        #endregion
 
+        #region PinList
         /// <summary>
         /// Gets the gates pin list
         /// </summary>
-        public dynamic PinList
+        public List<Pin> PinList
         {
             // gets the pin list
             get { return pins; }
@@ -181,11 +210,6 @@ namespace Circuits
 
         #endregion
 
-        #region Abstract Methods:
-        public abstract Gate Clone();
-        public abstract bool Evaluate();
-        #endregion
-
         #region Draw(Graphics paper)
         /// <summary>
         /// Base method for drawing a gate - this will be overriden in each
@@ -200,16 +224,6 @@ namespace Circuits
                 p.Draw(paper);
 
         } // end void
-        #endregion
-
-        #region MoveTo(int x, int y)
-        /// <summary>
-        /// Base method for moving a gate - this will be overriden in each
-        /// unique gate class to move the pins too
-        /// </summary>
-        /// <param name="x">The left edge of this gate</param>
-        /// <param name="y">The top edge of this gate</param>
-        public abstract void MoveTo(int x, int y);
         #endregion
 
     } // end class
