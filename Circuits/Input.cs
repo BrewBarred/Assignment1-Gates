@@ -104,6 +104,9 @@ namespace Circuits
         /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
         public override bool Evaluate()
         {
+            // writes evaluation progress message
+            Console.WriteLine("Evaluating " + GetType().Name + "...");
+
             // if this input is live/activated
             if (IsLive)
             {
