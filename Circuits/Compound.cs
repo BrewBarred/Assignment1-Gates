@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Circuits
@@ -11,8 +12,9 @@ namespace Circuits
         /// </summary>
         /// <param name="x">The x position of the gate</param>
         /// <param name="y">The y position of the gate</param>
-        public Compound(Gate thisGate) : base(thisGate)
+        public Compound()
         {
+
 
         } // end compound
         #endregion
@@ -24,14 +26,22 @@ namespace Circuits
         List<Gate> gateList = new List<Gate>();
         #endregion
 
-        #region AddGate()
+        #region AddGate(Gate thisGate)
         /// <summary>
         /// Adds a gate to this compound
         /// </summary>
         public void AddGate(Gate thisGate)
         {
-            // adds the passed gate to the compound
-            gateList.Add(thisGate);
+            // if the gate list doesn't already contain the selected gate
+            if (!gateList.Contains(thisGate))
+            {
+                // adds the passed gate to the compound
+                gateList.Add(thisGate);
+                // writes info to console
+                Console.WriteLine("Added " + thisGate.GetType().Name + " to the compound");
+            }
+            // else if the gate list already contains the selected gate
+            else Console.WriteLine("Failed to add " + thisGate.GetType().Name + " because it is already apart of the compound!");
 
         } // end void
         #endregion
@@ -65,26 +75,17 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
+            // foreach gate in the gate list
             foreach (Gate thisGate in gateList)
             {
-                x = thisGate.Left;
-                y = thisGate.Top;
-                int width = thisGate.Width;
-                // centres this input control around the mouse pointer
-                x = x - width / 2;
-                y = y - _HEIGHT / 2;
+                // the x position of the current gate
+                x += thisGate.Left;
+                // the y position of the current gate
+                y += thisGate.Top;
+                // moves this gate to the new x and y position
+                thisGate.MoveTo(x, y);
 
-                // uses the base MoveTo method to move the gates body
-                base.MoveTo(x, y);
-
-                // sets the position of the gates pins:
-
-                // pins 0 and 1 = input pins (left side)
-                pins[0].Location = new Point(x - _GAP, y + _GAP);
-                pins[1].Location = new Point(x - _GAP, y + _HEIGHT - _GAP);
-                // pin 2 = output pin (right side)
-                pins[2].Location = new Point(x + width + _GAP, y + _HEIGHT / 2);
-            }
+            } // end foreach
 
         } // end void
         #endregion
@@ -108,8 +109,7 @@ namespace Circuits
         /// <returns></returns>
         public override Gate Clone()
         {
-
-            return null;
+            return new Compound();
 
         } // end void
         #endregion

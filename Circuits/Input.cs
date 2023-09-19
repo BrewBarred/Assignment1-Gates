@@ -158,10 +158,9 @@ namespace Circuits
             // centres this input control around the mouse pointer
             x = x - _WIDTH / 2;
             y = y - _HEIGHT / 2;
+
             // uses the base MoveTo method to move the gates body
             base.MoveTo(x, y);
-
-            // sets the position of the gates pins:
 
             // pin 0 = output pin (right side)
             pins[0].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);

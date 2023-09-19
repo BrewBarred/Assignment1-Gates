@@ -62,7 +62,7 @@ namespace Circuits
         /// <summary>
         /// The 
         /// </summary>
-        protected Gate newCompound = null;
+        protected Compound newCompound = null;
 
         /// <summary>
         /// True if this input is activated (live), else false (dead)
@@ -330,7 +330,12 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonStartCompound_Click(object sender, EventArgs e)
         {
-
+            // if there a compound is not currently being created
+            if (newCompound == null)
+                // creates a new instance of a compound gate
+                newCompound = new Compound();
+            // else if a gate has not been selected
+            else MessageBox.Show("You are already creating a compound gate!");
 
         } // end void
         #endregion
@@ -343,7 +348,14 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonEndCompound_Click(object sender, EventArgs e)
         {
-
+            // if a compound is currently being created
+            if (newCompound != null)
+                // stores the new compound into the new gate variable
+                newGate = newCompound;
+            // else if a compound is not being created, shows error message
+            else MessageBox.Show("You cannot end a compound that hasn't been started yet!");
+            // nulls the new compound variable ready for a new one to be created
+            newCompound = null;
 
         } // end void
         #endregion
@@ -543,6 +555,15 @@ namespace Circuits
                         g.Selected = true;
                         // sets the currently selected gate to this gate
                         current = g;
+
+                        // if a compound is currently being built
+                        if (newCompound != null)
+                        {
+                            // adds the selected gate to the compound
+                            newCompound.AddGate(g);
+
+                        } // end if
+
                         // redraws the control
                         Invalidate();
                         break;
