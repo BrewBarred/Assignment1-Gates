@@ -77,23 +77,23 @@ namespace Circuits
             if (pins[0].IsConnected is false)
             {
                 // writes error to console
-                Console.WriteLine("Evaluation Error: Input pin 1 on \"" + GetType().Name + "\" is not connected to anything!");
+                Console.WriteLine(" Evaluation Error: Input pin 1 on \"" + GetType().Name + "\" is not connected to anything!");
             }
-            // else if gate B has no connection to it
-            else if (pins[1].IsConnected is false)
+            // if gate B has no connection to it
+            if (pins[1].IsConnected is false)
             {
                 // writes error to console
-                Console.WriteLine("Evaluation Error: Input pin 2 on \"" + GetType().Name + "\" is not connected to anything!");
+                Console.WriteLine(" Evaluation Error: Input pin 2 on \"" + GetType().Name + "\" is not connected to anything!");
             }
             // else if all input pins have a connection
-            else
+            else if (pins[0].IsConnected is true)
             {
                 // stores the gate that is connected to the 1st input pin of this control
                 Gate gateA = pins[0].InputWire.FromPin.Owner;
                 // stores the gate that is connected to the 2nd input pin of this control
                 Gate gateB = pins[1].InputWire.FromPin.Owner;
                 // writes info on each gates connection status
-                Console.WriteLine("\"" + GetType().Name + "\"" + "Gate A is connected: \"" + pins[0].IsConnected + "\", Gate B is connected: \"" + pins[1].IsConnected);
+                Console.WriteLine(" " + GetType().Name + ": " + "Gate A is connected: \"" + pins[0].IsConnected + "\", Gate B is connected: " + pins[1].IsConnected);
                 // evaluates the gate(s) that this control is connected to
                 return gateA.Evaluate() && gateB.Evaluate();
 

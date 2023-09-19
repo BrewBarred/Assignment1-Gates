@@ -318,6 +318,7 @@ namespace Circuits
             if (current != null)
                 // inserts a copy of the gate that is currently selected
                 newGate = current.Clone();
+            else MessageBox.Show("You must select a gate before trying to clone it!");
 
         } // end void
         #endregion
@@ -370,8 +371,14 @@ namespace Circuits
         {
             try
             {
+                // writes progress message of which gate type we are assessing
+                Console.WriteLine("Beginning evaluation process... Please Wait...");
                 // counts the number of outputs found
                 int outputCount = 0;
+                // counts the number of successful evaluations
+                int passCount = 0;
+                // counts the number of failed evaluations
+                int failCount = 0;
 
                 // foreach gate in the gates list
                 foreach (Gate g in gateList)
@@ -383,8 +390,24 @@ namespace Circuits
                         outputCount++;
                         // writes progress message of which gate type we are assessing
                         Console.WriteLine("Evaluating output " + outputCount + ", Please wait...");
-                        // writes output evaluation result to console window
-                        Console.WriteLine("Evaluation of output " + outputCount + " has returned " + o.Evaluate());
+
+                        // if this output evaluation returns successful
+                        if (o.Evaluate())
+                        {
+                            // writes successful output evaluation result to console window
+                            Console.WriteLine(" Output " + outputCount + ": Success!");
+                            // increments the pass count
+                            passCount++;
+                        }
+                        // else if 
+                        else
+                        {
+                            // writes failed output evaluation result to console window
+                            Console.WriteLine(" Output " + outputCount + ": Failed!");
+                            // increments the fail count
+                            failCount++;
+
+                        } // end if
 
                     } // end if
 
@@ -393,14 +416,17 @@ namespace Circuits
                 if (outputCount is 0)
                 {
                     // writes error to console
-                    Console.WriteLine("Error! Failed to find any outputs to evaluate!");
+                    Console.WriteLine("Evaluation error! Failed to find any outputs to evaluate!");
+                    return;
 
-                } // end if
+                }
+                // else if more than one input was found and evaluated
+                else Console.WriteLine("Evaluation report: \n Total outputs tested: " + outputCount + "\n Passed: " + passCount + "\n Failed: " + failCount);
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Evaluation has failed due to: " + ex.Message);
+                Console.WriteLine("Evaluation error! Evaluation has failed due to: " + ex.Message);
 
             } // end try
 
