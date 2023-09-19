@@ -139,13 +139,28 @@ namespace Circuits
         /// <param name="y">The y position to move the gate to</param>
         public override void MoveTo(int x, int y)
         {
+            // calculates the difference between current x/y and mouse x/y positions
+            int xDiff = x - Left;
+            int yDiff = y - Top;
+            Left = x;
+            Top = y;
+
             // foreach gate in the gate list
             foreach (Gate thisGate in CompoundList)
             {
                 // moves this gate to the new x and y position
-                thisGate.Left = x;
-                thisGate.Top = y;
-                // 
+                thisGate.Left += xDiff;
+                thisGate.Top += yDiff;
+
+                // foreach pin on this gate
+                foreach (Pin p in thisGate.PinList)
+                {
+                    // moves pin with the gate
+                    p.Location = new Point(p.X + xDiff, p.Y + yDiff);
+
+                } // end foreach
+
+                // writes debugging info to console
                 Console.WriteLine("Moved " + GetType().Name + " compound gate: X = " + x + ", Y = " + y);
 
             } // end foreach

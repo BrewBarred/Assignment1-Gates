@@ -166,6 +166,7 @@ namespace Circuits
         /// </summary>
         public int X
         { get { return Location.X; } }
+
         #endregion
 
         #region Y
