@@ -103,7 +103,7 @@ namespace Circuits
             else
             {
                 // writes an error to the console
-                Console.WriteLine("Error! " + base.ToString() + " has not been turned on!");
+                Console.WriteLine(" Error! " + base.ToString() + " has not been turned on!");
                 return false;
 
             } // end if
