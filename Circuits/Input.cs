@@ -93,9 +93,6 @@ namespace Circuits
         /// <returns>True if the input is activated/live, false if the output is activated/live</returns>
         public override bool Evaluate()
         {
-            // writes evaluation progress message
-            Console.WriteLine("Evaluating " + GetType().Name + "...");
-
             // if this input is live/activated
             if (IsLive)
             {
@@ -162,8 +159,9 @@ namespace Circuits
             x = x - _WIDTH / 2;
             y = y - _HEIGHT / 2;
 
-            // uses the base MoveTo method to move the gates body
-            base.MoveTo(x, y);
+            // set the position of the gate to the values passed in
+            _left = x;
+            _top = y;
 
             // pin 0 = output pin (right side)
             pins[0].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);

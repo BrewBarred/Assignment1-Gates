@@ -123,8 +123,6 @@ namespace Circuits
             // else if the start x and y positions are greater than 0 and current isn't null
             else if (startX >= 0 && startY >= 0 && current != null)
             {
-                // writes mouse move info to console
-                Console.WriteLine("mouse move to " + e.X + "," + e.Y);
                 // moves the currently selected gate to the new location
                 current.MoveTo(currentX + (e.X - startX), currentY + (e.Y - startY));
                 // causes the control to be redrawn at the new location
@@ -351,8 +349,12 @@ namespace Circuits
         {
             // if a compound is currently being created
             if (newCompound != null)
+            {
                 // stores the new compound into the new gate variable
                 newGate = newCompound;
+                // writes info to console
+                Console.WriteLine("Finished building compound circuit");
+            }
             // else if a compound is not being created, shows error message
             else MessageBox.Show("You cannot end a compound that hasn't been started yet!");
             // nulls the new compound variable ready for a new one to be created
@@ -402,7 +404,7 @@ namespace Circuits
                             // increments the pass count
                             passCount++;
                         }
-                        // else if 
+                        // else if this output evaluation is unsuccessful
                         else
                         {
                             // writes failed output evaluation result to console window
@@ -474,7 +476,7 @@ namespace Circuits
             } // end if
 
             // if newGate is not nulled
-            if (newGate != null)
+            if (newGate != null && !(newGate is Compound))
             {
                 // shows the gate that we are dragging into the circuit
                 newGate.MoveTo(currentX, currentY);
@@ -536,7 +538,7 @@ namespace Circuits
             } // end if
 
             // check if we are inserting a new gate
-            if (newGate != null)
+            if (newGate != null && !(newGate is Compound))
             {
                 // moves the new gate to the passed x/y position
                 newGate.MoveTo(e.X, e.Y);
