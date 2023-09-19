@@ -86,17 +86,6 @@ namespace Circuits
         } // end void
         #endregion
 
-        #region Clone()
-        /// <summary>
-        /// Makes a copy of this gate
-        /// </summary>
-        public override Gate Clone()
-        {
-            return new Input(this);
-
-        } // end void
-        #endregion
-
         #region Evaluate()
         /// <summary>
         /// Evaluates if this input is currently activated or not
