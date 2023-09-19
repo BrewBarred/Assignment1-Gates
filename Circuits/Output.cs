@@ -107,7 +107,7 @@ namespace Circuits
             if (pins[0].IsConnected is false)
             {
                 // writes error to console
-                Console.WriteLine("Evaluation Error: Input pin 1 on \"" + GetType().Name + "\" is not connected to anything!");
+                Console.WriteLine(" Evaluation Error: Input pin 1 on \"" + GetType().Name + "\" is not connected to anything!");
             }
             // else if all input pins have a connection
             else

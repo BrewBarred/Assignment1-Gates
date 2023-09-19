@@ -72,13 +72,13 @@ namespace Circuits
         public override bool Evaluate()
         {
             // writes progress message of which gate type we are assessing
-            Console.WriteLine("Evaluating \"" + GetType().Name + "\", Please wait...");
+            Console.WriteLine(" Evaluating \"" + GetType().Name + "\", Please wait...");
 
             // if gate A has no connection to it
             if (pins[0].IsConnected is false)
             {
                 // writes error to console
-                Console.WriteLine("Evaluation Error: Input pin on \"" + GetType().Name + "\" is not connected to anything!");
+                Console.WriteLine(" Evaluation Error: Input pin on \"" + GetType().Name + "\" is not connected to anything!");
             }
             // else if all input pins have a connection
             else

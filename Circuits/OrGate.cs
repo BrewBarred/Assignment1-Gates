@@ -74,22 +74,22 @@ namespace Circuits
         public override bool Evaluate()
         {
             // writes progress message of which gate type we are assessing
-            Console.WriteLine("Evaluating \"" + GetType().Name + "\", Please wait...");
+            Console.WriteLine(" Evaluating \"" + GetType().Name + "\", Please wait...");
 
             // if gate A has no connection to it
             if (pins[0].IsConnected is false)
             {
                 // writes error to console
-                Console.WriteLine("Evaluation Error: Input pin 1 on \"" + GetType().Name + "\" is not connected to anything!");
+                Console.WriteLine(" Evaluation Error: Input pin 1 on \"" + GetType().Name + "\" is not connected to anything!");
             }
-            // else if gate B has no connection to it
-            else if (pins[1].IsConnected is false)
+            // if gate B has no connection to it
+            if (pins[1].IsConnected is false)
             {
                 // writes error to console
-                Console.WriteLine("Evaluation Error: Input pin 2 on \"" + GetType().Name + "\" is not connected to anything!");
+                Console.WriteLine(" Evaluation Error: Input pin 2 on \"" + GetType().Name + "\" is not connected to anything!");
             }
             // else if all input pins have a connection
-            else
+            else if (pins[0].IsConnected is true)
             {
                 // stores the gate that is connected to the 1st input pin of this control
                 Gate gateA = pins[0].InputWire.FromPin.Owner;
