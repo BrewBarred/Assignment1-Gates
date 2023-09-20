@@ -591,7 +591,7 @@ namespace Circuits
                         } // end foreach
 
                     }
-                    // if the mouse is hovering over this gate current when mouse is clicked
+                    // else if the mouse is hovering over this gate when mouse is clicked
                     else if (g.IsMouseOn(e.X, e.Y))
                     {
                         // and if a compound is currently being strung together
@@ -600,8 +600,9 @@ namespace Circuits
                             // adds the selected gate to the compound
                             newCompound.AddGate(g);
                         }
-                        // else if a compound is not being strung together and this gate is an input
-                        else if (g is Input i)
+
+                        // if this gate is an input
+                        if (g is Input i)
                         {
                             // if this input is currently live
                             if (i.IsLive)
@@ -614,6 +615,9 @@ namespace Circuits
 
                             // writes current circuit power status to the console
                             Console.WriteLine("Power on: " + i.IsLive);
+
+                            // sets this input to the current gate so it can be moved
+                            current = i;
 
                         }
                         // else if a compound is not being strung and this gate is not an input
