@@ -131,15 +131,15 @@ namespace Circuits
 
         #endregion
 
-        #region findPin(int x, int y)
+        #region FindPin(int x, int y)
         /// <summary>
-        /// Finds the pin that is close to (x,y), or returns
-        /// null if there are no pins close to the position.
+        /// Finds the pin that is closest to the passed x, y coordinates.
+        /// Returns null if there are no pins close to the these coordinates.
         /// </summary>
         /// <param name="x">X position of the pin to find</param>
         /// <param name="y">Y position of the pin to find</param>
         /// <returns>The pin that has been selected</returns>
-        public Pin findPin(int x, int y)
+        public Pin FindPin(int x, int y)
         {
             // foreach gate in gateslist
             foreach (Gate g in _gateList)
@@ -164,39 +164,29 @@ namespace Circuits
 
         #region Form1_MouseMove(object sender, MouseEventArgs e)
         /// <summary>
-        /// Handles all events when the mouse is moving.
+        /// Handles all mouse move events
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
             // if the start pin not null
-            if (_startPin != null)
+            if (_startPin != null || _newGate != null)
             {
                 // sets current x and y positions
                 _currentX = e.X;
                 _currentY = e.Y;
-                // causes the control to be redrawn
-                Invalidate();
             }
             // else if the start x and y positions are greater than 0 and current isn't null
             else if (_startX >= 0 && _startY >= 0 && _current != null)
             {
                 // moves the currently selected gate to the new location
                 _current.MoveTo(_currentX + (e.X - _startX), _currentY + (e.Y - _startY));
-                // causes the control to be redrawn at the new location
-                Invalidate();
-            }
-            // else if the new gate is not nulled
-            else if (_newGate != null)
-            {
-                // sets the current x and y positions
-                _currentX = e.X;
-                _currentY = e.Y;
-                // causes the control to be redrawn
-                Invalidate();
 
             } // end if
+
+            // causes the control to be redrawn
+            Invalidate();
 
         } // end void
         #endregion
@@ -215,7 +205,7 @@ namespace Circuits
                 // writes start pin info to console
                 Console.WriteLine("wire from " + _startPin + " to " + e.X + "," + e.Y);
                 // see if we can insert a wire
-                Pin endPin = findPin(e.X, e.Y);
+                Pin endPin = FindPin(e.X, e.Y);
 
                 // if endPin is not nulled
                 if (endPin != null)
@@ -373,10 +363,15 @@ namespace Circuits
         /// <param name="e"></param>
         private void toolStripButtonCopy_Click(object sender, EventArgs e)
         {
-            // if a gate is currently selected
-            if (_current != null)
+            // if a compound gate is currently selected
+            if (_current is Compound o)
+                // clone the original compound
+                _newGate = o.Clone();
+            // else if a normal gate is currently selected
+            else if (_current != null)
                 // inserts a copy of the gate that is currently selected
                 _newGate = _current.Clone();
+            // else if nothing is currently selected, writes error message to user
             else MessageBox.Show("You must select a gate before trying to clone it!");
 
         } // end void
@@ -435,6 +430,7 @@ namespace Circuits
             }
             // else if a compound is not being created, shows error message
             else MessageBox.Show("You cannot end a compound that hasn't been started yet!");
+
             // nulls the new compound variable ready for a new one to be created
             _newCompound = null;
 
@@ -586,7 +582,7 @@ namespace Circuits
 
         #region Form1_MouseDown(object sender, MouseEventArgs e)
         /// <summary>
-        /// Handles events while the mouse button is pressed down.
+        /// Handles all mouse down events
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -596,7 +592,7 @@ namespace Circuits
             if (_current is null)
             {
                 // try to start adding a wire
-                _startPin = findPin(e.X, e.Y);
+                _startPin = FindPin(e.X, e.Y);
             }
             // else if the users mouse is on the currently selected gate
             else if (_current.IsMouseOn(e.X, e.Y) || _current is Compound)
@@ -615,7 +611,7 @@ namespace Circuits
 
         #region Form1_MouseClick(object sender, MouseEventArgs e)
         /// <summary>
-        /// Handles all events when a mouse is clicked in the form.
+        /// Handles all mouse click events
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -634,7 +630,7 @@ namespace Circuits
                 // nulls the selected gate
                 _current = null;
 
-            } // end if// end if
+            } // end if
 
             // check if we are inserting a new gate
             if (_newGate != null)
@@ -663,7 +659,7 @@ namespace Circuits
                             if (thisGate.IsMouseOn(e.X, e.Y))
                             {
                                 // if this gate is an input and a new compound is not being constructed
-                                if (thisGate is Input i && _newCompound == null)
+                                if (thisGate is Input i)
                                 {
                                     // if this input is currently live
                                     if (i.IsLive)
@@ -671,24 +667,19 @@ namespace Circuits
                                         i.IsLive = false;
                                     // else if this input is currently dead
                                     else
-                                    {
                                         // livens this input
                                         i.IsLive = true;
 
-                                    } // end if
-
+                                    // evaluates all outputs to see if they should be on/off
+                                    CheckOutputs();
                                 }
-                                // else if this gate is not an input or a new compound is under construction
-                                else
-                                {
-                                    // selects all gates in the compound list
-                                    c.Selected = true;
-                                    // sets the current gate to this compound
-                                    _current = c;
-                                    // breaks out of the loop as there is no need to keep checking
-                                    // if one of the gates have been clicked on
-                                    break;
-                                }
+                                // selects all gates in the compound list
+                                c.Selected = true;
+                                // sets the current gate to this compound
+                                _current = c;
+                                // breaks out of the loop as there is no need to keep checking
+                                // if one of the gates have been clicked on
+                                break;
 
                             } // end if
 
@@ -715,11 +706,11 @@ namespace Circuits
                                 i.IsLive = false;
                             // else if this input is currently dead
                             else
-                            {
                                 // livens this input
                                 i.IsLive = true;
 
-                            } // end if
+                            // evaluates all outputs to see if they should be on/off
+                            CheckOutputs();
 
                             // writes current circuit power status to the console
                             Console.WriteLine("Power on: " + i.IsLive);
@@ -746,8 +737,6 @@ namespace Circuits
 
             } // end if
 
-            // evaluates all outputs to see if they should be on/off
-            CheckOutputs();
             // redraws all controls
             Invalidate();
 

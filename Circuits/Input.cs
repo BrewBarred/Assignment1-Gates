@@ -54,7 +54,6 @@ namespace Circuits
         /// True if this input is live, false if it is dead
         /// </summary>
         bool _isLive;
-
         #endregion
 
         #region Getters/Setters
@@ -112,6 +111,28 @@ namespace Circuits
         } // end bool
         #endregion
 
+        #region MoveTo(int x, int y)
+        /// <summary>
+        /// Moves the gate to the position specified
+        /// </summary>
+        /// <param name="x">The x position to move the gate to</param>
+        /// <param name="y">The y position to move the gate to</param>
+        public override void MoveTo(int x, int y)
+        {
+            // centres this input control around the mouse pointer
+            x = x - _WIDTH / 2;
+            y = y - _HEIGHT / 2;
+
+            // set the position of the gate to the values passed in
+            _left = x;
+            _top = y;
+
+            // pin 0 = output pin (right side)
+            pins[0].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
+
+        } // end void
+        #endregion
+
         #region Draw(Graphics paper)
         /// <summary>
         /// Draws the input control in a set color based on whether it is live or not
@@ -131,6 +152,10 @@ namespace Circuits
             if (IsLive)
                 // sets the brush color to green
                 brushColor = Color.Green;
+            // else if this input is currently selected
+            else if (Selected)
+                // sets the brush color to red
+                brushColor = Color.Red;
             // else if this input is dead
             else
                 // sets the brush color to gray
@@ -144,28 +169,6 @@ namespace Circuits
             SolidBrush brush = new SolidBrush(brushColor);
             // draws a colored square based on whether the input is live or dead
             paper.FillRectangle(brush, Left, Top, Width, _HEIGHT);
-
-        } // end void
-        #endregion
-
-        #region MoveTo(int x, int y)
-        /// <summary>
-        /// Moves the gate to the position specified
-        /// </summary>
-        /// <param name="x">The x position to move the gate to</param>
-        /// <param name="y">The y position to move the gate to</param>
-        public override void MoveTo(int x, int y)
-        {
-            // centres this input control around the mouse pointer
-            x = x - _WIDTH / 2;
-            y = y - _HEIGHT / 2;
-
-            // set the position of the gate to the values passed in
-            _left = x;
-            _top = y;
-
-            // pin 0 = output pin (right side)
-            pins[0].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
 
         } // end void
         #endregion

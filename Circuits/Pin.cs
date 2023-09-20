@@ -121,11 +121,7 @@ namespace Circuits
         {
             // gets the wire that is coming into this pin
             get
-            {
-                // returns the wire coming into this pin
-                return _connection;
-
-            } // end get
+            { return _connection; }
 
             // sets the wire that is coming into this pin
             set
@@ -193,7 +189,8 @@ namespace Circuits
             int diffX = mouseX - _location.X;
             // sets y diff to the difference between mouse y pos and pings y pos
             int diffY = mouseY - _location.Y;
-            // true if diff x squared plus diff y squared is less than 25 (don't ask me why)
+            // true if diff x squared plus diff y squared is less than 25
+            // (I think this allows us to drop wires in close approximation)
             return diffX * diffX + diffY * diffY <= 5 * 5;
 
         } // end bool
@@ -243,21 +240,6 @@ namespace Circuits
                 return "OutPin(" + Location.X + "," + Location.Y + ")";
 
         } // end string
-
-        #region Info()
-        /// <summary>
-        /// Returns a string that describes which pin is currently being processed 
-        /// </summary>
-        /// <returns>A string describing the current pin number</returns>
-        public string Info()
-        {
-            // fetches this gates whole pin list, searches for the index of this
-            // particular pin and returns it's index number + 1 (easier to read)
-            return "pin " + (Owner.PinList.IndexOf(this) + 1);
-
-        } // end string
-        #endregion
-
         #endregion
 
     } // end class

@@ -139,6 +139,30 @@ namespace Circuits
         } // end bool
         #endregion
 
+        #region MoveTo(int x, int y)
+        /// <summary>
+        /// Moves the gate to the position specified
+        /// </summary>
+        /// <param name="x">The x position to move the gate to</param>
+        /// <param name="y">The y position to move the gate to</param>
+        public override void MoveTo(int x, int y)
+        {
+            // centres the bulb around the mouse pointer
+            x = x - _WIDTH;
+            y = y - _HEIGHT / 2;
+
+            // set the position of the gate to the values passed in
+            _left = x;
+            _top = y;
+
+            // sets the position of the gates pins:
+
+            // pin 0 = input pin (bottom side)
+            pins[0].Location = new Point(x, y + (int)(_HEIGHT * 1.87));
+
+        } // end void
+        #endregion
+
         #region Draw(Graphics paper)
         /// <summary>
         /// Draws the output control in a set color based on whether it is live or not
@@ -188,30 +212,6 @@ namespace Circuits
 
             // draws a colored ellipse to represent lightbulb
             paper.FillEllipse(brush, new Rectangle(Left, Top, bulbWidth, bulbHeight));
-
-        } // end void
-        #endregion
-
-        #region MoveTo(int x, int y)
-        /// <summary>
-        /// Moves the gate to the position specified
-        /// </summary>
-        /// <param name="x">The x position to move the gate to</param>
-        /// <param name="y">The y position to move the gate to</param>
-        public override void MoveTo(int x, int y)
-        {
-            // centres the bulb around the mouse pointer
-            x = x - _WIDTH;
-            y = y - _HEIGHT / 2;
-
-            // set the position of the gate to the values passed in
-            _left = x;
-            _top = y;
-
-            // sets the position of the gates pins:
-
-            // pin 0 = input pin (bottom side)
-            pins[0].Location = new Point(x, y + (int)(_HEIGHT * 1.87));
 
         } // end void
         #endregion

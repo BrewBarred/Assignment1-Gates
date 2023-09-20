@@ -54,7 +54,6 @@ namespace Circuits
         /// Width of an AndGates body
         /// </summary>
         protected const int _WIDTH = 55;
-
         #endregion
 
         #region Clone()
@@ -106,28 +105,6 @@ namespace Circuits
         } // end bool
         #endregion
 
-        #region Draw(Graphics paper)
-        /// <summary>
-        /// Draws the gate in the normal colour or in the selected colour.
-        /// </summary>
-        /// <param name="paper"></param>
-        public override void Draw(Graphics paper)
-        {
-            // inherits the base drawing method to draw each pin for this gate
-            base.Draw(paper);
-
-            // if this gate is currently selected
-            if (Selected)
-                // draws a selected version of this gate object
-                paper.DrawImage(Properties.Resources.AndGateAllRed, Left, Top);
-            // else if this gate is not currently selected
-            else
-                // draws an unselected version of this gate object
-                paper.DrawImage(Properties.Resources.AndGate, Left, Top);
-
-        } // end void
-        #endregion
-
         #region MoveTo(int x, int y)
         /// <summary>
         /// Moves the gate to the position specified
@@ -147,6 +124,28 @@ namespace Circuits
             pins[1].Location = new Point(x - _GAP, y + _HEIGHT - _GAP);
             // pin 2 = output pin (right side)
             pins[2].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
+
+        } // end void
+        #endregion
+
+        #region Draw(Graphics paper)
+        /// <summary>
+        /// Draws the gate in the normal colour or in the selected colour.
+        /// </summary>
+        /// <param name="paper"></param>
+        public override void Draw(Graphics paper)
+        {
+            // inherits the base drawing method to draw each pin for this gate
+            base.Draw(paper);
+
+            // if this gate is currently selected
+            if (Selected)
+                // draws a selected version of this gate object
+                paper.DrawImage(Properties.Resources.AndGateAllRed, Left, Top);
+            // else if this gate is not currently selected
+            else
+                // draws an unselected version of this gate object
+                paper.DrawImage(Properties.Resources.AndGate, Left, Top);
 
         } // end void
         #endregion
