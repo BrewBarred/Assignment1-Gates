@@ -60,11 +60,8 @@ namespace Circuits
         {
             // foreach gate in the compound
             foreach (Gate g in CompoundList)
-            {
                 // sets the current gate selection to true or false based on passed bool
                 g.Selected = value;
-
-            } // end foreach
 
         } // end bool
         #endregion

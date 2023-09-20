@@ -625,9 +625,8 @@ namespace Circuits
             if (_newCompound != null)
             {
 
-
             }
-            // if if user is not constructing a new compound circuit and a gate is currently selected
+            // if user is not constructing a new compound circuit and a gate is currently selected
             else if (_current != null)
             {
                 // unselect the selected gate
@@ -635,7 +634,7 @@ namespace Circuits
                 // nulls the selected gate
                 _current = null;
 
-            } // end if
+            } // end if// end if
 
             // check if we are inserting a new gate
             if (_newGate != null)
@@ -663,13 +662,33 @@ namespace Circuits
                             // if the mouse is hovering over one of these gates on click
                             if (thisGate.IsMouseOn(e.X, e.Y))
                             {
-                                // selects all gates in the compound list
-                                c.Selected = true;
-                                // sets the current gate to this compound
-                                _current = c;
-                                // breaks out of the loop as there is no need to keep checking
-                                // if one of the gates have been clicked on
-                                break;
+                                // if this gate is an input and a new compound is not being constructed
+                                if (thisGate is Input i && _newCompound == null)
+                                {
+                                    // if this input is currently live
+                                    if (i.IsLive)
+                                        // kills this input
+                                        i.IsLive = false;
+                                    // else if this input is currently dead
+                                    else
+                                    {
+                                        // livens this input
+                                        i.IsLive = true;
+
+                                    } // end if
+
+                                }
+                                // else if this gate is not an input or a new compound is under construction
+                                else
+                                {
+                                    // selects all gates in the compound list
+                                    c.Selected = true;
+                                    // sets the current gate to this compound
+                                    _current = c;
+                                    // breaks out of the loop as there is no need to keep checking
+                                    // if one of the gates have been clicked on
+                                    break;
+                                }
 
                             } // end if
 
