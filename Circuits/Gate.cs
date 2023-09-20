@@ -245,6 +245,18 @@ namespace Circuits
         } // end list
         #endregion
 
+        #region Pins
+        /// <summary>
+        /// Gets the list of pins for the gate.
+        /// </summary>
+        public List<Pin> Pins
+        {
+            // gets the list of pins 
+            get { return pins; }
+
+        } // end list
+        #endregion
+
         #region IsMouseOn(int x, int y)
         /// <summary>
         /// Checks if the gate has been clicked on.
@@ -263,18 +275,6 @@ namespace Circuits
                 return false;
 
         } // end bool
-        #endregion
-
-        #region Pins
-        /// <summary>
-        /// Gets the list of pins for the gate.
-        /// </summary>
-        public List<Pin> Pins
-        {
-            // gets the list of pins 
-            get { return pins; }
-
-        } // end list
         #endregion
 
         #endregion
