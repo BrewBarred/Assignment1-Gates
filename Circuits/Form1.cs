@@ -24,6 +24,21 @@ namespace Circuits
 
         #region Class Scope Variables:
         /// <summary>
+        /// The number of outputs found while evaluating
+        /// </summary>
+        int _outputCount = 0;
+
+        /// <summary>
+        /// The number of successful evaluations
+        /// </summary>
+        int _passCount = 0;
+
+        /// <summary>
+        /// The number of failed evaluations
+        /// </summary>
+        int _failCount = 0;
+
+        /// <summary>
         /// The (x,y) mouse position of the last MouseDown event.
         /// </summary>
         protected int startX, startY;
@@ -68,6 +83,52 @@ namespace Circuits
         /// True if this input is activated (live), else false (dead)
         /// </summary>
         protected bool _isLive = false;
+        #endregion
+
+        #region Getters/Setters:
+
+        #region OutputCount
+        /// <summary>
+        /// The number of outputs evaluated
+        /// </summary>
+        public int OutputCount
+        {
+            // gets the output count
+            get { return _outputCount; }
+            // sets the output count
+            set { _outputCount = value; }
+
+        } // end int
+        #endregion
+
+        #region PassCount
+        /// <summary>
+        /// The number of successful evaluations
+        /// </summary>
+        public int PassCount
+        {
+            // gets the pass count
+            get { return _passCount; }
+            // sets the pass count
+            set { _passCount = value; }
+
+        } // end int
+        #endregion
+
+        #region FailCount
+        /// <summary>
+        /// The number of failed evaluations
+        /// </summary>
+        public int FailCount
+        {
+            // gets the fail count
+            get { return _failCount; }
+            // sets the fail count
+            set { _failCount = value; }
+
+        } // end int
+        #endregion
+
         #endregion
 
         #region findPin(int x, int y)
@@ -390,70 +451,86 @@ namespace Circuits
         {
             try
             {
+                // the number of outputs evaluated
+                OutputCount = 0;
+                // the number of successful evaluations
+                PassCount = 0;
+                // the number of failed evaluations
+                FailCount = 0;
+
                 // writes progress message of which gate type we are assessing
                 Console.WriteLine("Beginning evaluation process... Please Wait...");
-                // counts the number of outputs found
-                int outputCount = 0;
-                // counts the number of successful evaluations
-                int passCount = 0;
-                // counts the number of failed evaluations
-                int failCount = 0;
 
                 // foreach gate in the gates list
                 foreach (Gate g in gateList)
                 {
-                    // writes evaluation progress message
-                    Console.WriteLine(" Evaluating " + g.GetType().Name + "...");
-
                     // if this gate is an output
                     if (g is Output o)
                     {
                         // increments the output 
-                        outputCount++;
-                        // writes progress message of which gate type we are assessing
-                        Console.WriteLine("Evaluating output " + outputCount + ", Please wait...");
+                        OutputCount++;
+                        // evaluates this gate for validity
+                        Evaluate(o);
 
-                        // if this output evaluation returns successful
-                        if (o.Evaluate())
-                        {
-                            // writes successful output evaluation result to console window
-                            Console.WriteLine(" Output " + outputCount + ": Success!");
-                            // increments the pass count
-                            passCount++;
-                        }
-                        // else if this output evaluation is unsuccessful
-                        else
-                        {
-                            // writes failed output evaluation result to console window
-                            Console.WriteLine(" Output " + outputCount + ": Failed!");
-                            // increments the fail count
-                            failCount++;
-
-                        } // end if
+                    }
+                    // else if this gate is a compound gate
+                    else if (g is Compound c)
+                    {
+                        // evaluates this gate for validity
+                        Evaluate(c);
 
                     } // end if
 
                 } // end foreach
 
-                if (outputCount is 0)
+                // if no outputs were found
+                if (OutputCount is 0)
                 {
                     // writes error to console
-                    Console.WriteLine("Evaluation error! Failed to find any outputs to evaluate!");
+                    Console.WriteLine("" + "\nEvaluation error! Failed to find any outputs to evaluate!");
                     return;
 
                 }
                 // else if more than one input was found and evaluated
-                else Console.WriteLine("Evaluation report:\n"
-                                     + " Total outputs tested: " + outputCount.ToString().PadRight(10)
-                                     + "Passed: " + passCount.ToString().PadRight(5)
-                                     + "Failed: " + failCount.ToString().PadRight(5));
+                else Console.WriteLine("Evaluation report:".PadRight(5)
+                                     + " Total outputs tested: " + OutputCount.ToString().PadRight(5)
+                                     + "Passed: " + PassCount.ToString().PadRight(5)
+                                     + "Failed: " + FailCount.ToString().PadRight(5));
 
             }
             catch (Exception ex)
             {
+                // writes debugging message to console
                 Console.WriteLine("Evaluation error! Evaluation has failed due to: " + ex.Message);
 
             } // end try
+
+        } // end void
+        #endregion
+
+        #region Evaluate(Gate g)
+        public void Evaluate(Gate g)
+        {
+            // writes progress message of which gate type we are assessing
+            Console.WriteLine("Evaluating output " + OutputCount + ", Please wait...");
+
+            // if this output evaluation returns successful
+            if (g.Evaluate())
+            {
+                // writes successful output evaluation result to console window
+                Console.WriteLine(" Output " + OutputCount + ": Success!");
+                // increments the pass count
+                PassCount++;
+            }
+            // else if this output evaluation is unsuccessful
+            else
+            {
+                // writes failed output evaluation result to console window
+                Console.WriteLine(" Output " + OutputCount + ": Failed!");
+                // increments the fail count
+                FailCount++;
+
+            } // end if
 
         } // end void
         #endregion

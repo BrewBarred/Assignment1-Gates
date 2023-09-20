@@ -129,7 +129,7 @@ namespace Circuits
                     // kills this output
                     IsLive = false;
 
-                }// end if
+                } // end if
 
             } // end if
 

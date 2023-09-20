@@ -85,6 +85,7 @@ namespace Circuits
         /// Color of a selected gates body
         /// </summary>
         protected Brush selectedBrush = Brushes.Red;
+
         /// <summary>
         /// Color of an unselected gates body
         /// </summary>

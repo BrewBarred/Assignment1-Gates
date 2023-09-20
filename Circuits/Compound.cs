@@ -52,7 +52,7 @@ namespace Circuits
 
         #endregion
 
-        #region Select(bool value)
+        #region IsSelected(bool value)
         /// <summary>
         /// Selects/Deselects all gates in the compound list
         /// </summary>
@@ -83,10 +83,6 @@ namespace Circuits
                 // writes info to console
                 Console.WriteLine("Added " + thisGate.GetType().Name + " to the compound");
 
-                // stores the position of this gates bottom right x and y positions
-                //int thisGatesX = Left + (thisGate.Left + thisGate.Width);
-                //int thisGatesY = Top + (thisGate.Top + thisGate.Top);
-
                 // if this gates x pos is less than the compound gates x pos
                 if (thisGate.Left < Left)
                 {
@@ -96,18 +92,6 @@ namespace Circuits
                     Console.WriteLine("Compound gate x position changed to: " + thisGate.Left);
 
                 } // end if
-
-                /*
-                // else if this gates bottom right corner is greater than the width of the compound area
-                else if (thisGatesX > Width)
-                {
-                    // updates the compound gates width
-                    Width += thisGate.Left;
-                    // writes the changed width to the console
-                    Console.WriteLine("Compound gate width changed to: " + Width);
-
-                } // end if
-                */
 
                 // if this gates y pos is less than the compound gates y pos
                 if (thisGate.Top < Top)
@@ -180,14 +164,40 @@ namespace Circuits
 
         #region Evaluate()
         /// <summary>
-        /// Evaluates all controls in this compound for validity
+        /// Loops through this compound list for any outputs and evaluates them for validity
         /// </summary>
-        /// <returns>True if all controls are valid</returns>
+        /// <returns>True if all controls are valid, else false</returns>
         /// <exception cref="System.NotImplementedException"></exception>
         public override bool Evaluate()
         {
-            throw new System.NotImplementedException();
-        }
+            // stores the result to return after evaluation
+            // starts off true and is turned false upon failing a single evaluation
+            bool result = false;
+
+            // foreach gate in the compound 
+            foreach (Gate g in CompoundList)
+            {
+                // if this gate is an output
+                if (g is Output o)
+                {
+                    // sets result to true since there was at least one output found
+                    result = true;
+
+                    // evaluates this output and returns the result
+                    if (!o.Evaluate())
+                    {
+                        // sets result to false on failed evaluation
+                        result = false;
+
+                    } // end if
+
+                } // end if
+
+            } // end foreach
+
+            return result;
+
+        } // end bool
         #endregion
 
         #region Clone()
