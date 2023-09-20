@@ -334,7 +334,7 @@ namespace Circuits
                 // creates a new instance of a compound gate
                 newCompound = new Compound(Width, Height);
             // else if a gate has not been selected
-            else MessageBox.Show("You are already constructing a compound gate!");
+            else MessageBox.Show("You are already creating a compound gate!");
 
         } // end void
         #endregion
@@ -350,29 +350,18 @@ namespace Circuits
             // if a compound is currently being created
             if (newCompound != null)
             {
+                // add this compound to teh gatelist
+                gateList.Add(newCompound);
                 // stores the new compound into the new gate variable
-                newGate = newCompound;
+                current = newCompound;
+
                 // writes info to console
-                Console.WriteLine("Finished building compound circuit! Removing it's components from the normal gate list...");
-
-                // foreach gate in the compound list
-                foreach (Gate g in newCompound.CompoundList)
-                {
-                    // removes this gate from the compound list
-                    gateList.Remove(g);
-
-                } // end foreach
-
-                // nulls the new compound variable ready for a new one to be created
-                newCompound = null;
+                Console.WriteLine("Finished building compound circuit");
             }
             // else if a compound is not being created, shows error message
-            else
-            {
-                // displays error to user
-                MessageBox.Show("You cannot end a compound that hasn't been started yet!");
-
-            } // end if
+            else MessageBox.Show("You cannot end a compound that hasn't been started yet!");
+            // nulls the new compound variable ready for a new one to be created
+            newCompound = null;
 
         } // end void
         #endregion
@@ -516,36 +505,8 @@ namespace Circuits
                 // try to start adding a wire
                 startPin = findPin(e.X, e.Y);
             }
-            // else if a compound gate is selected
-            else if (current is Compound c)
-            {
-                // if the mouse is held down on the current gate
-                if (c.IsMouseOn(e.X, e.Y))
-                {
-                    // moves this gate to the passed position
-                    c.MoveTo(e.X, e.Y);
-
-                } // end if
-
-                /*
-
-                // foreach gate in the compound list
-                foreach (Gate g in c.CompoundList)
-                {
-                    // if the mouse is held down on the current gate
-                    if (g.IsMouseOn(e.X, e.Y))
-                    {
-                        c.MoveTo(g.Left, g.Top);
-
-                    } // end if
-
-                } // end foreach
-
-                */
-
-            }
             // else if the users mouse is on the currently selected gate
-            else if (current.IsMouseOn(e.X, e.Y))
+            else if (current.IsMouseOn(e.X, e.Y) || current is Compound)
             {
                 // starts dragging the current object around
                 startX = e.X;

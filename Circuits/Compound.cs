@@ -66,9 +66,6 @@ namespace Circuits
 
             } // end foreach
 
-            // writes debugging info to console
-            Console.WriteLine("Compound circuit selection status = " + value);
-
         } // end bool
         #endregion
 
@@ -86,6 +83,10 @@ namespace Circuits
                 // writes info to console
                 Console.WriteLine("Added " + thisGate.GetType().Name + " to the compound");
 
+                // stores the position of this gates bottom right x and y positions
+                //int thisGatesX = Left + (thisGate.Left + thisGate.Width);
+                //int thisGatesY = Top + (thisGate.Top + thisGate.Top);
+
                 // if this gates x pos is less than the compound gates x pos
                 if (thisGate.Left < Left)
                 {
@@ -96,34 +97,27 @@ namespace Circuits
 
                 } // end if
 
+                /*
+                // else if this gates bottom right corner is greater than the width of the compound area
+                else if (thisGatesX > Width)
+                {
+                    // updates the compound gates width
+                    Width += thisGate.Left;
+                    // writes the changed width to the console
+                    Console.WriteLine("Compound gate width changed to: " + Width);
+
+                } // end if
+                */
+
                 // if this gates y pos is less than the compound gates y pos
                 if (thisGate.Top < Top)
                 {
                     // updates the compound gates y pos
                     Top = thisGate.Top;
                     // writes the changed y pos to the console
-                    Console.WriteLine("Compound gate y position changed to: " + thisGate.Top);
+                    Console.WriteLine("Compound gate y position changed to: " + Height);
 
                 } // end if
-
-                /*
-
-                // if this gates bottom right corner is greater than the width of the compound area
-                if (thisGate.Left + Width > Width)
-                {
-                    Width = thisGate.
-                    // writes the changed y pos to the console
-                    Console.WriteLine("Compound gate y position changed to: " + thisGate.Top);
-
-                } // end if
-
-                // if this gates bottom right corner is greater than the width of the compound area
-                if (thisGate.Top + Top > Height)
-                {
-
-
-                } // end if
-                */
 
             }
             // else if the gate list already contains the selected gate
@@ -161,8 +155,8 @@ namespace Circuits
             // calculates the difference between current x/y and mouse x/y positions
             int xDiff = x - Left;
             int yDiff = y - Top;
-            Left = x;
-            Top = y;
+            // Moves the top-left corner of this compound gate to the passed position
+            Location = new Point(x, y);
 
             // foreach gate in the gate list
             foreach (Gate thisGate in CompoundList)
@@ -178,9 +172,6 @@ namespace Circuits
                     p.Location = new Point(p.X + xDiff, p.Y + yDiff);
 
                 } // end foreach
-
-                // writes debugging info to console
-                Console.WriteLine("Moved " + GetType().Name + " compound gate: X = " + x + ", Y = " + y);
 
             } // end foreach
 

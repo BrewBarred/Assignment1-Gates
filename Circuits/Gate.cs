@@ -8,21 +8,21 @@ namespace Circuits
     /// </summary>
     public abstract class Gate
     {
-        #region Constructor: Gate(int y, int y, int gateLength)
+        #region Constructor: Gate(int y, int y, int gateWidth)
         /// <summary>
         /// Base constructor for each gate type
         /// </summary>
         /// <param name="x">The x position of the left edge of the gate object</param>
         /// <param name="y">The y position of the top edge of the gate object</param>
-        /// <param name="gateLength">Length of the gate objects</param>
-        public Gate(int x, int y, int gateLength)
+        /// <param name="gateWidth">Width of the gate objects</param>
+        public Gate(int x, int y, int gateWidth)
         {
             // sets the gates left edge
-            _left = x;
+            Left = x;
             // sets the gates top edge
-            _top = y;
+            Top = y;
             // sets the gates body length
-            _width = gateLength;
+            Width = gateWidth;
 
         } // end gate
         #endregion
@@ -31,11 +31,12 @@ namespace Circuits
         /// <summary>
         /// Alternative constructor for a Gate
         /// </summary>
-        /// <param name="thisGate"></param>
         public Gate(int x, int y)
         {
-            _left = x;
-            _top = y;
+            // sets the left position of this gate to the passed x value
+            Left = x;
+            // sets the top of this gate to the passed y value
+            Top = y;
 
         } // end gate
         #endregion
@@ -62,6 +63,11 @@ namespace Circuits
         protected int _height = 50;
 
         /// <summary>
+        /// Location of this gate (x and y pos)
+        /// </summary>
+        protected Point _location;
+
+        /// <summary>
         /// Length of the connector legs sticking out left and right
         /// </summary>
         protected const int _GAP = 10;
@@ -72,6 +78,10 @@ namespace Circuits
         protected bool _selected;
 
         /// <summary>
+        /// Height of the gates body
+        /// </summary>
+        protected const int _HEIGHT = 50;
+
         /// Color of a selected gates body
         /// </summary>
         protected Brush selectedBrush = Brushes.Red;
@@ -90,12 +100,12 @@ namespace Circuits
         /// <summary>
         /// Makes a copy of the extended control
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A duplicate of the gate that is currently selected</returns>
         public abstract Gate Clone();
         /// <summary>
         /// Evaluates circuits for validity
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True is circuit is validated, else returns false</returns>
         public abstract bool Evaluate();
         /// <summary>
         /// Moves a gate to the passed x and y position
@@ -109,40 +119,55 @@ namespace Circuits
 
         #region Left
         /// <summary>
-        /// Gets the left hand edge of the gate.
+        /// Gets/sets the left hand edge of the gate.
         /// </summary>
         public int Left
         {
             // gets the left hand edge of the gate
             get { return _left; }
             // sets the left hand edge of the gate
-            set { _left = value; }
+            set
+            {
+                // sets the x value in the location point
+                _location = new Point(value, _location.Y);
+                // sets the left hand edge of the gate
+                _left = value;
+
+            } // end set
 
         } // end int
         #endregion
 
         #region Top
         /// <summary>
-        /// Gets the top edge of the gate.
+        /// Gets/sets the top edge of the gate.
         /// </summary>
         public int Top
         {
             // gets the top edge of the gate
             get { return _top; }
-            // sets the left hand edge of the gate
-            set { _top = value; }
+            // sets the top edge of the gate
+            set
+            {
+                // sets the y value of the location point
+                _location = new Point(_location.X, value);
+                // sets the top edge of the gate
+                _top = value;
+            }
 
         } // end int
         #endregion
 
         #region Width
         /// <summary>
-        /// Gets the length of the gate
+        /// Gets/sets the width of the gate
         /// </summary>
         public int Width
         {
             // gets the width of the gate
             get { return _width; }
+            // sets the width of the gate
+            set { _width = value; }
 
         } // end int
         #endregion
@@ -155,8 +180,33 @@ namespace Circuits
         {
             // gets the height of the gate
             get { return _height; }
+            // sets the height of the gate
+            set { _height = value; }
 
         } // end int
+        #endregion
+
+        #region Location
+        /// <summary>
+        /// Gets/sets this gates location (x, y)
+        /// </summary>
+        public Point Location
+        {
+            // gets this gates location
+            get { return new Point(_location.X, _location.Y); }
+            // sets this gates location
+            set
+            {
+                // sets this gates location
+                _location = value;
+                // sets this gates x position
+                _left = _location.X;
+                // sets this gates y position
+                _top = _location.Y;
+
+            } // end set
+
+        } // end point
         #endregion
 
         #region Selected
@@ -205,7 +255,7 @@ namespace Circuits
         {
             // if the users mouse pointer is hovering over a gate
             if (Left <= x && x < Left + Width
-                && Top <= y && y < Top + _height)
+                && Top <= y && y < Top + _HEIGHT)
                 return true;
             // else if the users mouse pointer is not hovering over a gate
             else
