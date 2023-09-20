@@ -356,7 +356,21 @@ namespace Circuits
                 current = newCompound;
 
                 // writes info to console
-                Console.WriteLine("Finished building compound circuit");
+                Console.WriteLine("Finished building compound circuit! Removing contained gates from the gate list...");
+
+                // foreach gate in the gate list
+                foreach (Gate g in newCompound.CompoundList)
+                {
+                    // and if the newcompound list contains this gate
+                    if (newCompound.CompoundList.Contains(g))
+                    {
+                        // removes this gate from the list, since it is embedded in the compound now
+                        gateList.Remove(g);
+
+                    } // end if
+
+                } // end foreach
+
             }
             // else if a compound is not being created, shows error message
             else MessageBox.Show("You cannot end a compound that hasn't been started yet!");
@@ -547,6 +561,7 @@ namespace Circuits
                 gateList.Add(newGate);
                 // nulls the newGate
                 newGate = null;
+
             }
             // else if we are not inserting a new gate
             else

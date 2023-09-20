@@ -68,7 +68,8 @@ namespace Circuits
             // gets isLive status
             get { return _isLive; }
             // sets isLive status
-            set { _isLive = value; }
+            set
+            { _isLive = value; }
 
         } // end bool
         #endregion
