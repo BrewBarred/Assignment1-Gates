@@ -22,7 +22,7 @@ namespace Circuits
             // sets the gates top edge
             _top = y;
             // sets the gates body length
-            _gateLength = gateLength;
+            _width = gateLength;
 
         } // end gate
         #endregion
@@ -54,22 +54,22 @@ namespace Circuits
         /// <summary>
         /// Length of the gates body
         /// </summary>
-        protected int _gateLength;
-
-        /// <summary>
-        /// True if the gate is currently selected
-        /// </summary>
-        protected bool _selected;
+        protected int _width;
 
         /// <summary>
         /// Height of the gates body
         /// </summary>
-        protected const int _HEIGHT = 50;
+        protected int _height = 50;
 
         /// <summary>
         /// Length of the connector legs sticking out left and right
         /// </summary>
         protected const int _GAP = 10;
+
+        /// <summary>
+        /// True if the gate is currently selected
+        /// </summary>
+        protected bool _selected;
 
         /// <summary>
         /// Color of a selected gates body
@@ -142,7 +142,19 @@ namespace Circuits
         public int Width
         {
             // gets the width of the gate
-            get { return _gateLength; }
+            get { return _width; }
+
+        } // end int
+        #endregion
+
+        #region Height
+        /// <summary>
+        /// Gets the height of the gate
+        /// </summary>
+        public int Height
+        {
+            // gets the height of the gate
+            get { return _height; }
 
         } // end int
         #endregion
@@ -193,7 +205,7 @@ namespace Circuits
         {
             // if the users mouse pointer is hovering over a gate
             if (Left <= x && x < Left + Width
-                && Top <= y && y < Top + _HEIGHT)
+                && Top <= y && y < Top + _height)
                 return true;
             // else if the users mouse pointer is not hovering over a gate
             else

@@ -106,6 +106,25 @@ namespace Circuits
 
                 } // end if
 
+                /*
+
+                // if this gates bottom right corner is greater than the width of the compound area
+                if (thisGate.Left + Width > Width)
+                {
+                    Width = thisGate.
+                    // writes the changed y pos to the console
+                    Console.WriteLine("Compound gate y position changed to: " + thisGate.Top);
+
+                } // end if
+
+                // if this gates bottom right corner is greater than the width of the compound area
+                if (thisGate.Top + Top > Height)
+                {
+
+
+                } // end if
+                */
+
             }
             // else if the gate list already contains the selected gate
             else Console.WriteLine("Failed to add " + thisGate.GetType().Name + " because it is already apart of the compound!");

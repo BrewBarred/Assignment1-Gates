@@ -24,7 +24,7 @@ namespace Circuits
             pins.Add(new Pin(this, false));
             // centres this input control around the mouse pointer
             x = x - _WIDTH / 2;
-            y = y - _HEIGHT / 2;
+            y = y - _height / 2;
             // move the gate and the pins to the position passed in
             MoveTo(x, y);
 
@@ -144,9 +144,9 @@ namespace Circuits
 
             // pins 0 and 1 = input pins (left side)
             pins[0].Location = new Point(x - _GAP, y + _GAP);
-            pins[1].Location = new Point(x - _GAP, y + _HEIGHT - _GAP);
+            pins[1].Location = new Point(x - _GAP, y + _height - _GAP);
             // pin 2 = output pin (right side)
-            pins[2].Location = new Point(x + _WIDTH + _GAP, y + _HEIGHT / 2);
+            pins[2].Location = new Point(x + _WIDTH + _GAP, y + _height / 2);
 
         } // end void
         #endregion
